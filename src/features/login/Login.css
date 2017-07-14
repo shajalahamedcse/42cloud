@@ -1,0 +1,12 @@
+.form {
+  max-width: 350px;
+  position:fixed;
+  left:0;
+  right:0;
+  margin: auto;
+  top:100px;
+}
+
+.btnLogin {
+  width: 100%;
+}
