@@ -112,11 +112,64 @@ const identityStep3 = (dispatch, res, unscopedToken) => {
       res.json().then((resBody) => {
         console.log(resBody);
         localStorage.setItem('scopedToken', res.headers.get('X-Subject-Token'));
-        localStorage.setItem('identityData', JSON.stringify(resBody));
         dispatch(loginSuccess(resBody));
       })
     }).catch((erro) => {
       //
     })
   })
+}
+
+export const loadTokenData = (token) => {
+  return (dispatch) => {
+    const tokenURL = constants.OS_IDENTITY + path.fetchToken;
+    fetch(tokenURL, {
+      method: 'GET',
+      headers: {
+        'X-Auth-Token': token,
+        'X-Subject-Token': token
+      }
+    }).then((res) => {
+      res.json().then((resBody) => {
+        dispatch(loginSuccess(resBody))
+      })
+    })
+  }
+}
+
+
+export const logout = (token) => {
+  return (dispatch) => {
+    const tokenURL = constants.OS_IDENTITY + path.fetchToken;
+    fetch(tokenURL, {
+      method: 'DELETE',
+      headers: {
+        'X-Auth-Token': token,
+        'X-Subject-Token': token
+      }
+    }).then((res) => {
+      localStorage.removeItem('scopedToken');
+      dispatch(logoutSuccess());
+    }).catch((error) => {
+
+    })
+  }
+}
+
+export const logoutSuccess = () => {
+  return {
+    type: 'LOGOUT_SUCCESS'
+  }
+}
+
+export const logoutFailure = () => {
+  return {
+    type: 'LOGOUT_FAILURE'
+  }
+}
+
+export const logoutRequest = () => {
+  return {
+    type: 'LOGOUT_REQUEST'
+  }
 }

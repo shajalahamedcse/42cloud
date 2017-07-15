@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginSuccess } from '../../features/login/actions'
+import { loadTokenData } from '../../features/login/actions'
 
 import Home from '../../features/home/Home';
 import Login from '../../features/login/Login';
@@ -13,18 +13,20 @@ class App extends Component {
   }
 
   render() {
-    let isLogged, payload;
+    let isLogged, payload, scopedToken;
+
     if (this.props.isLogged) {
-      isLogged = this.props.isLogged;
+      isLogged = true;
     } else {
-      isLogged = localStorage.getItem('scopedToken') ? true : false;
-      payload = JSON.parse(localStorage.getItem('identityData'));
-      if (isLogged && payload) {
-        this.props.dispatch(loginSuccess(payload));
+      scopedToken = localStorage.getItem('scopedToken'); 
+      if (scopedToken) {
+        isLogged = true;
+        this.props.dispatch(loadTokenData(scopedToken));
       } else {
         isLogged = false;
       }
     }
+
     return (
       <BrowserRouter>
         <div>
@@ -46,7 +48,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    isLogged: state.isLogged
+    isLogged: state.auth.isLogged
   }
 }
 export default connect(mapStateToProps, null)(App)
