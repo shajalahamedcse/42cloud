@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import { identityURL, path } from '../../config/api';
+import { path } from '../../config/api';
+import  * as constants from '../constants';
 
 export const loginRequest = () => {
   return {
@@ -22,12 +23,11 @@ export const loginFailure = () => {
 
 export const login = (values) => {
   return (dispatch) => {
-    identityStep1(values);
+    identityStep1(dispatch, values);
   }
 }
 
-const identityStep1 = (values) => {
-    const tokenURL = identityURL + path.fetchToken;
+const identityStep1 = (dispatch, values) => {
     const auth = {
       "auth": {
         "identity": {
@@ -47,41 +47,42 @@ const identityStep1 = (values) => {
       }
     }
 
+    const tokenURL = constants.OS_IDENTITY + path.fetchToken;
     fetch(tokenURL, {
       method: "POST",
       body: JSON.stringify(auth),
       headers: {
         "Content-Type": "application/json"
       }
-    }).then((response) => {
-      identityStep2(response);
+    }).then((res) => {
+      identityStep2(dispatch, res);
     }).catch((error) => {
       //
     })
 }
 
-const identityStep2 = (response) => {
-  response.json().then((responseBody) => {
-    const userId = responseBody.token.user.id;
+const identityStep2 = (dispatch, res) => {
+  res.json().then((resBody) => {
+    const userId = resBody.token.user.id;
     const data = {'userid': userId};
     const newPath = _.template(path.getOwnProjects)(data);
-    const unscopedToken = response.headers.get('X-Subject-Token');
-    const projectURL = identityURL + newPath;
+    const unscopedToken = res.headers.get('X-Subject-Token');
+    const projectURL = constants.OS_IDENTITY + newPath;
 
     fetch(projectURL, {
       headers: {
         "X-Auth-Token": unscopedToken
       }
-    }).then((response) => {
-      identityStep3(response, unscopedToken);
+    }).then((res) => {
+      identityStep3(dispatch, res, unscopedToken);
     }).catch((error) => {
       //
     })
   })
 }
 
-const identityStep3 = (response, unscopedToken) => {
-  response.json().then((responseBody) => {
+const identityStep3 = (dispatch, res, unscopedToken) => {
+  res.json().then((resBody) => {
     const auth = {
       "auth": {
         "identity": {
@@ -94,23 +95,25 @@ const identityStep3 = (response, unscopedToken) => {
         },
         "scope": {
           "project": {
-            "id": responseBody.projects[0].id
+            "id": resBody.projects[0].id
           }
         }
       }
     }
 
-    const tokenURL = identityURL + path.fetchToken;
+    const tokenURL = constants.OS_IDENTITY + path.fetchToken;
     fetch(tokenURL, {
       method: 'POST',
       body: JSON.stringify(auth),
       headers: {
         "Content-Type": "application/json"
       }
-    }).then((response) => {
-      response.json().then((responseBody) => {
-        console.log(responseBody);
-        // dispatch(loginSuccess(responseBody));
+    }).then((res) => {
+      res.json().then((resBody) => {
+        console.log(resBody);
+        localStorage.setItem('scopedToken', res.headers.get('X-Subject-Token'));
+        localStorage.setItem('identityData', JSON.stringify(resBody));
+        dispatch(loginSuccess(resBody));
       })
     }).catch((erro) => {
       //

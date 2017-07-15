@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux'
-import identityReducer from '../../features/login/reducers'
+import { identityReducer, isLoggedReducer } from '../../features/login/reducers'
 
 const rootReducer = combineReducers({
-  identity: identityReducer
+  identity: identityReducer,
+  isLogged: isLoggedReducer
 })
 
 export default rootReducer;

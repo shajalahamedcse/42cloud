@@ -85,6 +85,20 @@ module.exports = {
     public: '192.168.2.107:9000',
     allowedHosts: ['0.0.0.0'],
     historyApiFallback: true,
+    proxy: {
+      '/os-identity': {
+        target: 'http://192.168.2.199:5000',
+        pathRewrite: {
+          '/os-identity': ''
+        }
+      },
+      '/os-compute': {
+        target: 'http://192.168.2.199:8774',
+        pathRewrite: {
+          '/os-compute': ''
+        }
+      }
+    }
   },
 
   devtool: 'source-map'

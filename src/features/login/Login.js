@@ -3,10 +3,15 @@ import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import styles from './Login.css';
 import { login } from './actions';
+import { Redirect } from 'react-router-dom';
 
 const FormItem = Form.Item;
 
 class NormalLoginForm extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {

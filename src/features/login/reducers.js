@@ -1,10 +1,8 @@
 const initialState = {
-  user: {},
-  project: {},
-  catalog: {}
+  token: {}
 }
 
-const identityReducer = (state = initialState, action) => {
+export const identityReducer = (state = initialState, action) => {
   switch(action.type) {
     case 'LOGIN_SUCCESS': {
       return {
@@ -19,4 +17,14 @@ const identityReducer = (state = initialState, action) => {
   }
 }
 
-export default identityReducer;
+export const isLoggedReducer = (state = false, action) => {
+  switch(action.type) {
+    case 'LOGIN_SUCCESS': {
+      return true
+    }
+
+    default: {
+      return state
+    }
+  }
+}
