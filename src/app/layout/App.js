@@ -31,14 +31,12 @@ class App extends Component {
       <BrowserRouter>
         <div>
             <Route exact path='/' component={Home} />
-
              <Route path='/login' render={() => 
               isLogged ? (
                 <Redirect to='/overview' />
               ) : (
                 <Login />
               )} /> 
-
             <Route path='/overview' component={Overview} />
         </div>
       </BrowserRouter>
