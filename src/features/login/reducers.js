@@ -1,7 +1,7 @@
 const initialState = {
   identity: {},
   isLogged: false
-}
+};
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,7 +16,7 @@ const authReducer = (state = initialState, action) => {
     case 'LOGOUT_SUCCESS': {
       return {
         ...state,
-        ...initialState
+        ...initialState,
       }
     }
     

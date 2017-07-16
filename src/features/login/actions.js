@@ -2,12 +2,6 @@ import _ from 'lodash';
 import { path } from '../../config/api';
 import  * as constants from '../constants';
 
-export const loginRequest = () => {
-  return {
-    type: 'LOGIN_REQUEST'
-  }
-}
-
 export const loginSuccess = (payload) => {
   return {
     type: 'LOGIN_SUCCESS',
@@ -21,6 +15,32 @@ export const loginFailure = () => {
   }
 }
 
+export const loginRequest = () => {
+  return {
+    type: 'LOGIN_REQUEST'
+  }
+}
+
+export const logoutSuccess = () => {
+  return {
+    type: 'LOGOUT_SUCCESS'
+  }
+}
+
+export const logoutFailure = () => {
+  return {
+    type: 'LOGOUT_FAILURE'
+  }
+}
+
+export const logoutRequest = () => {
+  return {
+    type: 'LOGOUT_REQUEST'
+  }
+}
+
+
+// 
 export const login = (values) => {
   return (dispatch) => {
     identityStep1(dispatch, values);
@@ -110,7 +130,6 @@ const identityStep3 = (dispatch, res, unscopedToken) => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        console.log(resBody);
         localStorage.setItem('scopedToken', res.headers.get('X-Subject-Token'));
         dispatch(loginSuccess(resBody));
       })
@@ -137,7 +156,7 @@ export const loadTokenData = (token) => {
   }
 }
 
-
+//
 export const logout = (token) => {
   return (dispatch) => {
     const tokenURL = constants.OS_IDENTITY + path.fetchToken;
@@ -153,23 +172,5 @@ export const logout = (token) => {
     }).catch((error) => {
 
     })
-  }
-}
-
-export const logoutSuccess = () => {
-  return {
-    type: 'LOGOUT_SUCCESS'
-  }
-}
-
-export const logoutFailure = () => {
-  return {
-    type: 'LOGOUT_FAILURE'
-  }
-}
-
-export const logoutRequest = () => {
-  return {
-    type: 'LOGOUT_REQUEST'
   }
 }
