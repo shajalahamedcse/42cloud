@@ -1,0 +1,21 @@
+.header {
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+    padding-left: 0;
+}
+
+.sider {
+    position: fixed;
+    height: 100%;
+    z-index: 98;
+    top: 64px;
+}
+
+.content {
+    margin: 64px 0 0 200px;
+}
+
+.layout {
+    background-color: #ffffff;
+}

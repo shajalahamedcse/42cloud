@@ -1,47 +1,53 @@
 import _ from 'lodash';
-import { path } from '../../config/api';
+import { apiPath } from '../../config/api';
 import  * as constants from '../constants';
+import { parseURLPrefix, combineIdentityURL } from 'app/commons/common';
 
-export const loginSuccess = (payload) => {
+const loginSuccess = () => {
   return {
     type: 'LOGIN_SUCCESS',
-    payload: payload
   }
 }
 
-export const loginFailure = () => {
+const loginFailure = () => {
   return {
     type: 'LOGIN_FAILURE'
   }
 }
 
-export const loginRequest = () => {
+const loginRequest = () => {
   return {
     type: 'LOGIN_REQUEST'
   }
 }
 
-export const logoutSuccess = () => {
+const logoutSuccess = () => {
   return {
     type: 'LOGOUT_SUCCESS'
   }
 }
 
-export const logoutFailure = () => {
+const logoutFailure = () => {
   return {
     type: 'LOGOUT_FAILURE'
   }
 }
 
-export const logoutRequest = () => {
+const logoutRequest = () => {
   return {
     type: 'LOGOUT_REQUEST'
   }
 }
 
+const loadTokenDataSuccess = () => {
+  return {
+    type: 'LOAD_TOKEN_DATA_SUCCESS'
+  }
+}
+
 
 // 
-export const login = (values) => {
+const login = (values) => {
   return (dispatch) => {
     identityStep1(dispatch, values);
   }
@@ -67,7 +73,7 @@ const identityStep1 = (dispatch, values) => {
       }
     }
 
-    const tokenURL = constants.OS_IDENTITY + path.fetchToken;
+    const tokenURL = combineIdentityURL('fetchToken');
     fetch(tokenURL, {
       method: "POST",
       body: JSON.stringify(auth),
@@ -84,10 +90,10 @@ const identityStep1 = (dispatch, values) => {
 const identityStep2 = (dispatch, res) => {
   res.json().then((resBody) => {
     const userId = resBody.token.user.id;
-    const data = {'userid': userId};
-    const newPath = _.template(path.getOwnProjects)(data);
+    const data = {'user_id': userId};
     const unscopedToken = res.headers.get('X-Subject-Token');
-    const projectURL = constants.OS_IDENTITY + newPath;
+    let projectURL = combineIdentityURL('getOwnProjects');
+    projectURL = _.template(projectURL)(data);
 
     fetch(projectURL, {
       headers: {
@@ -121,7 +127,7 @@ const identityStep3 = (dispatch, res, unscopedToken) => {
       }
     }
 
-    const tokenURL = constants.OS_IDENTITY + path.fetchToken;
+    const tokenURL = combineIdentityURL('fetchToken');
     fetch(tokenURL, {
       method: 'POST',
       body: JSON.stringify(auth),
@@ -130,8 +136,10 @@ const identityStep3 = (dispatch, res, unscopedToken) => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
+        let urlPrefix = parseURLPrefix(resBody);
+        sessionStorage.setItem('urlPrefix', JSON.stringify(urlPrefix));
         localStorage.setItem('scopedToken', res.headers.get('X-Subject-Token'));
-        dispatch(loginSuccess(resBody));
+        dispatch(loginSuccess());
       })
     }).catch((erro) => {
       //
@@ -139,9 +147,10 @@ const identityStep3 = (dispatch, res, unscopedToken) => {
   })
 }
 
-export const loadTokenData = (token) => {
+const loadTokenData = (token) => {
   return (dispatch) => {
-    const tokenURL = constants.OS_IDENTITY + path.fetchToken;
+    console.log(token);
+    const tokenURL = combineIdentityURL('getTokenData');
     fetch(tokenURL, {
       method: 'GET',
       headers: {
@@ -150,16 +159,20 @@ export const loadTokenData = (token) => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        dispatch(loginSuccess(resBody))
+        console.log(resBody);
+        let urlPrefix = parseURLPrefix(resBody);
+        sessionStorage.setItem('urlPrefix', JSON.stringify(urlPrefix));
+        dispatch(loadTokenDataSuccess());
       })
     })
   }
-}
+};
+
 
 //
-export const logout = (token) => {
+const logout = (token) => {
   return (dispatch) => {
-    const tokenURL = constants.OS_IDENTITY + path.fetchToken;
+    const tokenURL = combineIdentityURL('deleteToken');
     fetch(tokenURL, {
       method: 'DELETE',
       headers: {
@@ -167,10 +180,12 @@ export const logout = (token) => {
         'X-Subject-Token': token
       }
     }).then((res) => {
-      localStorage.removeItem('scopedToken');
+      //localStorage.removeItem('scopedToken');
       dispatch(logoutSuccess());
     }).catch((error) => {
 
     })
   }
-}
+};
+
+export { login, loadTokenData, logout };

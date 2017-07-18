@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Button } from 'antd';
 import styles from './Login.css';
-import { login } from './actions';
+import { login, loadTokenData } from './actions';
 import { Redirect } from 'react-router-dom';
 
 const FormItem = Form.Item;
@@ -26,7 +26,17 @@ class NormalLoginForm extends Component {
   
   render() {
     const { getFieldDecorator } = this.props.form;
-    const isLogged = this.props.isLogged;
+
+    var isLogged = this.props.isLogged;
+    if (!isLogged) {
+      let scopedToken = localStorage.getItem('scopedToken');
+      if (scopedToken) {
+        isLogged = true;
+        this.props.dispatch(loadTokenData(scopedToken));
+      }
+    }
+
+    //const isLogged = localStorage.getItem('scopedToken');
 
     let referrer, location = this.props.location;
     if (location.state) {
@@ -77,11 +87,5 @@ class NormalLoginForm extends Component {
 }
 
 
-function mapStateToProps(state) {
-  return {
-    isLogged: state.auth.isLogged
-  };
-}
-
 const Login = Form.create()(NormalLoginForm);
-export default connect(mapStateToProps, null)(Login);
+export default connect(null, null)(Login);

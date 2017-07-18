@@ -1,4 +1,4 @@
-import OverviewFeature from '../../features/overview/Overview';
+import OverviewFeature from '../overview/components/Overview';
 import VolumeFeature from '../../features/volume/Volume';
 //import ImageFeature from '../features/overview/ImageFeature';
 //import ComnetFeature from '../features/overview/ComnetFeature';

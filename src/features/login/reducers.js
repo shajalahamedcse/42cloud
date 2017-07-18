@@ -1,6 +1,5 @@
 const initialState = {
-  identity: {},
-  isLogged: false
+  isLogged: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -8,15 +7,21 @@ const authReducer = (state = initialState, action) => {
     case 'LOGIN_SUCCESS': {
       return {
         ...state,
-        identity: action.payload,
-        isLogged: true
+        isLogged: true,
       }
     }
 
     case 'LOGOUT_SUCCESS': {
       return {
         ...state,
-        ...initialState,
+        ...initialState
+      }
+    }
+
+    case 'LOAD_TOKEN_DATA_SUCCESS': {
+      return {
+        ...state,
+        isLogged: true,
       }
     }
     

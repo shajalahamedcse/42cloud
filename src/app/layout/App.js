@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loadTokenData } from '../../features/login/actions'
-import Home from '../../features/home/Home';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import Home from '../../features/home/components/Home';
 import Login from '../../features/login/Login';
 import Console from '../../features/console/Console';
+import { loadTokenData } from 'features/login/actions';
 
 const PrivateRoute = ({ component: Component, authed, ...rest }) => (
   <Route {...rest} render={(para) => {
@@ -25,17 +25,12 @@ class App extends Component {
   }
 
   render() {
-    let isLogged, scopedToken;
-
-    if (this.props.isLogged) {
-      isLogged = true;
-    } else {
-      scopedToken = localStorage.getItem('scopedToken');
+    let isLogged = this.props.isLogged;
+    if (!isLogged) {
+      let scopedToken = localStorage.getItem('scopedToken');
       if (scopedToken) {
         isLogged = true;
         this.props.dispatch(loadTokenData(scopedToken));
-      } else {
-        isLogged = false;
       }
     }
 
@@ -50,7 +45,6 @@ class App extends Component {
             path='/console/:feature'
             component={Console}
           />
-
         </div>
       </BrowserRouter>
     )
@@ -62,4 +56,5 @@ function mapStateToProps(state) {
     isLogged: state.auth.isLogged
   }
 }
-export default connect(mapStateToProps, null)(App)
+
+export default connect(mapStateToProps, null)(App);

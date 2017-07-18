@@ -3,6 +3,10 @@ const path = require('path');
 module.exports = {
   resolve: {
     extensions: ['.js', 'jsx', '.css'],
+    modules: [
+      path.resolve(__dirname, 'src'),
+      'node_modules'
+    ]
   },
 
   context: path.resolve(__dirname, 'src'),
