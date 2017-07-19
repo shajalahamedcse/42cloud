@@ -1,26 +1,31 @@
 import { apiPath, proxyPrefix } from 'config/api';
 
-import url from 'url';
-
+// return a parsed URL object
+const urlParse = (url) => {
+  let parser = document.createElement('a');
+  parser.href = url;
+  return parser;
+};
 
 //
 const combineIdentityURL = (operation) => {
   let serviceType = apiPath[operation].type;
-  let fetchUrl = proxyPrefix[serviceType] + apiPath[operation].path;
-  console.log(fetchUrl);
-  return fetchUrl;
-}
+  let fetchURL = proxyPrefix[serviceType] +
+                  apiPath[operation].path;
+  return fetchURL;
+};
 
 
 // After Identity Passed.
 const combineURL = (operation) => {
   console.log(operation);
   let serviceType = apiPath[operation].type;
-  let urlPrefix = sessionStorage.getItem('urlPrefix');
-  let fetchUrl = proxyPrefix[serviceType] + urlPrefix[serviceType] + apiPath[operation].path;
-  console.log(fetchUrl);
-  return fetchUrl;
-}
+  let urlPrefix = JSON.parse(sessionStorage.getItem('urlPrefix'));
+  let fetchURL = proxyPrefix[serviceType] +
+                  urlPrefix[serviceType] +
+                  apiPath[operation].path;
+  return fetchURL;
+};
 
 const parseURLPrefix = (data) => {
   let catalog = data.token.catalog;
@@ -28,13 +33,12 @@ const parseURLPrefix = (data) => {
   catalog.forEach((items) => {
     items.endpoints.forEach((item) => {
       if (item.interface === 'public') {
-        urlPrefix[items.type] = url.parse(item.url).pathname
+        urlPrefix[items.type] = urlParse(item.url).pathname
       }
     })
   });
   return urlPrefix;
 };
-
 
 export { parseURLPrefix, combineURL, combineIdentityURL };
 

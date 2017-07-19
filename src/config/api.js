@@ -1,4 +1,3 @@
-
 const apiPath = {
   //// ServiceType: identity
   fetchToken: {

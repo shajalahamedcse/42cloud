@@ -1,6 +1,4 @@
 import _ from 'lodash';
-import { apiPath } from '../../config/api';
-import  * as constants from '../constants';
 import { parseURLPrefix, combineIdentityURL } from 'app/commons/common';
 
 const loginSuccess = () => {
@@ -138,6 +136,7 @@ const identityStep3 = (dispatch, res, unscopedToken) => {
       res.json().then((resBody) => {
         let urlPrefix = parseURLPrefix(resBody);
         sessionStorage.setItem('urlPrefix', JSON.stringify(urlPrefix));
+        sessionStorage.setItem('projectID', resBody.token.project.id);
         localStorage.setItem('scopedToken', res.headers.get('X-Subject-Token'));
         dispatch(loginSuccess());
       })
@@ -149,7 +148,6 @@ const identityStep3 = (dispatch, res, unscopedToken) => {
 
 const loadTokenData = (token) => {
   return (dispatch) => {
-    console.log(token);
     const tokenURL = combineIdentityURL('getTokenData');
     fetch(tokenURL, {
       method: 'GET',
@@ -159,9 +157,9 @@ const loadTokenData = (token) => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        console.log(resBody);
         let urlPrefix = parseURLPrefix(resBody);
         sessionStorage.setItem('urlPrefix', JSON.stringify(urlPrefix));
+        sessionStorage.setItem('projectID', resBody.token.project.id);
         dispatch(loadTokenDataSuccess());
       })
     })
