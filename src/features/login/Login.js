@@ -27,7 +27,7 @@ class NormalLoginForm extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
 
-    var isLogged = this.props.isLogged;
+    let isLogged = this.props.isLogged;
     if (!isLogged) {
       let scopedToken = localStorage.getItem('scopedToken');
       if (scopedToken) {
@@ -35,8 +35,6 @@ class NormalLoginForm extends Component {
         this.props.dispatch(loadTokenData(scopedToken));
       }
     }
-
-    //const isLogged = localStorage.getItem('scopedToken');
 
     let referrer, location = this.props.location;
     if (location.state) {
@@ -85,7 +83,6 @@ class NormalLoginForm extends Component {
     );
   }
 }
-
 
 const Login = Form.create()(NormalLoginForm);
 export default connect(null, null)(Login);

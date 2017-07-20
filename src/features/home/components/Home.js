@@ -2,7 +2,7 @@ import React from 'react';
 import HomeHeader from './HomeHeader';
 import HomeContent from './HomeContent';
 import HomeFooter from './HomeFooter';
-import styles from './Home.css'
+import styles from './style/Home.css'
 import { Layout } from 'antd';
 
 const { Header, Content, Footer } = Layout;

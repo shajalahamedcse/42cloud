@@ -27,12 +27,10 @@ class Console extends Component {
 
         <Content className={styles.content}>
           <BrowserRouter>
-            <div>
-              <Route
-                path={"/console/" + feature}
-                component={console_routes[feature]}
-              />
-            </div>
+            <Route
+              path={"/console/" + feature}
+              component={console_routes[feature]}
+            />
           </BrowserRouter>
         </Content>
 

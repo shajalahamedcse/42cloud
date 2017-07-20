@@ -87,7 +87,7 @@ module.exports = {
     compress: true,
     host: '0.0.0.0',
     port: 9000,
-    public: '192.168.2.107:9000',
+    public: '192.168.2.110:9000',
     allowedHosts: ['0.0.0.0'],
     historyApiFallback: true,
     proxy: {

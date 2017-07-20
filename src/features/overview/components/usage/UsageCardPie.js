@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactEcharts from 'echarts-for-react';
-import styles from './UsageCardPie.css';
 
 let cardColors = {
   instances: '#24CAA1',
@@ -34,7 +33,7 @@ const getOption = (data, colorKey) => {
 
   let usedPercent = data.in_use / data.limit;
   usedPercent = (parseFloat(usedPercent.toFixed(2)) * 100).toFixed(0) + '%';
-  let option = {
+  return {
     title: {
       text: usedPercent,
       textStyle: {
@@ -75,10 +74,9 @@ const getOption = (data, colorKey) => {
       ]
     }]
   };
-  return option;
 };
 
-const UsageCardPie = (props) => {
+function UsageCardPie(props) {
   console.log(props.data);
   return (
     <ReactEcharts style={{display: 'inline-block',
@@ -90,6 +88,5 @@ const UsageCardPie = (props) => {
     />
   )
 }
-
 
 export default UsageCardPie;

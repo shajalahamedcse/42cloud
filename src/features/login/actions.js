@@ -47,11 +47,11 @@ const loadTokenDataSuccess = () => {
 // 
 const login = (values) => {
   return (dispatch) => {
-    identityStep1(dispatch, values);
+    fetchUnscopedToken(dispatch, values);
   }
 }
 
-const identityStep1 = (dispatch, values) => {
+const fetchUnscopedToken = (dispatch, values) => {
     const auth = {
       "auth": {
         "identity": {
@@ -79,13 +79,13 @@ const identityStep1 = (dispatch, values) => {
         "Content-Type": "application/json"
       }
     }).then((res) => {
-      identityStep2(dispatch, res);
+      getOwnProjects(dispatch, res);
     }).catch((error) => {
       //
     })
 }
 
-const identityStep2 = (dispatch, res) => {
+const getOwnProjects = (dispatch, res) => {
   res.json().then((resBody) => {
     const userId = resBody.token.user.id;
     const data = {'user_id': userId};
@@ -98,14 +98,14 @@ const identityStep2 = (dispatch, res) => {
         "X-Auth-Token": unscopedToken
       }
     }).then((res) => {
-      identityStep3(dispatch, res, unscopedToken);
+      fetchScopedToken(dispatch, res, unscopedToken);
     }).catch((error) => {
       //
     })
   })
 }
 
-const identityStep3 = (dispatch, res, unscopedToken) => {
+const fetchScopedToken = (dispatch, res, unscopedToken) => {
   res.json().then((resBody) => {
     const auth = {
       "auth": {

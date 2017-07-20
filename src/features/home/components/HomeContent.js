@@ -4,7 +4,7 @@ import home01 from '../../../assets/images/home_01.jpg';
 import home02 from '../../../assets/images/home_02.jpg';
 import home03 from '../../../assets/images/home_03.jpg';
 
-import styles from './HomeContent.css';
+import styles from './style/HomeContent.css';
 
 function HomeContent() {
   return (

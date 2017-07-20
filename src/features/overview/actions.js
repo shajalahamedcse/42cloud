@@ -11,10 +11,11 @@ const getProjectQuotaSuccess = (payload) => {
 const getProjectQuota = () => {
   return (dispatch) => {
     let scopedToken = localStorage.getItem('scopedToken');
-    let projectQuotaURL = combineURL('getProjectQuota');
     let projectID = sessionStorage.getItem('projectID');
     let data = {'project_id': projectID};
+    let projectQuotaURL = combineURL('getProjectQuota');
     projectQuotaURL = _.template(projectQuotaURL)(data);
+
     return fetch(projectQuotaURL, {
       method: 'GET',
       headers: {
