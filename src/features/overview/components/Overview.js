@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Usage from './usage/Usage';
 import Quota from './quota/Quota';
-import Timeline from './timeline/Timeline';
+import ShowTimeline from './timeline/Timeline';
 import Compute from './compute/Compute';
+import { Row, Col } from 'antd';
 
 import { getProjectQuota } from 'features/overview/actions';
 
@@ -18,18 +19,22 @@ class Overview extends Component {
 
   render() {
     return (
-      <div style={{display: 'flex',
-                   marginTop: '10px', border: '1px solid #cdcdcd'}}>
-        <div style={{border: '1px solid #cdcdcd'}}>
+      <Row style={{margin: '20px 20px 0 20px'}} gutter={20}>
+        <Col xs={24} sm={16} lg={18}>
           <Usage />
-          <div style={{display: 'flex',
-            marginTop: '10px', border: '1px solid #cdcdcd'}}>
-            <Quota />
-            <Compute />
-          </div>
-        </div>
-        <Timeline />
-      </div>
+          <Row style={{marginTop: '20px'}} gutter={20}>
+            <Col sm={24} lg={10}>
+              <Quota />
+            </Col>
+            <Col sm={24} lg={14}>
+              <Compute />
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={24} sm={8} lg={6}>
+          <ShowTimeline />
+        </Col>
+      </Row>
     )
   }
 }

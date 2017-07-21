@@ -36,7 +36,7 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        <div>
+        <div style={{height: '100%'}}>
           <Route exact path='/' component={Home} />
           <Route path='/login' component={Login} />
 

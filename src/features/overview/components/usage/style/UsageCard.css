@@ -1,11 +1,9 @@
 .card {
-    display: inline-flex;
-    margin: 20px;
+    display: flex;
     background-color: #fafafa;
     border: 0 solid #f1f1f1;
-    border-radius: 5px;
     background-clip: padding-box;
-    width: 30%;
+    margin-bottom: 20px;
 }
 
 .profile {

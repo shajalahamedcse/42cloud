@@ -1,0 +1,17 @@
+.quota {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.title {
+    margin-bottom: 20px;
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
+.item {
+    border-bottom: 1px dashed #CCCCCC;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+}
