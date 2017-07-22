@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Usage from './usage/Usage';
+import Usage from './limit/Limit';
 import Quota from './quota/Quota';
 import ShowTimeline from './timeline/Timeline';
-import Compute from './compute/Compute';
+import Compute from './usage/Usage';
 import { Row, Col } from 'antd';
 
 import { getProjectQuota } from 'features/overview/actions';

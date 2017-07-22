@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import UsageCardPie from './UsageCardPie';
-import styles from './style/UsageCard.css';
+import LimitCardPie from './LimitCardPie';
+import styles from './style/LimitCard.css';
 import cx from 'classnames';
 
-function UsageCard(props) {
+function LimitCard(props) {
   return (
     <div className={styles.card}>
-      <UsageCardPie data={props.data} color={props.colorKey} />
+      <LimitCardPie data={props.data} color={props.colorKey} />
       <div className={styles.profile}>
         <div>
           <span className={cx(
@@ -30,4 +30,4 @@ function UsageCard(props) {
   )
 }
 
-export default UsageCard;
+export default LimitCard;

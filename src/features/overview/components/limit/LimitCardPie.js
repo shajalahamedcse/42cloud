@@ -69,14 +69,12 @@ const getOption = (data, colorKey) => {
         value: data.limit - data.in_use,
         name: '未用',
         itemStyle: unusedHolderStyle
-      }
-
-      ]
+      }]
     }]
   };
 };
 
-function UsageCardPie(props) {
+function LimitCardPie(props) {
   console.log(props.data);
   return (
     <ReactEcharts style={{display: 'inline-block',
@@ -89,4 +87,4 @@ function UsageCardPie(props) {
   )
 }
 
-export default UsageCardPie;
+export default LimitCardPie;

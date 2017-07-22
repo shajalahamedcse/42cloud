@@ -1,59 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import UsageCard from './UsageCard';
-import { Spin, Row, Col } from 'antd';
+import React from 'react';
+import styles from './style/usage.css';
 
-class Usage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    if (!this.props.loading) {
-      return (
-        <Spin />
-      )
-    } else {
-      return (
-        <Row gutter={20}>
-          <Col xs={24} md={12} xl={6}>
-          <UsageCard data={this.props.data.quota_set.instances}
-                     colorKey='instances'
-                     kind="云主机"
-          />
-          </Col>
-
-          <Col xs={24} md={12} xl={6}>
-          <UsageCard data={this.props.data.quota_set.cores}
-                     colorKey='cores'
-                     kind="CPU核"
-          />
-          </Col>
-
-          <Col xs={24} md={12} xl={6}>
-          <UsageCard data={this.props.data.quota_set.ram}
-                     colorKey='ram'
-                     kind="内存"
-          />
-          </Col>
-
-          <Col xs={24} md={12} xl={6}>
-          <UsageCard data={this.props.data.quota_set.ram}
-                     colorKey='ram'
-                     kind="内存"
-          />
-          </Col>
-        </Row>
-      )
-    }
-  }
+function Compute() {
+  return (
+    <div className={styles.compute}>
+      hello compute
+    </div>
+  )
 }
 
-function mapStateToProps(state) {
-  return {
-    data: state.overview.payload,
-    loading: state.overview.loading
-  }
-
-}
-export default connect(mapStateToProps, null)(Usage);
+export default Compute;
