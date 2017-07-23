@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 
-import { Menu, Icon } from 'antd';
+import { Menu } from 'antd';
 
 const { SubMenu } = Menu;
 
@@ -10,19 +11,29 @@ class SideNav extends Component {
   }
 
   render() {
+    console.log(this.props.selected);
     return (
       <div>
         <div className="logo" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+        <Menu
+          theme="dark"
+          defaultOpenKeys={['comnet']}
+          defaultSelectedKeys={[this.props.selected]}
+          mode="inline"
+        >
+
           <Menu.Item key="overview">
             <i className="fa fa-tachometer fa-lg"></i>
+            <Link to="/console/overview">
             <span>总览</span>
+            </Link>
           </Menu.Item>
+
           <SubMenu
             key="comnet"
             title={<span><i className="fa fa-server fa-lg"></i><span>计算与网络</span></span>}
           >
-            <Menu.Item key="instance">云主机</Menu.Item>
+            <Menu.Item key="instance"><Link to="/console/instance">云主机</Link></Menu.Item>
             <Menu.Item key="image">镜像</Menu.Item>
             <Menu.Item key="vpc">VPC 网络</Menu.Item>
           </SubMenu>

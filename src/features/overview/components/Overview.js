@@ -19,13 +19,13 @@ class Overview extends Component {
   render() {
     return (
       <Row style={{margin: '10px 0 0 10px'}} gutter={20}>
-        <Col sm={10} lg={5}>
+        <Col sm={24} md={24} lg={24} xl={5}>
           <Limit />
         </Col>
-        <Col sm={8} lg={8}>
+        <Col sm={24} md={14} lg={12} xl={8}>
           <Quota />
         </Col>
-        <Col sm={6} lg={11}>
+        <Col sm={24} md={10} lg={12} xl={11}>
           <Usage />
         </Col>
       </Row>

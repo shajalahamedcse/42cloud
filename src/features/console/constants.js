@@ -1,11 +1,9 @@
-import OverviewFeature from '../overview/components/Overview';
-import VolumeFeature from '../../features/volume/Volume';
-//import ImageFeature from '../features/overview/ImageFeature';
-//import ComnetFeature from '../features/overview/ComnetFeature';
+import Overview from 'features/overview/components/Overview';
+import Volume from 'features/volume/components/Volume';
+import Instance from 'features/instance/components/Instance';
 
 export const CONSOLE_ROUTES = {
-  overview: OverviewFeature,
-  volume: VolumeFeature,
-  //image: ImageFeature,
-  //comnet: ComnetFeature
+  overview: Overview,
+  volume: Volume,
+  instance: Instance
 };

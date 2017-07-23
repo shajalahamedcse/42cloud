@@ -22,7 +22,7 @@ class Console extends Component {
         </Header>
 
         <Sider className={styles.sider}>
-          <SideNav />
+          <SideNav selected={feature} />
         </Sider>
 
         <Content className={styles.content}>

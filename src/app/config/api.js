@@ -20,16 +20,21 @@ const apiPath = {
     type: 'identity',
   },
 
-  //// ServiceType: image
+  // ServiceType: image
   getImages: {
     path: '/v2/images',
     type: 'image',
   },
 
 
-  //// ServiceType: compute
+  // ServiceType: compute
   getServers: {
     path: '/servers',
+    type: 'compute',
+  },
+
+  getServersInfo: {
+    path: '/servers/detail',
     type: 'compute',
   },
 
@@ -51,7 +56,7 @@ const proxyPrefix = {
   compute: '/os-compute',
   image: '/os-image',
   volume: '/os-volume'
-}
+};
 
 export { apiPath, proxyPrefix }
 
