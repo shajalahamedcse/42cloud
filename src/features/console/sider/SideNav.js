@@ -14,33 +14,33 @@ class SideNav extends Component {
       <div>
         <div className="logo" />
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <Menu.Item key="1">
-            <Icon type="pie-chart" />
-            <span>Option 1</span>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <Icon type="desktop" />
-            <span>Option 2</span>
+          <Menu.Item key="overview">
+            <i className="fa fa-tachometer fa-lg"></i>
+            <span>总览</span>
           </Menu.Item>
           <SubMenu
-            key="sub1"
-            title={<span><Icon type="user" /><span>User</span></span>}
+            key="comnet"
+            title={<span><i className="fa fa-server fa-lg"></i><span>计算与网络</span></span>}
           >
-            <Menu.Item key="3">Tom</Menu.Item>
-            <Menu.Item key="4">Bill</Menu.Item>
-            <Menu.Item key="5">Alex</Menu.Item>
+            <Menu.Item key="instance">云主机</Menu.Item>
+            <Menu.Item key="image">镜像</Menu.Item>
+            <Menu.Item key="vpc">VPC 网络</Menu.Item>
           </SubMenu>
+
           <SubMenu
-            key="sub2"
-            title={<span><Icon type="team" /><span>Team</span></span>}
+            key="storage"
+            title={<span><i className="fa fa-hdd-o fa-lg"></i><span>存储</span></span>}
           >
-            <Menu.Item key="6">Team 1</Menu.Item>
-            <Menu.Item key="8">Team 2</Menu.Item>
+            <Menu.Item key="volume">硬盘</Menu.Item>
           </SubMenu>
-          <Menu.Item key="8">
-            <Icon type="file" />
-            <span>File</span>
-          </Menu.Item>
+
+          <SubMenu
+            key="security"
+            title={<span><i className="fa fa-bolt fa-lg"></i><span>安全</span></span>}
+          >
+            <Menu.Item key="secgroup">安全组</Menu.Item>
+            <Menu.Item key="keypair">SSH密钥</Menu.Item>
+          </SubMenu>
         </Menu>
       </div>
     )

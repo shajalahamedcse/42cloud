@@ -33,7 +33,6 @@ class Console extends Component {
             />
           </BrowserRouter>
         </Content>
-
       </Layout>
     );
   }

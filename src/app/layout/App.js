@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import moment from 'moment';
 import Home from '../../features/home/components/Home';
 import Login from '../../features/login/Login';
 import Console from '../../features/console/Console';
@@ -28,9 +29,12 @@ class App extends Component {
     let isLogged = this.props.isLogged;
     if (!isLogged) {
       let scopedToken = localStorage.getItem('scopedToken');
-      if (scopedToken) {
+      let expiresAt = localStorage.getItem('expires_at');
+      if (scopedToken && (expiresAt > moment.utc().format())) {
         isLogged = true;
         this.props.dispatch(loadTokenData(scopedToken));
+      } else {
+        isLogged = false;
       }
     }
 

@@ -16,6 +16,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
+    publicPath: '/',
   },
 
   module: {
@@ -67,6 +68,12 @@ module.exports = {
       //     }
       //   ]
       // },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader'
+        ]
+      },
       {
         test: /\.(jpg|png|svg|gif)$/,
         use: [

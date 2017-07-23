@@ -138,6 +138,7 @@ const fetchScopedToken = (dispatch, res, unscopedToken) => {
         sessionStorage.setItem('urlPrefix', JSON.stringify(urlPrefix));
         sessionStorage.setItem('projectID', resBody.token.project.id);
         localStorage.setItem('scopedToken', res.headers.get('X-Subject-Token'));
+        localStorage.setItem('expires_at', resBody.token.expires_at);
         dispatch(loginSuccess());
       })
     }).catch((erro) => {

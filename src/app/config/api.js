@@ -4,19 +4,21 @@ const apiPath = {
     path: '/v3/auth/tokens',
     type: 'identity',
   },
+
   getTokenData: {
     path: '/v3/auth/tokens',
     type: 'identity',
   },
+
   deleteToken: {
     path: '/v3/auth/tokens',
     type: 'identity',
   },
+
   getOwnProjects: {
     path: '/v3/users/${user_id}/projects',
     type: 'identity',
   },
-
 
   //// ServiceType: image
   getImages: {
@@ -30,10 +32,17 @@ const apiPath = {
     path: '/servers',
     type: 'compute',
   },
+
   getProjectQuota: {
     path: '/os-quota-sets/${project_id}/detail',
     type: 'compute',
-  }
+  },
+
+  getTenantUsage: {
+    path: '/os-simple-tenant-usage/${project_id}?detailed=1',
+    type: 'compute'
+  },
+
 };
 
 
