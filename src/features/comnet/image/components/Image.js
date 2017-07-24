@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getServersInfo } from '../actions';
+import { getImages } from '../actions';
 import Usage from './usage/Usage';
 
-class Instance extends Component {
+class Image extends Component {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
-    this.props.dispatch(getServersInfo());
+    this.props.dispatch(getImages());
   }
 
   render() {
-    console.log('instance render');
     return (
       <Usage />
     )
   }
 }
 
-export default connect(null, null)(Instance);
+export default connect(null, null)(Image);

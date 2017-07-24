@@ -109,6 +109,18 @@ module.exports = {
         pathRewrite: {
           '/os-compute': ''
         }
+      },
+      '/os-image': {
+        target: 'http://192.168.2.199:9292',
+        pathRewrite: {
+          '/os-image': ''
+        }
+      },
+      '/os-volume': {
+        target: 'http://192.168.2.199:8776',
+        pathRewrite: {
+          '/os-volume': ''
+        }
       }
     }
   },

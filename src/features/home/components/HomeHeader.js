@@ -16,7 +16,6 @@ class HomeHeader extends Component {
   handleLogout() {
     const scopedToken = localStorage.getItem('scopedToken');
     this.props.dispatch(logout(scopedToken));
-    console.log('hello');
     localStorage.removeItem('scopedToken');
     this.props.history.push('/login');
   }
@@ -32,7 +31,6 @@ class HomeHeader extends Component {
             mode="horizontal"
             style={{ lineHeight: '64px' }}
           >
-            <Menu.Item>关于42cloud</Menu.Item>
             {
               isLogged ?
                 <Menu.Item>

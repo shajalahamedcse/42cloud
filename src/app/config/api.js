@@ -1,5 +1,6 @@
 const apiPath = {
-  //// ServiceType: identity
+
+  // ServiceType: identity
   fetchToken: {
     path: '/v3/auth/tokens',
     type: 'identity',
@@ -26,7 +27,6 @@ const apiPath = {
     type: 'image',
   },
 
-
   // ServiceType: compute
   getServers: {
     path: '/servers',
@@ -48,6 +48,16 @@ const apiPath = {
     type: 'compute'
   },
 
+  getKeyPairs: {
+    path: '/os-keypairs',
+    type: 'compute'
+  },
+
+  // ServiceType: volume3
+  getVolumesInfo: {
+    path: '/volumes/detail',
+    type: 'volumev3'
+  }
 };
 
 
@@ -55,7 +65,7 @@ const proxyPrefix = {
   identity: '/os-identity',
   compute: '/os-compute',
   image: '/os-image',
-  volume: '/os-volume'
+  volumev3: '/os-volume'
 };
 
 export { apiPath, proxyPrefix }

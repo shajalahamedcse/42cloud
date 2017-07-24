@@ -75,7 +75,6 @@ const getOption = (data, colorKey) => {
 };
 
 function LimitCardPie(props) {
-  console.log(props.data);
   return (
     <ReactEcharts style={{display: 'inline-block',
       backgroundColor: '#fff',

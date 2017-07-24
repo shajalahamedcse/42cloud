@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Spin } from 'antd';
+import { connect } from 'react-redux';
 import UsageItem from './UsageItem';
-import styles from './style/Usage.css';
 
 class Usage extends Component {
   constructor(props) {
@@ -24,8 +23,8 @@ class Usage extends Component {
 
 function mapStateToProps(state) {
   return {
-    loading: state.instance.loading,
-    payload: state.instance.payload.servers
+    loading: state.image.loading,
+    payload: state.image.payload.images
   }
 }
 

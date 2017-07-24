@@ -49,7 +49,7 @@ const login = (values) => {
   return (dispatch) => {
     fetchUnscopedToken(dispatch, values);
   }
-}
+};
 
 const fetchUnscopedToken = (dispatch, values) => {
     const auth = {
@@ -69,7 +69,7 @@ const fetchUnscopedToken = (dispatch, values) => {
           }
         }
       }
-    }
+    };
 
     const tokenURL = combineIdentityURL('fetchToken');
     fetch(tokenURL, {
@@ -80,10 +80,10 @@ const fetchUnscopedToken = (dispatch, values) => {
       }
     }).then((res) => {
       getOwnProjects(dispatch, res);
-    }).catch((error) => {
-      //
+    }).catch((err) => {
+      console.log(err);
     })
-}
+};
 
 const getOwnProjects = (dispatch, res) => {
   res.json().then((resBody) => {
@@ -99,11 +99,13 @@ const getOwnProjects = (dispatch, res) => {
       }
     }).then((res) => {
       fetchScopedToken(dispatch, res, unscopedToken);
-    }).catch((error) => {
-      //
+    }).catch((err) => {
+      console.log(err);
     })
+  }).catch((err) => {
+    console.log(err);
   })
-}
+};
 
 const fetchScopedToken = (dispatch, res, unscopedToken) => {
   res.json().then((resBody) => {
@@ -140,12 +142,16 @@ const fetchScopedToken = (dispatch, res, unscopedToken) => {
         localStorage.setItem('scopedToken', res.headers.get('X-Subject-Token'));
         localStorage.setItem('expires_at', resBody.token.expires_at);
         dispatch(loginSuccess());
+      }).catch((err) => {
+        console.log(err);
       })
-    }).catch((erro) => {
-      //
+    }).catch((err) => {
+      console.log(err);
     })
+  }).catch((err) => {
+    console.log(err);
   })
-}
+};
 
 const loadTokenData = (token) => {
   return (dispatch) => {
@@ -162,7 +168,11 @@ const loadTokenData = (token) => {
         sessionStorage.setItem('urlPrefix', JSON.stringify(urlPrefix));
         sessionStorage.setItem('projectID', resBody.token.project.id);
         dispatch(loadTokenDataSuccess());
+      }).catch((err) => {
+        console.log(err);
       })
+    }).catch((err) => {
+      console.log(err);
     })
   }
 };
@@ -178,11 +188,11 @@ const logout = (token) => {
         'X-Auth-Token': token,
         'X-Subject-Token': token
       }
-    }).then((res) => {
+    }).then(() => {
       //localStorage.removeItem('scopedToken');
       dispatch(logoutSuccess());
-    }).catch((error) => {
-
+    }).catch((err) => {
+      console.log(err);
     })
   }
 };

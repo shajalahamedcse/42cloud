@@ -16,7 +16,7 @@ const getProjectQuota = () => {
     let projectQuotaURL = combineURL('getProjectQuota');
     projectQuotaURL = _.template(projectQuotaURL)(data);
 
-    return fetch(projectQuotaURL, {
+    fetch(projectQuotaURL, {
       method: 'GET',
       headers: {
         'X-Auth-Token': scopedToken
@@ -24,7 +24,11 @@ const getProjectQuota = () => {
     }).then((res) => {
       res.json().then((resBody) => {
         dispatch(getProjectQuotaSuccess(resBody));
+      }).catch((err) => {
+        console.log(err);
       })
+    }).catch((err) => {
+      console.log(err);
     })
   }
 };

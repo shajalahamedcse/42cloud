@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import styles from './style/SideNav.css';
 
 import { Menu } from 'antd';
 
@@ -11,7 +12,6 @@ class SideNav extends Component {
   }
 
   render() {
-    console.log(this.props.selected);
     return (
       <div>
         <div className="logo" />
@@ -23,34 +23,47 @@ class SideNav extends Component {
         >
 
           <Menu.Item key="overview">
-            <i className="fa fa-tachometer fa-lg"></i>
             <Link to="/console/overview">
-            <span>总览</span>
+              <i className={(styles.fa) + " " + "fa fa-tachometer fa-lg"}>
+                总览
+              </i>
             </Link>
           </Menu.Item>
 
           <SubMenu
             key="comnet"
-            title={<span><i className="fa fa-server fa-lg"></i><span>计算与网络</span></span>}
+            title={<i className={(styles.fa) + " " + "fa fa-server fa-lg"}>计算与网络</i>}
           >
-            <Menu.Item key="instance"><Link to="/console/instance">云主机</Link></Menu.Item>
-            <Menu.Item key="image">镜像</Menu.Item>
+            <Menu.Item key="instance">
+              <Link to="/console/instance">云主机</Link>
+            </Menu.Item>
+            <Menu.Item key="image">
+              <Link to="/console/image">镜像</Link>
+            </Menu.Item>
             <Menu.Item key="vpc">VPC 网络</Menu.Item>
           </SubMenu>
 
           <SubMenu
             key="storage"
-            title={<span><i className="fa fa-hdd-o fa-lg"></i><span>存储</span></span>}
+            title={<i className={(styles.fa) + " " + "fa fa-hdd-o fa-lg"}>存储</i>}
           >
-            <Menu.Item key="volume">硬盘</Menu.Item>
+            <Menu.Item key="volume">
+              <Link to="/console/volume">
+              硬盘
+              </Link>
+            </Menu.Item>
           </SubMenu>
 
           <SubMenu
             key="security"
-            title={<span><i className="fa fa-bolt fa-lg"></i><span>安全</span></span>}
+            title={<i className={(styles.fa) + " " + "fa fa-bolt fa-lg"}>安全</i>}
           >
             <Menu.Item key="secgroup">安全组</Menu.Item>
-            <Menu.Item key="keypair">SSH密钥</Menu.Item>
+            <Menu.Item key="keypair">
+              <Link to="/console/ssh">
+                SSH密钥
+              </Link>
+            </Menu.Item>
           </SubMenu>
         </Menu>
       </div>

@@ -43,7 +43,6 @@ function Quota(props) {
           title = String(item);
         }
 
-        console.log(title);
         if (limit < 0) {
           limit = '无限';
           left = '无限';

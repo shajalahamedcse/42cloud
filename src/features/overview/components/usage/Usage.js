@@ -26,13 +26,10 @@ class Usage extends Component {
   }
 
   onSubmitDate() {
-    console.log('submit');
     this.getTenantUsage()
   }
 
   onChange(field, value) {
-    console.log(field);
-    console.log(value);
     this.setState({
       ...this.state,
       [field]: value
@@ -88,8 +85,6 @@ class Usage extends Component {
                 format('YYYY-MM-DDTHH:mm:ss');
     }
 
-    console.log(startTime);
-    console.log(endTime);
     tenantUsageURL = _.template(tenantUsageURL)(data) +
                     '&start=' + startTime + '&end=' + endTime;
 
@@ -104,7 +99,6 @@ class Usage extends Component {
           loading: true,
           payload: resBody.tenant_usage.server_usages
         });
-        console.log(resBody);
       })
     })
   }
