@@ -23,6 +23,7 @@ const getProjectQuota = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
+        console.log(resBody);
         dispatch(getProjectQuotaSuccess(resBody));
       }).catch((err) => {
         console.log(err);

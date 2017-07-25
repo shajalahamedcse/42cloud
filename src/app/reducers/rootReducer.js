@@ -3,7 +3,7 @@ import authReducer from 'features/login/reducers';
 import overviewReducer from 'features/overview/reducers';
 import instanceReducer from 'features/comnet/instance/reducers';
 import imageReducer from 'features/comnet/image/reducers';
-import volumeReducer from 'features/storage/volume/reducers';
+import volumeReducer from 'features/volume/reducers';
 import sshReducer from 'features/security/ssh/reducers';
 
 const rootReducer = combineReducers({

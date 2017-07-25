@@ -57,6 +57,11 @@ const apiPath = {
   getVolumesInfo: {
     path: '/volumes/detail',
     type: 'volumev3'
+  },
+
+  getVolumeTypes: {
+    path: '/types',
+    type: 'volumev3'
   }
 };
 

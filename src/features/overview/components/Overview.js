@@ -18,17 +18,21 @@ class Overview extends Component {
 
   render() {
     return (
-      <Row style={{margin: '10px 0 0 10px'}} gutter={20}>
-        <Col sm={24} md={24} lg={24} xl={5}>
-          <Limit />
-        </Col>
-        <Col sm={24} md={14} lg={12} xl={8}>
-          <Quota />
-        </Col>
-        <Col sm={24} md={10} lg={12} xl={11}>
-          <Usage />
-        </Col>
-      </Row>
+      <div>
+        <Row style={{margin: '10px 10px 0 15px'}} gutter={20}>
+          <Col span={24}>
+            <Limit />
+          </Col>
+        </Row>
+        <Row style={{margin: '10px 10px 0 15px'}} gutter={20}>
+          <Col xs={24} md={8}>
+            <Quota />
+          </Col>
+          <Col xs={24} md={16}>
+            <Usage />
+          </Col>
+        </Row>
+      </div>
     )
   }
 }

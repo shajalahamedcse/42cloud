@@ -95,6 +95,7 @@ class Usage extends Component {
       }
     }).then((res) => {
       res.json().then((resBody) => {
+        console.log(resBody);
         this.setState({
           loading: true,
           payload: resBody.tenant_usage.server_usages
@@ -111,13 +112,23 @@ class Usage extends Component {
     if (this.state.loading) {
       return (
         <div>
-          <DatePicker placeholder="开始"
-                      onChange={this.onStartChange} />
-          <DatePicker disabledDate={this.disabledEndDate}
-                      placeholder="结束"
-                      onChange={this.onEndChange} />
-          <Button onClick={this.onSubmitDate}
-                  type="primary">提交</Button>
+          <div className={styles.header}>
+            <span className={styles.title}>使用情况摘要</span>
+            <DatePicker size="large"
+                        className={styles.date}
+                        placeholder="开始"
+                        onChange={this.onStartChange} />
+            <DatePicker size="large"
+                        className={styles.date}
+                        disabledDate={this.disabledEndDate}
+                        placeholder="结束"
+                        onChange={this.onEndChange} />
+            <Button size="large"
+                    type="primary"
+                    onClick={this.onSubmitDate}>
+              提交
+            </Button>
+          </div>
           <UsageItem payload={this.state.payload} />
         </div>
       )

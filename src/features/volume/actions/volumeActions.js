@@ -1,9 +1,9 @@
 import { combineURL } from 'app/commons/common';
 
-const getVolumesInfoSuccess = (payload) => {
+const getVolumesInfoSuccess = (volumes) => {
   return {
     type: 'GET_VOLUMES_INFO_SUCCESS',
-    payload: payload
+    volumes
   }
 };
 
@@ -18,7 +18,7 @@ const getVolumesInfo = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        dispatch(getVolumesInfoSuccess(resBody));
+        dispatch(getVolumesInfoSuccess(resBody.volumes));
       }).catch((err) => {
         console.log(err);
       })

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, Link, BrowserRouter } from 'react-router-dom';
 import SideNav from './sider/SideNav';
 import TopNav from './header/TopNav';
 import { CONSOLE_ROUTES as console_routes } from './constants';
-import { Layout } from 'antd';
+import { Layout, Breadcrumb } from 'antd';
 import styles from './Console.css';
 
 const { Header, Sider, Content } = Layout;
@@ -26,6 +26,15 @@ class Console extends Component {
         </Sider>
 
         <Content className={styles.content}>
+          <Breadcrumb className={styles.breadcrumb}>
+            <Breadcrumb.Item>
+              <Link to="/">主页</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link to={"/console/" + [feature]}>{feature}</Link>
+            </Breadcrumb.Item>
+          </Breadcrumb>
+
           <BrowserRouter>
             <Route
               path={"/console/:feature"}
