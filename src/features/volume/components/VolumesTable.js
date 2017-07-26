@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getVolumeTypes } from 'features/volume/actions/volumeTypeActions';
 import { Table, Spin } from 'antd';
 import styles from './style/VolumesTable.css';
+import cx from 'classnames';
 
 const tableHeaderName = {
   name: '名称',
@@ -31,10 +32,28 @@ class VolumesTable extends Component {
         sorter = (a, b) => a.name.length - b.name.length;
       }
 
+      let render;
+      if (key === 'status') {
+        render = (text, record) => {
+          return (
+            <span>
+              <i className={cx(
+                {
+                  [styles.creating]: text === 'creating',
+                  [styles.available]: text === 'available'
+                }
+              )}>
+              </i>
+              {text}
+            </span>
+          )
+        }
+      }
       columns.push({
         title: tableHeaderName[key],
         dataIndex: key,
-        sorter: sorter
+        sorter: sorter,
+        render: render,
       })
     });
 
@@ -52,7 +71,10 @@ class VolumesTable extends Component {
     if (this.props.loading) {
       return (
         <div>
-          <Table className={styles.table} columns={columns} dataSource={data} />
+          <Table className={styles.table}
+                 columns={columns}
+                 rowClassName={(record, index) => ('row' + index)}
+                 dataSource={data} />
         </div>
       )
     } else {

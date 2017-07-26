@@ -1,48 +1,71 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Input, InputNumber, Radio } from 'antd';
+import { Modal, Form, Input, InputNumber, Radio } from 'antd';
+import { createVolume } from 'features/volume/actions/volumeActions';
 const RadioGroup = Radio.Group;
 const { TextArea } = Input;
+const FormItem = Form.Item;
 
-
-class CreateVolumeForm extends Component {
+class CreateVolume extends Component {
   constructor(props) {
     super(props);
+
+    this.handleOk = this.handleOk.bind(this);
+  }
+
+  handleOk() {
+    let reqBody = this.props.form.getFieldsValue();
+    this.props.dispatch(createVolume(reqBody));
+    this.props.onCancel();
   }
 
   render() {
+    const { getFieldDecorator } = this.props.form;
+
+    let radioElements = [];
+    if (this.props.loading) {
+      this.props.volumeTypes.forEach((ele) => {
+        radioElements.push(
+          <Radio key={ele.name}>{ele.name}</Radio>
+        )
+      })
+    } else {
+      radioElements.push(
+        <Radio key={1}>A</Radio>
+      )
+    }
+
     return (
-      <div>
-        <Modal title="创建硬盘"
-               width="450px"
-               visible={this.props.visible}
-               onCancel={this.props.onCancel}
-        >
-          <div style={{padding: '0 30px'}}>
-            <div style={{margin: '10px 0'}}>
-              <span>名称：</span>
-              <Input style={{width: '60%'}} />
-            </div>
+      <Modal title="创建硬盘"
+             width="450px"
+             visible={this.props.visible}
+             onCancel={this.props.onCancel}
+             onOk={this.handleOk}
+      >
+        <Form layout="inline">
+          <FormItem label="名称：">
+            {getFieldDecorator('name')(<Input />)}
+          </FormItem>
 
-            <div style={{margin: '10px 0'}}>
-              <span>描述：</span>
-              <TextArea style={{width: '60%'}} placeholder="描述硬盘信息" />
-            </div>
+          <FormItem label="描述：">
+            {getFieldDecorator('desc')(<TextArea />)}
+          </FormItem>
 
-            <div style={{margin: '10px 0'}}>
-              <span>类型: </span>
+          <FormItem label="类型：">
+            {getFieldDecorator('type')(
               <RadioGroup>
-                <Radio value={1}>A</Radio>
+                {radioElements}
               </RadioGroup>
-            </div>
+            )}
+          </FormItem>
 
-            <div style={{margin: '10px 0'}}>
-              <span>容量：</span>
-              <InputNumber min={1} max={10} defaultValue={3} />
-            </div>
-          </div>
-        </Modal>
-      </div>
+          <FormItem label="容量：">
+            {getFieldDecorator('size')(
+              <InputNumber min={1} max={10} />
+            )}
+          </FormItem>
+        </Form>
+      </Modal>
     )
   }
 }
@@ -54,4 +77,5 @@ function mapStateToProps(state) {
   }
 }
 
+let CreateVolumeForm = Form.create()(CreateVolume);
 export default connect(mapStateToProps, null)(CreateVolumeForm);

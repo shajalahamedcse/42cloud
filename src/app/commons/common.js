@@ -1,4 +1,5 @@
 import { apiPath, proxyPrefix } from 'app/config/api';
+import _ from 'lodash';
 
 // return a parsed URL object
 const parseURL = (url) => {
@@ -27,14 +28,19 @@ const combineIdentityURL = (operation) => {
 };
 
 // After Identity Passed.
-const combineURL = (operation) => {
+const combineURL = (operation, tmpl={}) => {
   let serviceType = apiPath[operation].type;
   let urlPrefix = JSON.parse(sessionStorage.getItem('urlPrefix'));
-  return proxyPrefix[serviceType] +
-         urlPrefix[serviceType] +
-         apiPath[operation].path;
+  let url = proxyPrefix[serviceType] +
+                urlPrefix[serviceType] +
+               apiPath[operation].path;
+  return _.template(url)(tmpl);
 };
 
-export { parseURLPrefix, combineURL, combineIdentityURL };
+const getToken = () => {
+  return localStorage.getItem('scopedToken');
+};
+
+export { parseURLPrefix, combineURL, combineIdentityURL, getToken };
 
 

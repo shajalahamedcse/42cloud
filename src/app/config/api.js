@@ -62,6 +62,16 @@ const apiPath = {
   getVolumeTypes: {
     path: '/types',
     type: 'volumev3'
+  },
+
+  createVolume: {
+    path: '/volumes',
+    type: 'volumev3'
+  },
+
+  getVolumeInfo: {
+    path: '/volumes/${volume_id}',
+    type: 'volumev3'
   }
 };
 

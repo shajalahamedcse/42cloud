@@ -1,5 +1,4 @@
 import { combineURL } from 'app/commons/common';
-import _ from 'lodash';
 
 const getProjectQuotaSuccess = (quotaSet) => {
   return {
@@ -12,11 +11,9 @@ const getProjectQuota = () => {
   return (dispatch) => {
     let scopedToken = localStorage.getItem('scopedToken');
     let projectID = sessionStorage.getItem('projectID');
-    let data = {'project_id': projectID};
-    let projectQuotaURL = combineURL('getProjectQuota');
-    projectQuotaURL = _.template(projectQuotaURL)(data);
-
-    fetch(projectQuotaURL, {
+    let tmpl = {'project_id': projectID};
+    let url = combineURL('getProjectQuota', tmpl);
+    fetch(url, {
       method: 'GET',
       headers: {
         'X-Auth-Token': scopedToken

@@ -14,6 +14,20 @@ const volumesReducer = (state = volumesInitialState, action) => {
       }
     }
 
+    case 'CREATE_VOLUME_SUCCESS': {
+      return {
+        ...state,
+        volumes: [action.volume, ...state.volumes]
+      }
+    }
+
+    case 'CHECK_VOLUME_INFO_SUCCESS': {
+      return {
+        ...state,
+        volumes: [action.volume, ...state.volumes.slice(1)]
+      }
+    }
+
     default: {
       return state;
     }

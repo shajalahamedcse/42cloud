@@ -55,8 +55,8 @@ class Usage extends Component {
   getTenantUsage() {
     let scopedToken = localStorage.getItem('scopedToken');
     let projectID = sessionStorage.getItem('projectID');
-    let data = {'project_id': projectID};
-    let url = combineURL('getTenantUsage');
+    let tmpl = {'project_id': projectID};
+    let url = combineURL('getTenantUsage', tmpl);
     let startTime, endTime;
     if (this.state.startValue && this.state.endValue) {
       // 开始日期那天开始的 UTC 时间
@@ -85,8 +85,7 @@ class Usage extends Component {
                 format('YYYY-MM-DDTHH:mm:ss');
     }
 
-    url = _.template(url)(data) +
-                    '&start=' + startTime + '&end=' + endTime;
+    url = url + '&start=' + startTime + '&end=' + endTime;
 
     fetch(url, {
       method: 'GET',

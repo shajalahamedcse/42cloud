@@ -29,9 +29,6 @@ class CreateVolumeButton extends Component {
     })
   }
 
-  handleOk() {
-  }
-
   render() {
     return (
       <div>
@@ -41,9 +38,11 @@ class CreateVolumeButton extends Component {
                 icon="plus">
           创建
         </Button>
+
         <CreateVolumeForm
           visible={this.state.visible}
-          onCancel={this.handleCancel} />
+          onCancel={this.handleCancel}
+        />
       </div>
     )
   }
