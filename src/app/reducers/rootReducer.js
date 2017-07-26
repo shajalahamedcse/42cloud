@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import authReducer from 'features/login/reducers';
 import overviewReducer from 'features/overview/reducers';
-import instanceReducer from 'features/comnet/instance/reducers';
-import imageReducer from 'features/comnet/image/reducers';
+import instanceReducer from 'features/instance/reducers';
+import imageReducer from 'features/image/reducers';
 import volumeReducer from 'features/volume/reducers';
-import sshReducer from 'features/security/ssh/reducers';
+import keypairReducer from 'features/keypair/reducers';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   instance: instanceReducer,
   image: imageReducer,
   volume: volumeReducer,
-  ssh: sshReducer
+  keypair: keypairReducer
 });
 
 export default rootReducer;

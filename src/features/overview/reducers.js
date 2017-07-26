@@ -1,6 +1,6 @@
 const initialState = {
   loading: false,
-  payload: {}
+  quota_set: {}
 };
 
 const overviewReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const overviewReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        payload: action.payload
+        quota_set: action.quotaSet
       }
     }
 

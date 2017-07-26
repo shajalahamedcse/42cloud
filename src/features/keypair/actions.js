@@ -10,9 +10,8 @@ const getKeyPairsSuccess = (payload) => {
 const getKeyPairs = () => {
   return (dispatch) => {
     let scopedToken = localStorage.getItem('scopedToken');
-    let keyPairsURL = combineURL('getKeyPairs');
-
-    fetch(keyPairsURL, {
+    let url = combineURL('getKeyPairs');
+    fetch(url, {
       method: 'GET',
       headers: {
         'X-Auth-Token': scopedToken

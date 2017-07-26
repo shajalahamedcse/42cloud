@@ -10,8 +10,8 @@ const getVolumesInfoSuccess = (volumes) => {
 const getVolumesInfo = () => {
   return (dispatch) => {
     let scopedToken = localStorage.getItem('scopedToken');
-    let volumesInfoURL = combineURL('getVolumesInfo');
-    fetch(volumesInfoURL, {
+    let url = combineURL('getVolumesInfo');
+    fetch(url, {
       method: 'GET',
       headers: {
         'X-Auth-Token': scopedToken

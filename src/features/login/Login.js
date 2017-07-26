@@ -4,6 +4,7 @@ import { Form, Icon, Input, Button } from 'antd';
 import styles from './Login.css';
 import { login, loadTokenData } from './actions';
 import { Redirect } from 'react-router-dom';
+import moment from 'moment';
 
 const FormItem = Form.Item;
 
@@ -29,9 +30,14 @@ class NormalLoginForm extends Component {
     let isLogged = this.props.isLogged;
     if (!isLogged) {
       let scopedToken = localStorage.getItem('scopedToken');
-      if (scopedToken) {
+      let expiresUTC = localStorage.getItem('expires_at');
+      let nowUTC = moment.utc().format();
+      if (scopedToken && moment(expiresUTC).isAfter(nowUTC)) {
         isLogged = true;
         this.props.dispatch(loadTokenData(scopedToken));
+      } else {
+        localStorage.clear();
+        sessionStorage.clear();
       }
     }
 
@@ -83,5 +89,11 @@ class NormalLoginForm extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    isLogged: state.auth.isLogged
+  }
+}
+
 const Login = Form.create()(NormalLoginForm);
-export default connect(null, null)(Login);
+export default connect(mapStateToProps, null)(Login);

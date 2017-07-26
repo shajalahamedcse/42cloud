@@ -60,7 +60,7 @@ class SideNav extends Component {
           >
             <Menu.Item key="secgroup">安全组</Menu.Item>
             <Menu.Item key="keypair">
-              <Link to="/console/ssh">
+              <Link to="/console/keypair">
                 SSH密钥
               </Link>
             </Menu.Item>

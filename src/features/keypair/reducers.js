@@ -3,7 +3,7 @@ const initialState = {
   payload: {}
 };
 
-const sshReducer = (state = initialState, action) => {
+const keypairReducer = (state = initialState, action) => {
   switch(action.type) {
     case 'GET_KEY_PAIRS_SUCCESS': {
       return {
@@ -19,4 +19,4 @@ const sshReducer = (state = initialState, action) => {
   }
 };
 
-export default sshReducer;
+export default keypairReducer;

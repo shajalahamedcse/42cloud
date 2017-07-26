@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Progress, Spin, Row, Col } from 'antd';
+import { Spin } from 'antd';
 import styles from './style/Quota.css';
 import QuotaItem from './QuotaItem.js';
 
@@ -19,12 +19,12 @@ const quotaTitleName = {
   fixed_ips: '固定IP (个)',
   injected_file_path_bytes: '注入文件路径的长度 (个)',
   security_groups: '安全组 (个)',
-}
+};
 
 
 function Quota(props) {
   if (props.loading) {
-    let quotaItems = props.data.quota_set,
+    let quotaItems = props.quotaSet,
         quotaItemElements = [];
 
     for (let item in quotaItems) {
@@ -92,7 +92,7 @@ function Quota(props) {
 function mapStateToProps(state) {
   return {
     loading: state.overview.loading,
-    data: state.overview.payload
+    quotaSet: state.overview.quota_set
   }
 }
 export default connect(mapStateToProps, null)(Quota);

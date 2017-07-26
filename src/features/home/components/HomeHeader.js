@@ -22,7 +22,6 @@ class HomeHeader extends Component {
 
   render() {
     let isLogged = this.props.isLogged;
-    console.log(isLogged);
     return (
       <div>
           <span className={styles.logo}>42cloud</span>

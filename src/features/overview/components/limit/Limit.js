@@ -17,28 +17,28 @@ class Limit extends Component {
       return (
         <Row gutter={20}>
           <Col sm={12} md={12} lg={6} xl={6}>
-          <LimitCard data={this.props.data.quota_set.instances}
+          <LimitCard data={this.props.quotaSet.instances}
                      colorKey='instances'
                      kind="云主机"
           />
           </Col>
 
           <Col sm={12} md={12} lg={6} xl={6}>
-          <LimitCard data={this.props.data.quota_set.cores}
+          <LimitCard data={this.props.quotaSet.cores}
                      colorKey='cores'
                      kind="CPU核"
           />
           </Col>
 
           <Col sm={12} md={12} lg={6} xl={6}>
-          <LimitCard data={this.props.data.quota_set.ram}
+          <LimitCard data={this.props.quotaSet.ram}
                      colorKey='ram'
                      kind="内存"
           />
           </Col>
 
           <Col sm={12} md={12} lg={6} xl={6}>
-          <LimitCard data={this.props.data.quota_set.ram}
+          <LimitCard data={this.props.quotaSet.ram}
                      colorKey='ram'
                      kind="内存"
           />
@@ -51,7 +51,7 @@ class Limit extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.overview.payload,
+    quotaSet: state.overview.quota_set,
     loading: state.overview.loading
   }
 

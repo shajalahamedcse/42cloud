@@ -1,10 +1,10 @@
 import { combineURL } from 'app/commons/common';
 import _ from 'lodash';
 
-const getProjectQuotaSuccess = (payload) => {
+const getProjectQuotaSuccess = (quotaSet) => {
   return {
     type: 'GET_PROJECT_QUOTA_SUCCESS',
-    payload: payload
+    quotaSet
   }
 };
 
@@ -23,8 +23,7 @@ const getProjectQuota = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        console.log(resBody);
-        dispatch(getProjectQuotaSuccess(resBody));
+        dispatch(getProjectQuotaSuccess(resBody.quota_set));
       }).catch((err) => {
         console.log(err);
       })

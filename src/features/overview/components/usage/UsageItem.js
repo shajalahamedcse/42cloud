@@ -25,20 +25,24 @@ function UsageItem(props) {
   });
 
   let uniqueKey = 0;
-  props.payload.forEach((ele) => {
-    let obj = {};
-    obj['key'] = uniqueKey++;
-    keys.forEach((key) => {
-      if (key === 'started_at') {
-        obj[key] = moment(ele[key]).startOf('day').fromNow();
-      } else if (key === 'hours') {
-        obj[key] = Math.floor(ele[key]) + ' 小时';
-      } else {
-        obj[key] = ele[key];
-      }
+  if (props.tenantUsage.hasOwnProperty('server_usages')) {
+    props.tenantUsage.server_usages.forEach((ele) => {
+      let obj = {};
+      obj['key'] = uniqueKey++;
+      keys.forEach((key) => {
+        if (key === 'started_at') {
+          obj[key] = moment(ele[key]).startOf('day').fromNow();
+        } else if (key === 'hours') {
+          obj[key] = Math.floor(ele[key]) + ' 小时';
+        } else {
+          obj[key] = ele[key];
+        }
+      });
+      data.push(obj);
     });
-    data.push(obj);
-  });
+  } else {
+    data = [];
+  }
 
   return (
     <Table className={styles.item}

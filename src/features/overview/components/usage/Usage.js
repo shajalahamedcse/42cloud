@@ -21,7 +21,7 @@ class Usage extends Component {
       startValue: null,
       endValue: null,
       loading: false,
-      payload: {}
+      tenantUsage: {}
     }
   }
 
@@ -56,7 +56,7 @@ class Usage extends Component {
     let scopedToken = localStorage.getItem('scopedToken');
     let projectID = sessionStorage.getItem('projectID');
     let data = {'project_id': projectID};
-    let tenantUsageURL = combineURL('getTenantUsage');
+    let url = combineURL('getTenantUsage');
     let startTime, endTime;
     if (this.state.startValue && this.state.endValue) {
       // 开始日期那天开始的 UTC 时间
@@ -85,10 +85,10 @@ class Usage extends Component {
                 format('YYYY-MM-DDTHH:mm:ss');
     }
 
-    tenantUsageURL = _.template(tenantUsageURL)(data) +
+    url = _.template(url)(data) +
                     '&start=' + startTime + '&end=' + endTime;
 
-    fetch(tenantUsageURL, {
+    fetch(url, {
       method: 'GET',
       headers: {
         'X-Auth-Token': scopedToken
@@ -98,7 +98,9 @@ class Usage extends Component {
         console.log(resBody);
         this.setState({
           loading: true,
-          payload: resBody.tenant_usage.server_usages
+          tenantUsage: resBody.tenant_usage,
+          startValue: startTime.split('T')[0],
+          endValue: endTime.split('T')[0]
         });
       })
     })
@@ -116,12 +118,12 @@ class Usage extends Component {
             <span className={styles.title}>使用情况摘要</span>
             <DatePicker size="large"
                         className={styles.date}
-                        placeholder="开始"
+                        placeholder={this.state.startValue}
                         onChange={this.onStartChange} />
             <DatePicker size="large"
                         className={styles.date}
                         disabledDate={this.disabledEndDate}
-                        placeholder="结束"
+                        placeholder={this.state.endValue}
                         onChange={this.onEndChange} />
             <Button size="large"
                     type="primary"
@@ -129,7 +131,7 @@ class Usage extends Component {
               提交
             </Button>
           </div>
-          <UsageItem payload={this.state.payload} />
+          <UsageItem tenantUsage={this.state.tenantUsage} />
         </div>
       )
     } else {
@@ -137,7 +139,6 @@ class Usage extends Component {
         <Spin />
       )
     }
-
   }
 }
 

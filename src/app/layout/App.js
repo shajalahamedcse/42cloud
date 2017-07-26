@@ -29,12 +29,14 @@ class App extends Component {
     let isLogged = this.props.isLogged;
     if (!isLogged) {
       let scopedToken = localStorage.getItem('scopedToken');
-      let expiresAt = localStorage.getItem('expires_at');
-      if (scopedToken && (expiresAt > moment.utc().format())) {
+      let expiresUTC = localStorage.getItem('expires_at');
+      let nowUTC = moment.utc().format();
+      if (scopedToken && (moment(expiresUTC).isAfter(nowUTC))) {
         isLogged = true;
         this.props.dispatch(loadTokenData(scopedToken));
       } else {
-        isLogged = false;
+        localStorage.clear();
+        sessionStorage.clear();
       }
     }
 

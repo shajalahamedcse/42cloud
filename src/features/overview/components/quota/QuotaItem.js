@@ -23,6 +23,6 @@ const QuotaItem = (props) => {
       </div>
     </div>
   )
-}
+};
 
 export default QuotaItem;

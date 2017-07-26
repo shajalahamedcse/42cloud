@@ -23,8 +23,8 @@ class KeyPairs extends Component {
 
 function mapStateToProps(state) {
   return {
-    loading: state.ssh.loading,
-    payload: state.ssh.payload.keypairs
+    loading: state.keypair.loading,
+    payload: state.keypair.payload.keypairs
   }
 }
 
