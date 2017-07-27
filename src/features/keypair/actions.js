@@ -18,7 +18,6 @@ const getKeyPairs = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        console.log(resBody);
         dispatch(getKeyPairsSuccess(resBody));
       }).catch((err) => {
         console.log(err);

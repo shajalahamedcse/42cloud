@@ -94,7 +94,6 @@ class Usage extends Component {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        console.log(resBody);
         this.setState({
           loading: true,
           tenantUsage: resBody.tenant_usage,

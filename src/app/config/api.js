@@ -72,6 +72,11 @@ const apiPath = {
   getVolumeInfo: {
     path: '/volumes/${volume_id}',
     type: 'volumev3'
+  },
+
+  updateVolume: {
+    path: '/volumes/${volume_id}',
+    type: 'volumev3'
   }
 };
 

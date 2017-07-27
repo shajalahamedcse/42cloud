@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getVolumeTypes } from 'features/volume/actions/volumeTypeActions';
+import { selectVolumesSuccess } from 'features/volume/actions/volumeActions';
 import { Table, Spin } from 'antd';
 import styles from './style/VolumesTable.css';
 import cx from 'classnames';
@@ -21,10 +22,28 @@ class VolumesTable extends Component {
     super(props);
   }
 
-
   render() {
     let keys = Object.keys(tableHeaderName);
     let columns = [], data = [];
+
+    const rowSelection = {
+      selectedRowKeys: this.props.selectedVolumes.map((item) => (item.index)),
+      onChange: (selectedRowkeys, selectedRows) => {
+        let selectedVolumes = [];
+        if (selectedRows.length > 0) {
+          selectedRows.forEach((ele) => {
+            let index = ele.key;
+            selectedVolumes.push({
+              volumeID: this.props.volumes[index].id,
+              index
+            })
+          });
+          this.props.dispatch(selectVolumesSuccess(selectedVolumes));
+        } else {
+          this.props.dispatch(selectVolumesSuccess(selectedVolumes));
+        }
+      }
+    };
 
     keys.forEach((key) => {
       let sorter;
@@ -34,7 +53,7 @@ class VolumesTable extends Component {
 
       let render;
       if (key === 'status') {
-        render = (text, record) => {
+        render = (text) => {
           return (
             <span>
               <i className={cx(
@@ -70,12 +89,12 @@ class VolumesTable extends Component {
 
     if (this.props.loading) {
       return (
-        <div>
-          <Table className={styles.table}
-                 columns={columns}
-                 rowClassName={(record, index) => ('row' + index)}
-                 dataSource={data} />
-        </div>
+        <Table className={styles.table}
+               rowSelection={rowSelection}
+               columns={columns}
+               rowClassName={(record, index) => ('row' + index)}
+               dataSource={data}
+        />
       )
     } else {
       return (
@@ -88,7 +107,8 @@ class VolumesTable extends Component {
 function mapStateToProps(state) {
   return {
     loading: state.volume.volumes.loading,
-    volumes: state.volume.volumes.volumes
+    volumes: state.volume.volumes.volumes,
+    selectedVolumes: state.volume.selectedVolumes
   }
 }
 

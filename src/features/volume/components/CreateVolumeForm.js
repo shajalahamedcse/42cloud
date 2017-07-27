@@ -6,7 +6,7 @@ const RadioGroup = Radio.Group;
 const { TextArea } = Input;
 const FormItem = Form.Item;
 
-class CreateVolume extends Component {
+class CustomizeForm extends Component {
   constructor(props) {
     super(props);
 
@@ -77,5 +77,5 @@ function mapStateToProps(state) {
   }
 }
 
-let CreateVolumeForm = Form.create()(CreateVolume);
+let CreateVolumeForm = Form.create()(CustomizeForm);
 export default connect(mapStateToProps, null)(CreateVolumeForm);

@@ -18,7 +18,6 @@ const getVolumeTypes = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        console.log(resBody);
         dispatch(getVolumeTypesSuccess(resBody.volume_types));
       })
     })

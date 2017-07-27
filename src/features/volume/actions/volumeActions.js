@@ -52,7 +52,6 @@ const createVolume = (reqBody) => {
     }).then((res) => {
       res.json().then((resBody) => {
         dispatch(createVolumeSuccess(resBody.volume));
-        console.log(resBody);
         dispatch(checkVolumeInfo(resBody.volume.id));
       })
     })
@@ -80,7 +79,6 @@ const checkVolumeInfo = (volumeID) => {
       }).then((res) => {
         res.json().then((resBody) => {
           if (resBody.volume.status === 'available') {
-            console.log('available');
             clearInterval(intervalID);
             dispatch(checkVolumeInfoSuccess(resBody.volume))
           }
@@ -89,4 +87,43 @@ const checkVolumeInfo = (volumeID) => {
     }, 1000);
   }
 };
-export { getVolumesInfo, createVolume };
+
+const updateVolumeSuccess = (volume, selectedVolume) => {
+  return {
+    type: 'UPDATE_VOLUME_SUCCESS',
+    volume,
+    selectedVolume
+  }
+};
+const updateVolume = (reqBody, selectedVolume) => {
+  return (dispatch) => {
+    let scopedToken = getToken();
+    let tmpl = {'volume_id': selectedVolume.volumeID};
+    let url = combineURL('updateVolume', tmpl);
+    reqBody = {
+      'volume': reqBody
+    };
+    fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(reqBody),
+      headers: {
+        'X-Auth-Token': scopedToken,
+        'Content-Type': 'application/json'
+      },
+    }).then((res) => {
+      res.json().then((resBody) => {
+        dispatch(updateVolumeSuccess(resBody.volume, selectedVolume));
+        // dispatch(checkVolumeInfo(selectedVolume.volumeID));
+      })
+    })
+  }
+}
+
+const selectVolumesSuccess = (selectedVolumes) => {
+  return {
+    type: 'SELECTED_VOLUMES_SUCCESS',
+    selectedVolumes
+  }
+};
+
+export { getVolumesInfo, createVolume, selectVolumesSuccess, updateVolume };

@@ -28,6 +28,15 @@ const volumesReducer = (state = volumesInitialState, action) => {
       }
     }
 
+    case 'UPDATE_VOLUME_SUCCESS': {
+      let volumes = [...state.volumes];
+      volumes.splice(action.selectedVolume.index, 1, action.volume);
+      return {
+        ...state,
+        volumes
+      }
+    }
+
     default: {
       return state;
     }
@@ -54,9 +63,22 @@ const volumeTypesReducer = (state = volumeTypesInitialState, action) => {
   }
 };
 
+const selectedVolumesReducer = (state = [], action) => {
+  switch(action.type) {
+    case 'SELECTED_VOLUMES_SUCCESS': {
+      return [...action.selectedVolumes]
+    }
+
+    default: {
+      return state;
+    }
+  }
+};
+
 const volumeReducer = combineReducers({
   volumes: volumesReducer,
-  volumeTypes: volumeTypesReducer
+  volumeTypes: volumeTypesReducer,
+  selectedVolumes: selectedVolumesReducer
 });
 
 export default volumeReducer;

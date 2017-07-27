@@ -17,7 +17,6 @@ const getServersInfo = () => {
        'X-Auth-Token': scopedToken
      }
    }).then((res) => {
-     console.log(res);
      res.json().then((resBody) => {
        dispatch(getServersInfoSuccess(resBody));
      }).catch((err) => {

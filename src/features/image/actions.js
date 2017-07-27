@@ -18,7 +18,6 @@ const getImages = () => {
         'Content-Type': 'application/json',
       }
     }).then((res) => {
-      console.log(res);
       res.json().then((resBody) => {
         dispatch(getImagesSuccess(resBody));
       }).catch((err) => {

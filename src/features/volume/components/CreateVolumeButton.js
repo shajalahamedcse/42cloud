@@ -31,7 +31,7 @@ class CreateVolumeButton extends Component {
 
   render() {
     return (
-      <div>
+      <span>
         <Button onClick={this.showModal}
                 type="primary"
                 className={styles.toolbar}
@@ -43,7 +43,7 @@ class CreateVolumeButton extends Component {
           visible={this.state.visible}
           onCancel={this.handleCancel}
         />
-      </div>
+      </span>
     )
   }
 }

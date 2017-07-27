@@ -1,5 +1,8 @@
 const path = require('path');
 
+const proxy_host = process.env.openstack_host;
+console.log(proxy_host);
+
 module.exports = {
   resolve: {
     extensions: ['.js', 'jsx', '.css'],
@@ -94,30 +97,30 @@ module.exports = {
     compress: true,
     host: '0.0.0.0',
     port: 9000,
-    public: '192.168.2.110:9000',
+    public: '127.0.0.1:9000',
     allowedHosts: ['0.0.0.0'],
     historyApiFallback: true,
     proxy: {
       '/os-identity': {
-        target: 'http://192.168.2.199:5000',
+        target: 'http://' + proxy_host + ':5000',
         pathRewrite: {
           '/os-identity': ''
         }
       },
       '/os-compute': {
-        target: 'http://192.168.2.199:8774',
+        target: 'http://' + proxy_host + ':8774',
         pathRewrite: {
           '/os-compute': ''
         }
       },
       '/os-image': {
-        target: 'http://192.168.2.199:9292',
+        target: 'http://' + proxy_host + ':9292',
         pathRewrite: {
           '/os-image': ''
         }
       },
       '/os-volume': {
-        target: 'http://192.168.2.199:8776',
+        target: 'http://' + proxy_host + ':8776',
         pathRewrite: {
           '/os-volume': ''
         }
