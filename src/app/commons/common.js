@@ -32,8 +32,8 @@ const combineURL = (operation, tmpl={}) => {
   let serviceType = apiPath[operation].type;
   let urlPrefix = JSON.parse(sessionStorage.getItem('urlPrefix'));
   let url = proxyPrefix[serviceType] +
-                urlPrefix[serviceType] +
-               apiPath[operation].path;
+            urlPrefix[serviceType] +
+            apiPath[operation].path;
   return _.template(url)(tmpl);
 };
 

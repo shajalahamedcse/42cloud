@@ -1,14 +1,16 @@
+import { combineReducers } from 'redux';
+
 let initialState = {
   loading: false,
-  payload: {}
+  servers: []
 };
 
-const instanceReducer = (state = initialState, action) => {
+const serversReducer = (state = initialState, action) => {
   switch(action.type) {
     case 'GET_SERVERS_INFO_SUCCESS': {
       return {
         ...state,
-        payload: action.payload,
+        servers: action.servers,
         loading: true
       }
     }
@@ -18,5 +20,9 @@ const instanceReducer = (state = initialState, action) => {
     }
   }
 };
+
+const instanceReducer = combineReducers({
+  servers: serversReducer
+});
 
 export default instanceReducer;

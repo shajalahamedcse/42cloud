@@ -21,20 +21,26 @@ const volumesReducer = (state = volumesInitialState, action) => {
       }
     }
 
-    case 'CHECK_VOLUME_INFO_SUCCESS': {
-      return {
-        ...state,
-        volumes: [action.volume, ...state.volumes.slice(1)]
-      }
+    case 'POLL_VOLUME_INFO_SUCCESS':
+    case 'UPDATE_VOLUME_SUCCESS':
+    case 'GET_VOLUME_INFO_SUCCESS':
+    case 'POLL_VOLUME_IF_DELETED_FAILURE': {
+      let volumes = [...state.volumes];
+      let index = volumes.findIndex(ele => (ele.id === action.volume.id));
+      volumes[index] = action.volume;
+      return {...state, volumes}
     }
 
-    case 'UPDATE_VOLUME_SUCCESS': {
+    case 'POLL_VOLUME_IF_DELETED_SUCCESS': {
       let volumes = [...state.volumes];
-      volumes.splice(action.selectedVolume.index, 1, action.volume);
-      return {
-        ...state,
-        volumes
-      }
+      let index = volumes.findIndex(ele => (ele.id === action.volume.id));
+      volumes.splice(index, 1);
+      return {...state, volumes};
+    }
+
+    case 'DELETE_VOLUME_SUCCESS':
+    case 'RESIZE_VOLUME_SUCCESS': {
+      return state;
     }
 
     default: {
@@ -65,7 +71,7 @@ const volumeTypesReducer = (state = volumeTypesInitialState, action) => {
 
 const selectedVolumesReducer = (state = [], action) => {
   switch(action.type) {
-    case 'SELECTED_VOLUMES_SUCCESS': {
+    case 'SELECT_VOLUMES': {
       return [...action.selectedVolumes]
     }
 

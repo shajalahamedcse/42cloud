@@ -54,6 +54,11 @@ const apiPath = {
   },
 
   // ServiceType: volume3
+  getVolumes: {
+    path: '/volumes',
+    type: 'volumev3'
+  },
+
   getVolumesInfo: {
     path: '/volumes/detail',
     type: 'volumev3'
@@ -75,6 +80,16 @@ const apiPath = {
   },
 
   updateVolume: {
+    path: '/volumes/${volume_id}',
+    type: 'volumev3'
+  },
+
+  operateVolume: {
+    path: '/volumes/${volume_id}/action',
+    type: 'volumev3'
+  },
+
+  deleteVolume: {
     path: '/volumes/${volume_id}',
     type: 'volumev3'
   }

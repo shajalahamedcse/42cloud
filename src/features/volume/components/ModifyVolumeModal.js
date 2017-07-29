@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateVolume, selectVolumesSuccess } from 'features/volume/actions/volumeActions';
+import { updateVolume, selectVolumes } from 'features/volume/actions/volumeActions';
 import { Modal, Form, Input } from 'antd';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
-class ModifyVolumeForm extends Component {
+class ModifyVolumeModal extends Component {
   constructor(props) {
     super(props);
 
@@ -14,18 +14,22 @@ class ModifyVolumeForm extends Component {
 
   handleOk() {
     let reqBody = this.props.form.getFieldsValue();
-    console.log(this.props.selectedVolumes);
     this.props.dispatch(updateVolume(reqBody, this.props.selectedVolumes[0]));
-    this.props.onCancel();
-    this.props.dispatch(selectVolumesSuccess([]))
+    this.handleCancel();
+    this.props.dispatch(selectVolumes([]));
+  }
+
+  handleCancel = () => {
+    this.props.handleModalCancel('modify', false)
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
       <Modal title="修改硬盘的信息"
+             okText="修改"
              visible={this.props.visible}
-             onCancel={this.props.onCancel}
+             onCancel={this.handleCancel}
              onOk={this.handleOk}
       >
         <Form layout="inline">
@@ -41,7 +45,11 @@ class ModifyVolumeForm extends Component {
     )
   }
 }
+ModifyVolumeModal = Form.create()(ModifyVolumeModal);
 
-ModifyVolumeForm = Form.create()(ModifyVolumeForm);
-
-export default connect(null, null)(ModifyVolumeForm);
+function mapStateToProps(state) {
+  return {
+    selectedVolumes: state.volume.selectedVolumes
+  }
+}
+export default connect(mapStateToProps, null)(ModifyVolumeModal);

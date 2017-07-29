@@ -16,7 +16,11 @@ class CustomizeForm extends Component {
   handleOk() {
     let reqBody = this.props.form.getFieldsValue();
     this.props.dispatch(createVolume(reqBody));
-    this.props.onCancel();
+    this.handleCancel();
+  }
+
+  handleCancel = () => {
+    this.props.handleModalCancel('create', false)
   }
 
   render() {
@@ -38,8 +42,9 @@ class CustomizeForm extends Component {
     return (
       <Modal title="创建硬盘"
              width="450px"
+             okText="创建"
              visible={this.props.visible}
-             onCancel={this.props.onCancel}
+             onCancel={this.handleCancel}
              onOk={this.handleOk}
       >
         <Form layout="inline">
@@ -48,7 +53,7 @@ class CustomizeForm extends Component {
           </FormItem>
 
           <FormItem label="描述：">
-            {getFieldDecorator('desc')(<TextArea />)}
+            {getFieldDecorator('description')(<TextArea />)}
           </FormItem>
 
           <FormItem label="类型：">
@@ -60,7 +65,7 @@ class CustomizeForm extends Component {
           </FormItem>
 
           <FormItem label="容量：">
-            {getFieldDecorator('size')(
+            {getFieldDecorator('size', {initialValue: 1})(
               <InputNumber min={1} max={10} />
             )}
           </FormItem>
@@ -77,5 +82,5 @@ function mapStateToProps(state) {
   }
 }
 
-let CreateVolumeForm = Form.create()(CustomizeForm);
-export default connect(mapStateToProps, null)(CreateVolumeForm);
+let CreateVolumeModal = Form.create()(CustomizeForm);
+export default connect(mapStateToProps, null)(CreateVolumeModal);

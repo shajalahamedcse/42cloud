@@ -1,9 +1,9 @@
 import { combineURL } from 'app/commons/common';
 
-const getServersInfoSuccess = (payload) => {
+const getServersInfoSuccess = (servers) => {
   return {
     type: 'GET_SERVERS_INFO_SUCCESS',
-    payload: payload
+    servers
   }
 };
 
@@ -18,7 +18,7 @@ const getServersInfo = () => {
      }
    }).then((res) => {
      res.json().then((resBody) => {
-       dispatch(getServersInfoSuccess(resBody));
+       dispatch(getServersInfoSuccess(resBody.servers));
      }).catch((err) => {
        console.log(err);
      })

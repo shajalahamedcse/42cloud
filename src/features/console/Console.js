@@ -35,12 +35,10 @@ class Console extends Component {
             </Breadcrumb.Item>
           </Breadcrumb>
 
-          <BrowserRouter>
-            <Route
-              path={"/console/:feature"}
-              component={console_routes[feature]}
-            />
-          </BrowserRouter>
+          <Route
+            path="/console/:feature"
+            component={console_routes[feature]}
+          />
         </Content>
       </Layout>
     );

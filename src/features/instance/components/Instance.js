@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import { getServersInfo } from '../actions';
-import Usage from './usage/Usage';
+import InstanceTable from 'features/instance/components/InstanceTable';
+import InstanceDetail from 'features/instance/components/InstanceDetail';
 
 class Instance extends Component {
   constructor(props) {
@@ -14,7 +16,19 @@ class Instance extends Component {
 
   render() {
     return (
-      <Usage />
+      <div>
+        <Route
+          path="/console/instance"
+          exact
+          component={InstanceTable}
+        />
+
+        <Route
+          path="/console/instance/:id"
+          exact
+          component={InstanceDetail}
+        />
+      </div>
     )
   }
 }
