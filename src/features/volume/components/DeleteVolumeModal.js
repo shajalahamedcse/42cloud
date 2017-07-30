@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Alert } from 'antd';
-import { deleteVolume, selectVolumes } from 'features/volume/actions/volumeActions';
+import { deleteVolume } from 'app/orm/cinder/volume/actions';
+import { selectVolumes } from 'features/volume/actions';
+
 
 class DeleteVolumeModal extends Component {
   constructor(props) {
@@ -50,7 +52,7 @@ class DeleteVolumeModal extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedVolumes: state.volume.selectedVolumes
+    selectedVolumes: state.features.volume.selectedVolumes,
   }
 }
 export default connect(mapStateToProps, null)(DeleteVolumeModal);

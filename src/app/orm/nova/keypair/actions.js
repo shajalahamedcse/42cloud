@@ -1,9 +1,9 @@
 import { combineURL } from 'app/commons/common';
 
-const getKeyPairsSuccess = (payload) => {
+const getKeyPairsSuccess = (keypairs) => {
   return {
     type: 'GET_KEY_PAIRS_SUCCESS',
-    payload: payload
+    keypairs
   }
 };
 
@@ -18,7 +18,7 @@ const getKeyPairs = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        dispatch(getKeyPairsSuccess(resBody));
+        dispatch(getKeyPairsSuccess(resBody.keypairs));
       }).catch((err) => {
         console.log(err);
       })

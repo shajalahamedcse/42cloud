@@ -1,15 +1,10 @@
-const initialState = {
-  loading: false,
-  payload: {}
-};
-
-const imageReducer = (state = initialState, action) => {
+const images = (state = {loading: false, data: []}, action) => {
   switch(action.type) {
     case 'GET_IMAGES_SUCCESS': {
       return {
         ...state,
         loading: true,
-        payload: action.payload
+        data: action.images,
       }
     }
 
@@ -19,4 +14,6 @@ const imageReducer = (state = initialState, action) => {
   }
 };
 
-export default imageReducer;
+export {
+  images
+};

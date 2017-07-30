@@ -66,7 +66,7 @@ class MoreVolumeButton extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedVolumes: state.volume.selectedVolumes
+    selectedVolumes: state.features.volume.selectedVolumes
   }
 }
 

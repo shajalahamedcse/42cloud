@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getVolumeTypes } from 'features/volume/actions/volumeTypeActions';
+import { getVolumeTypes } from 'app/orm/cinder/volumeType/actions';
 import styles from './style/VolumesTable.css';
 import { Button } from 'antd';
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link, BrowserRouter } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import SideNav from './sider/SideNav';
 import TopNav from './header/TopNav';
 import { CONSOLE_ROUTES as console_routes } from './constants';

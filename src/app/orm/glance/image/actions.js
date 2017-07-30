@@ -1,9 +1,9 @@
 import { combineURL } from 'app/commons/common';
 
-const getImagesSuccess = (payload) => {
+const getImagesSuccess = (images) => {
   return {
     type: 'GET_IMAGES_SUCCESS',
-    payload: payload
+    images
   }
 };
 
@@ -19,7 +19,7 @@ const getImages = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        dispatch(getImagesSuccess(resBody));
+        dispatch(getImagesSuccess(resBody.images));
       }).catch((err) => {
         console.log(err);
       })

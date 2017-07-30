@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import KeyPairs from './keypairs/KeyPairs';
-import { getKeyPairs } from '../actions';
+import KeyPairTable from 'features/keypair/components/KeyPairTable';
+import { getKeyPairs } from 'app/orm/nova/keypair/actions';
 
-class SSH extends Component {
+class KeyPair extends Component {
   constructor(props) {
     super(props);
   }
@@ -14,9 +14,9 @@ class SSH extends Component {
 
   render() {
     return (
-      <KeyPairs />
+      <KeyPairTable />
     )
   }
 }
 
-export default connect(null, null)(SSH);
+export default connect(null, null)(KeyPair);

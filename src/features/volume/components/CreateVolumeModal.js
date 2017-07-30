@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Form, Input, InputNumber, Radio } from 'antd';
-import { createVolume } from 'features/volume/actions/volumeActions';
+import { createVolume } from 'app/orm/cinder/volume/actions';
 const RadioGroup = Radio.Group;
 const { TextArea } = Input;
 const FormItem = Form.Item;
@@ -77,8 +77,8 @@ class CustomizeForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    loading: state.volume.volumeTypes.loading,
-    volumeTypes: state.volume.volumeTypes.volume_types
+    loading: state.orm.cinder.volumeTypes.loading,
+    volumeTypes: state.orm.cinder.volumeTypes.data
   }
 }
 

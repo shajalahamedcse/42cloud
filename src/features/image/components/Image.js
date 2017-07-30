@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getImages } from '../actions';
-import Usage from './usage/Usage';
+import { getImages } from 'app/orm/glance/image/actions';
+import ImageTable from 'features/image/components/ImageTable';
 
 class Image extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Image extends Component {
 
   render() {
     return (
-      <Usage />
+      <ImageTable />
     )
   }
 }

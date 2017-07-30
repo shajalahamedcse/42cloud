@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-import { getServersInfo } from '../actions';
+
+import { getServersInfo } from 'app/orm/nova/server/actions';
+
 import InstanceTable from 'features/instance/components/InstanceTable';
 import InstanceDetail from 'features/instance/components/InstanceDetail';
 

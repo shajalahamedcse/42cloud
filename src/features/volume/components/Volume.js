@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getVolumesInfo } from 'features/volume/actions/volumeActions';
-import { getServersInfo } from 'features/instance/actions';
-import VolumesTable from 'features/volume/components/VolumesTable';
 
+import { getVolumesInfo } from 'app/orm/cinder/volume/actions';
+import { getServersInfo } from 'app/orm/nova/server/actions';
+
+import VolumesTable from 'features/volume/components/VolumesTable';
 import CreateVolumeButton from 'features/volume/components/CreateVolumeButton';
 import MoreVolumeButton from 'features/volume/components/MoreVolumeButton';
 

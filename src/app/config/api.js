@@ -1,6 +1,5 @@
 const apiPath = {
-
-  // ServiceType: identity
+  // Identity
   fetchToken: {
     path: '/v3/auth/tokens',
     type: 'identity',
@@ -21,13 +20,18 @@ const apiPath = {
     type: 'identity',
   },
 
-  // ServiceType: image
+  // Image
   getImages: {
     path: '/v2/images',
     type: 'image',
   },
 
-  // ServiceType: compute
+  // Compute
+  getFlavorsInfo: {
+    path: '/flavors/detail',
+    type: 'compute',
+  },
+
   getServers: {
     path: '/servers',
     type: 'compute',
@@ -36,6 +40,11 @@ const apiPath = {
   getServersInfo: {
     path: '/servers/detail',
     type: 'compute',
+  },
+
+  getServerInfo: {
+    path: '/servers/${server_id}',
+    type: 'compute'
   },
 
   getProjectQuota: {
@@ -53,7 +62,7 @@ const apiPath = {
     type: 'compute'
   },
 
-  // ServiceType: volume3
+  // Volume
   getVolumes: {
     path: '/volumes',
     type: 'volumev3'

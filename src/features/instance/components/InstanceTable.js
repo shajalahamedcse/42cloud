@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Table, Spin } from 'antd';
-import { INSTANCE_TABLE_HEADER } from 'features/instance/constants';
+import {
+  INSTANCE_TABLE_COLUMN,
+  INSTANCE_FIELD,
+} from 'features/instance/constants';
+
 import styles from './style/InstanceTable.css';
 
 class InstanceTable extends Component {
@@ -13,8 +17,7 @@ class InstanceTable extends Component {
   render() {
     //
     let columns = [];
-    Object.keys(INSTANCE_TABLE_HEADER).forEach((title) => {
-
+    INSTANCE_TABLE_COLUMN.forEach(title => {
       //
       let sorter, render;
       if (title === 'name') {
@@ -26,10 +29,16 @@ class InstanceTable extends Component {
             </Link>
           )
         }
+      } else if (title === 'security_groups') {
+        render = (text) => {
+          return (
+            <div>{text.map(sg => sg.name).join(',')}</div>
+          )
+        }
       }
 
       columns.push({
-        title: INSTANCE_TABLE_HEADER[title],
+        title: INSTANCE_FIELD[title],
         key: title,
         dataIndex: title,
         sorter: sorter,
@@ -43,7 +52,7 @@ class InstanceTable extends Component {
       data.push(ele);
     });
 
-    if (this.props.serversLoading) {
+    if (this.props.loading) {
       return (
         <Table className={styles.table}
                columns={columns}
@@ -61,8 +70,8 @@ class InstanceTable extends Component {
 
 function mapStateToProps(state) {
   return {
-    serversLoading: state.instance.servers.loading,
-    servers: state.instance.servers.servers
+    loading: state.orm.nova.servers.loading,
+    servers: state.orm.nova.servers.data,
   }
 }
 

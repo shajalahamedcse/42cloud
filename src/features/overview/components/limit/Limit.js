@@ -51,8 +51,8 @@ class Limit extends Component {
 
 function mapStateToProps(state) {
   return {
-    quotaSet: state.overview.quota_set,
-    loading: state.overview.loading
+    quotaSet: state.orm.nova.quotaSet.data,
+    loading: state.orm.nova.quotaSet.loading,
   }
 
 }

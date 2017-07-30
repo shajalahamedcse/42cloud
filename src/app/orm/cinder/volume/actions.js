@@ -1,14 +1,5 @@
 import { combineURL, getToken } from 'app/commons/common';
 
-const selectVolumes = (selectedVolumes) => {
-  return {
-    type: 'SELECT_VOLUMES',
-    selectedVolumes
-  }
-};
-
-
-
 // 获取特定硬盘的详细信息
 const getVolumeInfoSuccess = (volume) => {
   return {
@@ -289,7 +280,6 @@ const pollVolumeIfDeleted = (volume) => {
 export {
   getVolumesInfo,
   createVolume,
-  selectVolumes,
   updateVolume,
   resizeVolume,
   deleteVolume

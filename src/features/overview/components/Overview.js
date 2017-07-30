@@ -5,7 +5,7 @@ import Quota from './quota/Quota';
 import Usage from './usage/Usage';
 import { Row, Col } from 'antd';
 
-import { getProjectQuota } from 'features/overview/actions';
+import { getProjectQuota } from 'app/orm/nova/quota/actions';
 
 class Overview extends Component {
   constructor(props) {

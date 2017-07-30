@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { resizeVolume, selectVolumes } from 'features/volume/actions/volumeActions';
+import { resizeVolume } from 'app/orm/cinder/volume/actions';
+import { selectVolumes } from 'features/volume/actions';
 import { Modal, Form, Input, Slider, InputNumber, Row, Col, Alert } from 'antd';
 const FormItem = Form.Item;
 
@@ -108,7 +109,7 @@ ResizeVolumeModal = Form.create()(ResizeVolumeModal);
 
 function mapStateToProps(state) {
   return {
-    selectedVolumes: state.volume.selectedVolumes
+    selectedVolumes: state.features.volume.selectedVolumes
   }
 }
 export default connect(mapStateToProps, null)(ResizeVolumeModal);

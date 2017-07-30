@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getVolumeTypes } from 'features/volume/actions/volumeTypeActions';
-import { selectVolumes } from 'features/volume/actions/volumeActions';
+import { getVolumeTypes } from 'app/orm/cinder/volumeType/actions';
+import { selectVolumes } from 'features/volume/actions';
 import { Table, Spin } from 'antd';
 import styles from './style/VolumesTable.css';
 import cx from 'classnames';
@@ -132,11 +132,11 @@ class VolumesTable extends Component {
 
 function mapStateToProps(state) {
   return {
-    volumesLoading: state.volume.volumes.loading,
-    volumes: state.volume.volumes.volumes,
-    selectedVolumes: state.volume.selectedVolumes,
-    servers: state.instance.servers.servers,
-    serversLoading: state.instance.servers.loading
+    volumesLoading: state.orm.cinder.volumes.loading,
+    volumes: state.orm.cinder.volumes.data,
+    selectedVolumes: state.features.volume.selectedVolumes,
+    servers: state.orm.nova.servers.data,
+    serversLoading: state.orm.nova.servers.loading,
   }
 }
 
