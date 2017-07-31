@@ -16,28 +16,28 @@ class Limit extends Component {
     } else {
       return (
         <Row gutter={20}>
-          <Col sm={12} md={12} lg={6} xl={6}>
+          <Col xs={12} md={12} xl={6}>
           <LimitCard data={this.props.quotaSet.instances}
                      colorKey='instances'
                      kind="云主机"
           />
           </Col>
 
-          <Col sm={12} md={12} lg={6} xl={6}>
+          <Col xs={12} md={12} xl={6}>
           <LimitCard data={this.props.quotaSet.cores}
                      colorKey='cores'
                      kind="CPU核"
           />
           </Col>
 
-          <Col sm={12} md={12} lg={6} xl={6}>
+          <Col xs={12} md={12} xl={6}>
           <LimitCard data={this.props.quotaSet.ram}
                      colorKey='ram'
                      kind="内存"
           />
           </Col>
 
-          <Col sm={12} md={12} lg={6} xl={6}>
+          <Col xs={12} md={12} xl={6}>
           <LimitCard data={this.props.quotaSet.ram}
                      colorKey='ram'
                      kind="内存"

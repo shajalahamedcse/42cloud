@@ -1,37 +1,27 @@
 import React, { Component } from 'react';
-import { Table, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { selectImages } from 'app/selectors/glance';
-
+import { Spin, Table } from 'antd';
 import { IMAGE_TABLE_COLUMN, IMAGE_FIELD } from 'features/image/constants';
-import styles from './style/ImageTable.css';
 
-class ImageTable extends Component {
+class CreateInstanceStep1 extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    let columns = [];
-    IMAGE_TABLE_COLUMN.forEach((title) => {
-      let sorter;
-      switch(title) {
-        case 'name': {
-          sorter = (a, b) => a.name.length - b.name.length;
-          break;
-        }
-      }
-
+    //
+    const columns = [];
+    IMAGE_TABLE_COLUMN.forEach(title => {
       columns.push({
         title: IMAGE_FIELD[title],
         key: title,
         dataIndex: title,
-        sorter: sorter
       })
     });
-
-    let data = [];
-    this.props.images.data.forEach((ele) => {
+    //
+    const data = [];
+    this.props.images.data.forEach(ele => {
       data.push(ele);
     });
 
@@ -42,11 +32,11 @@ class ImageTable extends Component {
     } else {
       return (
         <Table
-          className={styles.table}
+          showHeader={false}
           columns={columns}
-          rowClassName={(record, index) => ('row' + index)}
           dataSource={data}
           rowKey='id'
+          scroll={{y: 240}}
         />
       )
     }
@@ -59,4 +49,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, null)(ImageTable);
+export default connect(mapStateToProps, null)(CreateInstanceStep1);

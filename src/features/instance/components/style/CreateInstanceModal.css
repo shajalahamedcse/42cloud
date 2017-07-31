@@ -1,0 +1,33 @@
+.content {
+    margin-top: 16px;
+    border: 1px dashed #e9e9e9;
+    border-radius: 6px;
+    background-color: #fafafa;
+    min-height: 300px;
+    text-align: center;
+    padding-top: 80px;
+}
+
+.action {
+    margin-top: 30px;
+    position: relative;
+}
+
+.prev,
+.next,
+.confirm {
+    position: absolute;
+    top: -18px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev {
+    left: 10px;
+}
+
+.confirm {
+    right: 10px;
+}

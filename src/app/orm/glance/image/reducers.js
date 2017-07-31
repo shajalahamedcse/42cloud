@@ -3,8 +3,15 @@ const images = (state = {loading: false, data: []}, action) => {
     case 'GET_IMAGES_SUCCESS': {
       return {
         ...state,
-        loading: true,
+        loading: false,
         data: action.images,
+      }
+    }
+
+    case 'GET_IMAGES_REQUEST': {
+      return {
+        ...state,
+        loading: true,
       }
     }
 

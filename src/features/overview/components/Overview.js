@@ -20,16 +20,12 @@ class Overview extends Component {
     return (
       <div>
         <Row style={{margin: '10px 10px 0 15px'}} gutter={20}>
-          <Col span={24}>
+          <Col sm={24} md={17}>
             <Limit />
-          </Col>
-        </Row>
-        <Row style={{margin: '10px 10px 0 15px'}} gutter={20}>
-          <Col xs={24} md={8}>
-            <Quota />
-          </Col>
-          <Col xs={24} md={16}>
             <Usage />
+          </Col>
+          <Col sm={24} md={7}>
+            <Quota />
           </Col>
         </Row>
       </div>

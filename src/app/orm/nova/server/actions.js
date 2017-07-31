@@ -7,8 +7,15 @@ const getServersInfoSuccess = (servers) => {
   }
 };
 
+const getServersInfoRequest = () => {
+  return {
+    type: 'GET_SERVERS_INFO_REQUEST',
+  }
+};
+
 const getServersInfo = () => {
   return (dispatch) => {
+    getServersInfoRequest();
    let scopedToken = getToken();
    let url = combineURL('getServersInfo');
    fetch(url, {

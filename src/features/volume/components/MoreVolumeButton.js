@@ -9,7 +9,7 @@ class MoreVolumeButton extends Component {
 
   handleMenuClick = (key) => {
     this.props.handleClick(key.key, true)
-  }
+  };
 
   render() {
     let selectedVolumes = this.props.selectedVolumes;
@@ -53,13 +53,11 @@ class MoreVolumeButton extends Component {
     );
 
     return(
-      <span>
-        <Dropdown overlay={menu} trigger={['click']}>
-          <Button type="primary">
-            更多操作<Icon type="down" />
-          </Button>
-        </Dropdown>
-      </span>
+      <Dropdown overlay={menu} trigger={['click']}>
+        <Button type="primary">
+          更多操作<Icon type="down" />
+        </Button>
+      </Dropdown>
     )
   }
 }

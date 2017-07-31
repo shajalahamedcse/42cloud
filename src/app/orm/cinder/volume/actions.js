@@ -36,8 +36,15 @@ const getVolumesInfoSuccess = (volumes) => {
   }
 };
 
+const getVolumesInfoRequest = () => {
+  return {
+    type: 'GET_VOLUMES_INFO_REQUEST'
+  }
+};
+
 const getVolumesInfo = () => {
   return (dispatch) => {
+    dispatch(getVolumesInfoRequest());
     let scopedToken = localStorage.getItem('scopedToken');
     let url = combineURL('getVolumesInfo');
     fetch(url, {

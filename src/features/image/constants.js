@@ -1,8 +1,13 @@
-const IMAGE_TABLE_HEADER = {
-  name: 'name',
-  status: 'status',
-  size: 'size',
-  owner: 'owner'
-};
+export const IMAGE_TABLE_COLUMN = [
+  "name",
+  "status",
+  "size",
+  "owner"
+];
 
-export { IMAGE_TABLE_HEADER };
+export const IMAGE_FIELD = {
+  "name": "名称",
+  "status": "状态",
+  "size": "大小",
+  "owner": "所有者"
+};

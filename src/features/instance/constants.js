@@ -1,4 +1,4 @@
-const INSTANCE_TABLE_COLUMN = [
+export const INSTANCE_TABLE_COLUMN = [
   "name",
   "image",
   "flavor",
@@ -9,7 +9,7 @@ const INSTANCE_TABLE_COLUMN = [
   "security_groups",
 ];
 
-const INSTANCE_FIELD = {
+export const INSTANCE_FIELD = {
   "OS-EXT-STS:task_state": "过渡状态",
   "addresses": "IP地址",
   "image": "镜像",
@@ -37,7 +37,7 @@ const INSTANCE_FIELD = {
   "config_drive": "ConfigDrive"
 };
 
-const INSTANCE_STATUS = {
+export const INSTANCE_STATUS = {
   "ACTIVE": "运行中",
   "BUILDING": "构建中",
   "DELETED": "已删除",
@@ -58,7 +58,7 @@ const INSTANCE_STATUS = {
   "VERIFY_RESIZE": "确认变更规格",
 };
 
-const INSTANCE_POWER_STATE = {
+export const INSTANCE_POWER_STATE = {
   "1": {
     "en": "Running",
     "ch": "运行中"
@@ -81,9 +81,3 @@ const INSTANCE_POWER_STATE = {
   }
 };
 
-export {
-  INSTANCE_TABLE_COLUMN,
-  INSTANCE_FIELD,
-  INSTANCE_STATUS,
-  INSTANCE_POWER_STATE,
-};

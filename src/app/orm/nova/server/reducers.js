@@ -3,8 +3,15 @@ const servers = (state = {loading: false, data:[]}, action) => {
     case 'GET_SERVERS_INFO_SUCCESS': {
       return {
         ...state,
-        loading: true,
+        loading: false,
         data: action.servers,
+      }
+    }
+
+    case 'GET_SERVERS_INFO_REQUEST': {
+      return {
+        ...state,
+        loading: true,
       }
     }
 

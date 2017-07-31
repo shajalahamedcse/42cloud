@@ -3,12 +3,19 @@ import { combineURL } from 'app/commons/common';
 const getImagesSuccess = (images) => {
   return {
     type: 'GET_IMAGES_SUCCESS',
-    images
+    images,
+  }
+};
+
+const getImagesRequest = () => {
+  return {
+    type: 'GET_IMAGES_REQUEST',
   }
 };
 
 const getImages = () => {
   return (dispatch) => {
+    dispatch(getImagesRequest());
     let scopedToken = localStorage.getItem('scopedToken');
     let getImagesURL = combineURL('getImages');
     fetch(getImagesURL, {

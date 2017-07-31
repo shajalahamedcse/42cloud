@@ -3,8 +3,20 @@ const volumeTypes = (state = {loading: false, data: []}, action) => {
     case 'GET_VOLUME_TYPES_SUCCESS': {
       return {
         ...state,
-        loading: true,
+        loading: false,
         data: action.volumeTypes
+      }
+    }
+
+    case 'GET_VOLUME_TYPES_REQUEST': {
+      return {
+        loading: true
+      }
+    }
+
+    case 'GET_VOLUME_TYPES_FAILURE': {
+      return {
+
       }
     }
 

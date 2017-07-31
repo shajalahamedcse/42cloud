@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'antd';
 
 import { getVolumesInfo } from 'app/orm/cinder/volume/actions';
 import { getServersInfo } from 'app/orm/nova/server/actions';
 
 import VolumesTable from 'features/volume/components/VolumesTable';
-import CreateVolumeButton from 'features/volume/components/CreateVolumeButton';
 import MoreVolumeButton from 'features/volume/components/MoreVolumeButton';
-
 import CreateVolumeModal from 'features/volume/components/CreateVolumeModal';
 import DeleteVolumeModal from 'features/volume/components/DeleteVolumeModal';
 import ModifyVolumeModal from 'features/volume/components/ModifyVolumeModal';
 import ResizeVolumeModal from 'features/volume/components/ResizeVolumeModal';
+
+import styles from './style/VolumesTable.css';
 
 class Volume extends Component {
   constructor(props) {
@@ -29,6 +30,10 @@ class Volume extends Component {
     this.props.dispatch(getVolumesInfo());
     this.props.dispatch(getServersInfo());
   }
+
+  handleButtonClick = () => {
+    this.handleModalVisible('create', true)
+  };
 
   handleModalVisible = (modal, visible) => {
     if (modal === 'create') {
@@ -54,23 +59,25 @@ class Volume extends Component {
         resizeVisible: visible
       })
     }
-  }
-
+  };
 
   render() {
     return (
       <div>
-        <CreateVolumeButton
-          handleClick={this.handleModalVisible}
-        />
-
-        <MoreVolumeButton
-          handleClick={this.handleModalVisible}
-        />
+        <Button onClick={this.handleButtonClick}
+                type="primary"
+                className={styles.toolbar}
+                icon="plus">
+          创建
+        </Button>
 
         <CreateVolumeModal
           visible={this.state.createVisible}
           handleModalCancel={this.handleModalVisible}
+        />
+
+        <MoreVolumeButton
+          handleClick={this.handleModalVisible}
         />
 
         <ModifyVolumeModal

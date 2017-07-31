@@ -3,8 +3,15 @@ const volumes = (state = {loading: false, data: []}, action) => {
     case 'GET_VOLUMES_INFO_SUCCESS': {
       return {
         ...state,
-        loading: true,
+        loading: false,
         data: action.volumes
+      }
+    }
+
+    case 'GET_VOLUMES_INFO_REQUEST': {
+      return {
+        ...state,
+        loading: true,
       }
     }
 

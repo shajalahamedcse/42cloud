@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getVolumeTypes } from 'app/orm/cinder/volumeType/actions';
-import { selectVolumes } from 'features/volume/actions';
+import { selectVolumes } from 'app/selectors/cinder';
+import { selectServers } from 'app/selectors/nova';
+
+// import { selectVolumes } from 'features/volume/actions';
+
 import { Table, Spin } from 'antd';
 import styles from './style/VolumesTable.css';
 import cx from 'classnames';
@@ -20,10 +24,10 @@ class VolumesTable extends Component {
     let selectedVolumes = [];
     if (selectedRows.length > 0) {
       selectedRows.forEach((row) => {
-        let index = this.props.volumes.findIndex(
+        let index = this.props.volumes.data.findIndex(
           volume => (row.id === volume.id)
         );
-        selectedVolumes.push(this.props.volumes[index])
+        selectedVolumes.push(this.props.volumes.data[index])
       });
     }
     this.props.dispatch(selectVolumes(selectedVolumes));
@@ -65,7 +69,7 @@ class VolumesTable extends Component {
             text.forEach(attachment => {
               let serverID = attachment['server_id'];
               let serverName = '';
-              this.props.servers.forEach(server => {
+              this.props.servers.data.forEach(server => {
                 if (server.id === serverID) {
                   serverName = server.name;
                 }
@@ -102,7 +106,7 @@ class VolumesTable extends Component {
 
     // 表格数据数组
     let data = [];
-    this.props.volumes.forEach((ele) => {
+    this.props.volumes.data.forEach((ele) => {
       data.push(ele);
     });
 
@@ -112,7 +116,11 @@ class VolumesTable extends Component {
       onChange: this.onSelectChange
     };
 
-    if (this.props.volumesLoading && this.props.serversLoading) {
+    if (this.props.volumes.loading && this.props.servers.loading) {
+      return (
+        <Spin />
+      )
+    } else {
       return (
         <Table className={styles.table}
                rowSelection={rowSelection}
@@ -122,21 +130,15 @@ class VolumesTable extends Component {
                rowKey='id'
         />
       )
-    } else {
-      return (
-        <Spin />
-      )
     }
   }
 }
 
 function mapStateToProps(state) {
   return {
-    volumesLoading: state.orm.cinder.volumes.loading,
-    volumes: state.orm.cinder.volumes.data,
+    volumes: selectVolumes(state),
+    servers: selectServers(state),
     selectedVolumes: state.features.volume.selectedVolumes,
-    servers: state.orm.nova.servers.data,
-    serversLoading: state.orm.nova.servers.loading,
   }
 }
 
