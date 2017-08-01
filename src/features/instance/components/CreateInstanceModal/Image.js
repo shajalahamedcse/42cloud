@@ -4,7 +4,7 @@ import { selectImages } from 'app/selectors/glance';
 import { Spin, Table } from 'antd';
 import { IMAGE_TABLE_COLUMN, IMAGE_FIELD } from 'features/image/constants';
 
-class CreateInstanceStep1 extends Component {
+class Image extends Component {
   constructor(props) {
     super(props);
   }
@@ -36,7 +36,10 @@ class CreateInstanceStep1 extends Component {
           columns={columns}
           dataSource={data}
           rowKey='id'
-          scroll={{y: 240}}
+          scroll={{y: 300}}
+          size="middle"
+          rowSelection={{type: 'radio'}}
+          pagination={false}
         />
       )
     }
@@ -49,4 +52,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, null)(CreateInstanceStep1);
+export default connect(mapStateToProps, null)(Image);

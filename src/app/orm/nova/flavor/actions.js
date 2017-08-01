@@ -1,15 +1,18 @@
 import { combineURL, getToken } from 'app/commons/common';
 
 //
-const getFlavorsInfoSuccess = (flavors) => {
-  return {
+const getFlavorsInfoSuccess = (flavors) => ({
     type: 'GET_FLAVORS_INFO_SUCCESS',
     flavors
-  }
-};
+});
+
+const getFlavorsInfoRequest = () => ({
+  type: 'GET_FLAVORS_INFO_REQUEST'
+});
 
 const getFlavorsInfo = () => {
   return (dispatch) => {
+    getFlavorsInfoRequest();
     let scopedToken = getToken();
     let url = combineURL('getFlavorsInfo');
     fetch(url, {

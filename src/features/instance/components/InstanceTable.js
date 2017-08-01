@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getImages } from 'app/orm/glance/image/actions';
-import { selectServers } from 'app/selectors/nova';
-import { Table, Spin, Button } from 'antd';
-import {
-  INSTANCE_TABLE_COLUMN,
-  INSTANCE_FIELD,
-} from 'features/instance/constants';
 
-import CreateInstanceModal from './CreateInstanceModal';
+import { getImages } from 'app/orm/glance/image/actions';
+import { getFlavorsInfo } from 'app/orm/nova/flavor/actions';
+import { getNetworks } from 'app/orm/neutron/network/actions';
+import { getKeypairs } from 'app/orm/nova/keypair/actions';
+import { getSecurityGroups } from 'app/orm/neutron/securityGroup/actions';
+
+import { selectServers } from 'app/selectors/nova';
+
+import { Table, Spin, Button } from 'antd';
+import { INSTANCE_TABLE_COLUMN, INSTANCE_FIELD } from 'features/instance/constants';
+
+import CreateInstanceModal from './CreateInstanceModal/index';
 
 import styles from './style/InstanceTable.css';
 
@@ -24,6 +28,11 @@ class InstanceTable extends Component {
 
   handleButtonClick = () => {
     this.props.dispatch(getImages());
+    this.props.dispatch(getFlavorsInfo());
+    this.props.dispatch(getNetworks());
+    this.props.dispatch(getKeypairs());
+    this.props.dispatch(getSecurityGroups());
+
     this.handleModalVisible('create', true);
   };
 
@@ -103,10 +112,5 @@ class InstanceTable extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    servers: selectServers(state)
-  }
-}
-
+const mapStateToProps = (state) => ({ servers: selectServers(state) });
 export default connect(mapStateToProps, null)(InstanceTable);

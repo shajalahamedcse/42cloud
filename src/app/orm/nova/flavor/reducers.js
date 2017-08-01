@@ -3,8 +3,15 @@ const flavors = (state = {loading: false, data: []}, action) => {
     case 'GET_FLAVORS_INFO_SUCCESS': {
       return {
         ...state,
-        loading: true,
+        loading: false,
         data: action.flavors
+      }
+    }
+
+    case 'GET_FLAVORS_INFO_REQUEST': {
+      return {
+        ...state,
+        loading: true,
       }
     }
 

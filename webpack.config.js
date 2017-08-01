@@ -124,6 +124,12 @@ module.exports = {
         pathRewrite: {
           '/os-volume': ''
         }
+      },
+      '/os-network': {
+        target: 'http://' + proxy_host + ':9696',
+        pathRewrite: {
+          '/os-network': ''
+        }
       }
     }
   },

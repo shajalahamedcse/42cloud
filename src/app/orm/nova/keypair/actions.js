@@ -1,16 +1,19 @@
 import { combineURL } from 'app/commons/common';
 
-const getKeyPairsSuccess = (keypairs) => {
-  return {
-    type: 'GET_KEY_PAIRS_SUCCESS',
-    keypairs
-  }
-};
+const getKeypairsSuccess = (keypairs) => ({
+  type: 'GET_KEYPAIRS_SUCCESS',
+  keypairs
+});
 
-const getKeyPairs = () => {
+const getKeypairsRequest = () => ({
+  type: 'GET_KEYPAIRS_REQUEST',
+});
+
+const getKeypairs = () => {
   return (dispatch) => {
+    dispatch(getKeypairsRequest());
     let scopedToken = localStorage.getItem('scopedToken');
-    let url = combineURL('getKeyPairs');
+    let url = combineURL('getKeypairs');
     fetch(url, {
       method: 'GET',
       headers: {
@@ -18,7 +21,7 @@ const getKeyPairs = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        dispatch(getKeyPairsSuccess(resBody.keypairs));
+        dispatch(getKeypairsSuccess(resBody.keypairs));
       }).catch((err) => {
         console.log(err);
       })
@@ -28,4 +31,4 @@ const getKeyPairs = () => {
   }
 };
 
-export { getKeyPairs };
+export { getKeypairs };

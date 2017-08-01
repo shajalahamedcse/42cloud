@@ -57,7 +57,7 @@ const apiPath = {
     type: 'compute'
   },
 
-  getKeyPairs: {
+  getKeypairs: {
     path: '/os-keypairs',
     type: 'compute'
   },
@@ -101,6 +101,17 @@ const apiPath = {
   deleteVolume: {
     path: '/volumes/${volume_id}',
     type: 'volumev3'
+  },
+
+  // Network
+  getNetworks: {
+    path: '/v2.0/networks',
+    type: 'network',
+  },
+
+  getSecurityGroups: {
+    path: '/v2.0/security-groups?project_id${project_id}',
+    type: 'network'
   }
 };
 
@@ -109,7 +120,8 @@ const proxyPrefix = {
   identity: '/os-identity',
   compute: '/os-compute',
   image: '/os-image',
-  volumev3: '/os-volume'
+  volumev3: '/os-volume',
+  network: '/os-network',
 };
 
 export { apiPath, proxyPrefix }

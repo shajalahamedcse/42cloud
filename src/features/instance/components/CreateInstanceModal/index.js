@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Modal, Steps, Button } from 'antd';
-import styles from './style/CreateInstanceModal.css'
+import styles from './style/index.css'
 
-import CreateInstanceStep1 from './CreateInstanceStep1';
+import Image from './Image';
+import Flavor from './Flavor';
+import Network from './Network';
+import Security from './Security';
 
 const Step = Steps.Step;
 
@@ -33,16 +36,16 @@ class CreateInstanceModal extends Component {
     const { current } = this.state;
     const steps = [{
       title: '选择镜像',
-      content: <CreateInstanceStep1 />
+      content: <Image />
     }, {
       title: '选择规格',
-      content: '规格配置'
+      content: <Flavor />
     }, {
       title: '选择网络',
-      content: '网络'
+      content: <Network />
     }, {
       title: '安全设置',
-      content: '安全'
+      content: <Security />
     }, {
       title: '确认',
       content: '完成创建'
@@ -51,7 +54,7 @@ class CreateInstanceModal extends Component {
     return (
       <Modal
         title="创建云主机"
-        width="600px"
+        width="700px"
         footer={null}
         visible={this.props.visible}
         onCancel={this.handleCancel}

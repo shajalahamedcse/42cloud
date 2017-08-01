@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table, Spin } from 'antd';
 
-import { KEYPAIR_TABLE_HEADER } from 'features/keypair/constants';
+import { selectKeypairs } from 'app/selectors/nova';
 
-import styles from './style/KeyPairTable.css';
+import { KEYPAIR_TABLE_COLUMN, KEYPAIR_FIELD } from 'features/keypair/constants';
 
-class KeyPairTable extends Component {
+import styles from './style/KeypairTable.css';
+
+class KeypairTable extends Component {
   constructor(props) {
     super(props);
   }
@@ -14,14 +16,14 @@ class KeyPairTable extends Component {
   render() {
 
     let columns = [];
-    Object.keys(KEYPAIR_TABLE_HEADER).forEach((title) => {
+    KEYPAIR_TABLE_COLUMN.forEach((title) => {
       let sorter;
       if (title === 'name') {
         sorter = (a, b) => a.name.length - b.name.length;
       }
 
       columns.push({
-        title: KEYPAIR_TABLE_HEADER[title],
+        title: KEYPAIR_FIELD[title],
         key: title,
         dataIndex: title,
         sorter: sorter
@@ -29,11 +31,15 @@ class KeyPairTable extends Component {
     });
 
     let data = [];
-    this.props.keypairs.forEach((ele) => {
+    this.props.keypairs.data.forEach((ele) => {
       data.push(ele.keypair);
     });
 
-    if (this.props.loading) {
+    if (this.props.keypairs.loading) {
+      return (
+        <Spin />
+      )
+    } else {
       return (
         <Table
           className={styles.table}
@@ -42,19 +48,9 @@ class KeyPairTable extends Component {
           rowKey='name'
         />
       )
-    } else {
-      return (
-        <Spin />
-      )
     }
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    loading: state.orm.nova.keypairs.loading,
-    keypairs: state.orm.nova.keypairs.data,
-  }
-}
-
-export default connect(mapStateToProps, null)(KeyPairTable);
+const mapStateToProps = (state) => ({ keypairs: selectKeypairs(state) });
+export default connect(mapStateToProps, null)(KeypairTable);
