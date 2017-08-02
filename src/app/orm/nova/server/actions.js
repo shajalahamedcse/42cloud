@@ -65,8 +65,149 @@ const getServerInfo = (serverID) => {
   }
 };
 
+//
+const pollServerInfoSuccess = (server) => {
+  return {
+    type: 'POLL_SERVER_INFO_SUCCESS',
+    server,
+  }
+};
+
+const pollServerInfo = (serverID) => {
+  return (dispatch) => {
+    let scopedToken = getToken();
+    let tmpl = {'server_id': serverID};
+    let url = combineURL('getServerInfo', tmpl);
+    let intervalID = setInterval(() => {
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'X-Auth-Token': scopedToken
+        }
+      }).then(res => {
+        res.json().then(resBody => {
+          console.log(resBody);
+          dispatch(pollServerInfoSuccess(resBody.server));
+          if (resBody.server.status === 'ACTIVE') {
+            clearInterval(intervalID);
+          }
+        })
+      })
+    }, 3000);
+  }
+};
+
+//
+const createServerSuccess = (server) => {
+  return {
+    type: 'CREATE_SERVER_SUCCESS',
+    server
+  }
+};
+
+const createServerRequest = () => {
+  return {
+    type: 'CREATE_SERVER_REQUEST'
+  }
+};
+
+const createServer = (serverBody) => {
+  console.log(serverBody);
+  let securityGroups = [];
+  serverBody.choosedSecurityGroup.forEach(item => {
+    securityGroups.push({
+      "name": item,
+    })
+  });
+
+  let networks = [];
+  serverBody.choosedNetworks.forEach(item => {
+    networks.push({
+      "uuid": item,
+    })
+  });
+
+  let reqBody = {
+    "server": {
+      "name": serverBody.filledInstance,
+      "imageRef": serverBody.choosedImage,
+      "flavorRef": serverBody.choosedFlavor,
+      "key_name": serverBody.choosedKeypair,
+      "security_groups": securityGroups,
+      "networks": networks
+    }
+  };
+
+  return (dispatch) => {
+    dispatch(createServerRequest());
+    let scopedToken = getToken();
+    let url = combineURL('createServer');
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(reqBody),
+      headers: {
+        'X-Auth-Token': scopedToken,
+        'Content-Type': 'application/json'
+      },
+    }).then((res) => {
+      res.json().then(resBody => {
+        console.log(resBody);
+        dispatch(createServerSuccess(resBody.server));
+        dispatch(pollServerInfo(resBody.server.id));
+      }).catch(err => {
+        console.log(err);
+      })
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+};
+
+const fetchConsoleOutputSuccess = (output) => {
+  return {
+    type: 'FETCH_CONSOLE_OUTPUT_SUCCESS',
+    output,
+  }
+};
+
+const fetchConsoleOutputRequest = () => {
+  return {
+    type: 'FETCH_CONSOLE_OUTPUT_REQUEST',
+  }
+};
+
+const fetchConsoleOutput = (serverID) => {
+  return (dispatch) => {
+    dispatch(fetchConsoleOutputRequest());
+
+    let reqBody = {
+      "os-getConsoleOutput": {
+        "length": 50
+      }
+    };
+
+    let scopedToken = getToken();
+    console.log(serverID);
+    let tmpl = {'server_id': serverID};
+    let url = combineURL('operateServer', tmpl);
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'X-Auth-Token': scopedToken,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(reqBody),
+    }).then(res => {
+      res.json().then(resBody => {
+        dispatch(fetchConsoleOutputSuccess(resBody.output));
+      })
+    })
+  }
+};
 
 export {
   getServersInfo,
   getServerInfo,
+  createServer,
+  fetchConsoleOutput,
 };

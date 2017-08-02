@@ -62,6 +62,16 @@ const apiPath = {
     type: 'compute'
   },
 
+  createServer: {
+    path: '/servers',
+    type: 'compute',
+  },
+
+  operateServer: {
+    path: '/servers/${server_id}/action',
+    type: 'compute'
+  },
+
   // Volume
   getVolumes: {
     path: '/volumes',
@@ -110,7 +120,7 @@ const apiPath = {
   },
 
   getSecurityGroups: {
-    path: '/v2.0/security-groups?project_id${project_id}',
+    path: '/v2.0/security-groups?project_id=${project_id}',
     type: 'network'
   }
 };

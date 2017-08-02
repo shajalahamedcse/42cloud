@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import { INSTANCE_FIELD } from 'features/instance/constants';
-import styles from './style/InstanceOverview.css';
+import styles from './style/InstanceDetailOverview.css';
 
-class InstanceOverview extends Component {
+class InstanceDetailOverview extends Component {
   constructor(props) {
     super(props);
   }
@@ -103,4 +103,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, null)(InstanceOverview);
+export default connect(mapStateToProps, null)(InstanceDetailOverview);

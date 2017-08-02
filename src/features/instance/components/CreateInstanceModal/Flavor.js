@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectFlavors } from 'app/selectors/nova';
 
-import { availableNetwork } from 'features/instance/actions';
+import { choosedFlavor } from 'features/instance/actions';
 
 import { Spin, Table } from 'antd';
 
@@ -25,7 +25,17 @@ class Flavor extends Component {
     super(props);
   }
 
+  onSelectChange = (selectedRows) => {
+    this.props.dispatch(choosedFlavor(selectedRows[0]));
+  };
+
+
   render() {
+    const rowSelection = {
+      type: 'radio',
+      onChange: this.onSelectChange,
+    };
+
     if (this.props.flavors.loading) {
       return (
         <Spin />
@@ -46,7 +56,7 @@ class Flavor extends Component {
       });
       return (
         <Table
-          rowSelection={{ type: 'radio'}}
+          rowSelection={rowSelection}
           columns={columns}
           dataSource={data}
           size="middle"

@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Spin, Form, Input, Radio, Select } from 'antd';
+import { Spin, Form, Input, Checkbox, Select } from 'antd';
 
 import { selectKeypairs } from 'app/selectors/nova';
 import { selectSecurityGroups } from 'app/selectors/neutron';
 
+import {
+  filledInstance,
+  choosedKeypair,
+  choosedSecurityGroup
+} from 'features/instance/actions';
+
 const FormItem = Form.Item;
 const Option = Select.Option;
-const RadioGroup = Radio.Group;
+const CheckboxGroup = Checkbox.Group;
 
 class Security extends Component {
   constructor(props) {
@@ -27,20 +33,24 @@ class Security extends Component {
         <Spin />
       )
     } else {
-      let selectArrs = [
-        <Select key="sl">
-          <Option value="ssh1">ssh1</Option>
-          <Option value="ssh2">ssh2</Option>
-        </Select>
-      ];
+      let optionArrs = [];
+      this.props.keypairs.data.forEach(item => {
+        optionArrs.push(
+            <Option
+              key={item.keypair.name}
+              value={item.keypair.name}
+            >
+              {item.keypair.name}
+            </Option>
+        )
+      });
 
-      let radioGroupArrs = [
-        <RadioGroup key="rg">
-          <Radio value="sg1">s1</Radio>
-          <Radio value="sg2">s2</Radio>
-          <Radio value="sg3">s3</Radio>
-        </RadioGroup>
-      ];
+      let checkboxArrs = [];
+      this.props.securityGroups.data.forEach(item => {
+        checkboxArrs.push(
+          item.name
+        )
+      });
 
       return (
         <Form>
@@ -56,24 +66,21 @@ class Security extends Component {
           <FormItem
             {...formItemLayout}
             label="SSH密钥对">
-            {
-              getFieldDecorator('select')(
-                <div>
-                {selectArrs}
-                </div>
-              )
-            }
+            {getFieldDecorator('select')(
+              <Select>
+                {optionArrs}
+              </Select>
+            )}
           </FormItem>
           <FormItem
             {...formItemLayout}
             label="安全组">
-            {
-              getFieldDecorator('radio-group')(
-                <div>
-                {radioGroupArrs}
-                </div>
-              )
-            }
+            {getFieldDecorator('radio-group')(
+              <CheckboxGroup
+                options={checkboxArrs}
+              >
+              </CheckboxGroup>
+            )}
           </FormItem>
         </Form>
       )
@@ -86,5 +93,16 @@ const mapStateToProps = (state) => ({
   securityGroups: selectSecurityGroups(state)
 });
 
-Security = Form.create()(Security);
+Security = Form.create({
+  onFieldsChange (props, changedFields) {
+    let fieldName = Object.keys(changedFields);
+    if (fieldName[0] === 'input') {
+      props.dispatch(filledInstance(changedFields['input'].value));
+    } else if (fieldName[0] === 'select') {
+      props.dispatch(choosedKeypair(changedFields['select'].value));
+    } else if (fieldName[0] === 'radio-group') {
+      props.dispatch(choosedSecurityGroup(changedFields['radio-group'].value));
+    }
+  }
+})(Security);
 export default connect(mapStateToProps, null)(Security);

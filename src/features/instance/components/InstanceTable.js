@@ -61,9 +61,16 @@ class InstanceTable extends Component {
         }
       } else if (title === 'security_groups') {
         render = (text) => {
-          return (
-            <div>{text.map(sg => sg.name).join(',')}</div>
-          )
+          if (text) {
+            return (
+              <div>{text.map(sg => sg.name).join(',')}</div>
+            )
+          } else {
+            return (
+              <div>-</div>
+            )
+          }
+
         }
       }
 

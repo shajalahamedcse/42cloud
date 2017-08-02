@@ -13,12 +13,11 @@ class Network extends Component {
 
   handleAddNetwork = (id) => {
     this.props.dispatch(addNetwork(id))
-  }
+  };
 
   handleRemoveNetwork = (id) => {
     this.props.dispatch(removeNetwork(id));
-  }
-
+  };
 
   render() {
     if (this.props.networks.loading) {
@@ -26,7 +25,6 @@ class Network extends Component {
         <Spin />
       )
     } else {
-      console.log(this.props.networks.data);
       let networks = this.props.networks.data;
       let networksID = networks.map(network => network.id);
 

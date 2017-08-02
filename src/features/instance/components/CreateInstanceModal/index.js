@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Modal, Steps, Button } from 'antd';
-import styles from './style/index.css'
 
 import Image from './Image';
 import Flavor from './Flavor';
 import Network from './Network';
 import Security from './Security';
+import Profile from './Profile';
+import { createServer } from 'app/orm/nova/server/actions';
+
+import {
+  choosedNetworks,
+  choosedSecurityGroup,
+  choosedImage,
+  choosedFlavor,
+  choosedKeypair,
+  filledInstance,
+} from 'features/instance/actions';
+
+import styles from './style/index.css'
 
 const Step = Steps.Step;
 
@@ -18,7 +31,17 @@ class CreateInstanceModal extends Component {
     }
   }
 
+  handleSubmit = () => {
+    this.props.dispatch(createServer(this.props.createInstance));
+    this.handleCancel();
+  };
+
   handleCancel = () => {
+    this.props.dispatch(choosedSecurityGroup([]));
+    this.props.dispatch(choosedImage(''));
+    this.props.dispatch(choosedFlavor(''));
+    this.props.dispatch(choosedKeypair(''));
+    this.props.dispatch(filledInstance(''));
     this.props.handleModalCancel('create', false);
   };
 
@@ -48,7 +71,7 @@ class CreateInstanceModal extends Component {
       content: <Security />
     }, {
       title: '确认',
-      content: '完成创建'
+      content: <Profile />
     }];
 
     return (
@@ -86,7 +109,7 @@ class CreateInstanceModal extends Component {
               <Button
                 className={styles.confirm}
                 type="primary"
-                onClick={() => console.log('完成创建')}
+                onClick={this.handleSubmit}
               >
                 完成
               </Button>
@@ -109,4 +132,9 @@ class CreateInstanceModal extends Component {
   }
 }
 
-export default CreateInstanceModal;
+const mapStateToProps = (state) => {
+  return {
+    createInstance: state.features.instance.create,
+  }
+};
+export default connect(mapStateToProps, null)(CreateInstanceModal);
