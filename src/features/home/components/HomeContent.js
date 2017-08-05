@@ -1,8 +1,8 @@
 import React from 'react';
 import { Carousel } from 'antd';
-import home01 from '../../../assets/images/home_01.jpg';
-import home02 from '../../../assets/images/home_02.jpg';
-import home03 from '../../../assets/images/home_03.jpg';
+import home01 from 'assets/images/home_01.jpg';
+import home02 from 'assets/images/home_02.jpg';
+import home03 from 'assets/images/home_03.jpg';
 
 import styles from './style/HomeContent.css';
 

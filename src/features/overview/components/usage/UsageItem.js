@@ -2,25 +2,20 @@ import React from 'react';
 import { Table } from 'antd';
 import moment from 'moment';
 import styles from './style/UsageItem.css';
-
-const tableHeaderName = {
-  name: '实例名称',
-  flavor: '规格',
-  vcpus: 'vCPU数量',
-  memory_mb: '内存',
-  local_gb: '系统盘',
-  hours: '开机时间',
-  started_at: '创建时间'
-};
+import { TENANT_USAGE_TABLE_COLUMN, TENANT_USAGE_FIELD } from 'features/common/constants';
 
 function UsageItem(props) {
-  let keys = Object.keys(tableHeaderName);
   let columns = [], data = [];
 
-  keys.forEach((key) => {
+  TENANT_USAGE_TABLE_COLUMN.forEach((key) => {
+    let sorter;
+    console.log(key);
+    if (key === 'name') {
+    }
     columns.push({
-      title: tableHeaderName[key],
-      dataIndex: key
+      title: TENANT_USAGE_FIELD[key],
+      dataIndex: key,
+      sorter: sorter,
     })
   });
 
@@ -29,7 +24,7 @@ function UsageItem(props) {
     props.tenantUsage.server_usages.forEach((ele) => {
       let obj = {};
       obj['key'] = uniqueKey++;
-      keys.forEach((key) => {
+      TENANT_USAGE_TABLE_COLUMN.forEach((key) => {
         if (key === 'started_at') {
           obj[key] = moment(ele[key]).startOf('day').fromNow();
         } else if (key === 'hours') {

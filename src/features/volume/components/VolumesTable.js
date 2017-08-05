@@ -4,16 +4,15 @@ import { getVolumeTypes } from 'app/orm/cinder/volumeType/actions';
 import { selectVolumes } from 'app/selectors/cinder';
 import { selectServers } from 'app/selectors/nova';
 
-// import { selectVolumes } from 'features/volume/actions';
-
 import { Table, Spin } from 'antd';
 import styles from './style/VolumesTable.css';
 import cx from 'classnames';
 import {
   VOLUME_STATUS,
-  VOLUME_TABLE_HEADER,
+  VOLUME_TABLE_COLUMN,
+  VOLUME_FIELD,
   VOLUME_TYPE
-} from 'features/volume/constants';
+} from 'features/common/constants';
 
 class VolumesTable extends Component {
   constructor(props) {
@@ -36,7 +35,7 @@ class VolumesTable extends Component {
   render() {
     // 表格列的配置描述
     let columns = [];
-    Object.keys(VOLUME_TABLE_HEADER).forEach(title => {
+    VOLUME_TABLE_COLUMN.forEach(title => {
 
       // 表格列的排序函数
       // 表格列的渲染函数
@@ -96,7 +95,7 @@ class VolumesTable extends Component {
       }
 
       columns.push({
-        title: VOLUME_TABLE_HEADER[title],
+        title: VOLUME_FIELD[title],
         key: title,
         dataIndex: title,
         sorter: sorter,
@@ -122,12 +121,15 @@ class VolumesTable extends Component {
       )
     } else {
       return (
-        <Table className={styles.table}
-               rowSelection={rowSelection}
-               columns={columns}
-               rowClassName={(record, index) => ('row' + index)}
-               dataSource={data}
-               rowKey='id'
+        <Table
+          className={styles.table}
+          rowSelection={rowSelection}
+          columns={columns}
+          bordered={true}
+          size="middle"
+          rowClassName={(record, index) => ('row' + index)}
+          dataSource={data}
+          rowKey='id'
         />
       )
     }

@@ -69,8 +69,21 @@ const create = (state = initialCreateState, action) => {
   }
 };
 
+const timeSpan = (state = '1hour', action) => {
+  switch(action.type) {
+    case 'FILTER_TIME_SPAN': {
+      return action.timeSpan
+    }
+
+    default: {
+      return state
+    }
+  }
+};
+
 const instance = combineReducers({
-  create
+  create,
+  timeSpan,
 });
 
 export default instance

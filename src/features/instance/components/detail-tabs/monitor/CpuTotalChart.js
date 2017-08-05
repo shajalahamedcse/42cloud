@@ -1,0 +1,30 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import ReactEcharts from 'echarts-for-react';
+import { Spin } from 'antd';
+import { selectMonitor } from 'app/selectors/influxdb';
+import { getOption } from './common';
+
+function CpuTotalChart(props) {
+  if (props.monitor.vcpuTotal.loading ||
+    props.monitor.vcpuCore.loading ||
+    props.monitor.vmem.loading) {
+    return(
+      <Spin />
+    )
+  } else {
+    return(
+      <ReactEcharts
+        style={{height: '260px', width: '1000px'}}
+        option={getOption(props.monitor.vcpuTotal.data, props.timeSpan)}
+      />
+    )
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    monitor: selectMonitor(state),
+  }
+};
+export default connect(mapStateToProps, null)(CpuTotalChart);

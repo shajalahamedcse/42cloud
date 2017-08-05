@@ -43,8 +43,16 @@ const getServerInfoSuccess = (server) => {
   }
 };
 
+const getServerInfoRequest = () => {
+  return {
+    type: 'GET_SERVER_INFO_REQUEST'
+  }
+};
+
 const getServerInfo = (serverID) => {
   return (dispatch) => {
+    dispatch(getServerInfoRequest());
+
     let scopedToken = getToken();
     let tmpl = {'server_id': serverID};
     let url = combineURL('getServerInfo', tmpl);
@@ -187,7 +195,6 @@ const fetchConsoleOutput = (serverID) => {
     };
 
     let scopedToken = getToken();
-    console.log(serverID);
     let tmpl = {'server_id': serverID};
     let url = combineURL('operateServer', tmpl);
     fetch(url, {

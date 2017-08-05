@@ -1,8 +1,8 @@
-import Overview from 'features/overview/components/Overview';
-import Instance from 'features/instance/components/Instance';
-import Image from 'features/image/components/Image';
-import Volume from 'features/volume/components/Volume';
-import keypair from 'features/keypair/components/keypair';
+import Overview from 'features/overview';
+import Instance from 'features/instance';
+import Image from 'features/image/';
+import Volume from 'features/volume/';
+import keypair from 'features/keypair';
 
 export const CONSOLE_ROUTES = {
   overview: Overview,

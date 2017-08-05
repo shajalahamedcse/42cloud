@@ -1,0 +1,19 @@
+.wrapper {
+    margin: 0 20px;
+    padding: 20px 20px 0 20px;
+    background-color: #ffffff;
+}
+
+.button {
+    margin-right: 5px;
+}
+
+.toolbar {
+    margin-bottom: 20px;
+}
+
+.time {
+    font-size: 11px;
+    font-style: italic;
+    color: #999;
+}

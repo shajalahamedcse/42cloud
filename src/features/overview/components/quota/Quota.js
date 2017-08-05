@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import styles from './style/Quota.css';
 import QuotaItem from './QuotaItem.js';
-import { QUOTA_TITLE_NAME } from 'features/overview/constants';
+import { QUOTA_FIELD } from 'features/common/constants';
 
 
 function Quota(props) {
@@ -20,8 +20,8 @@ function Quota(props) {
             pbUsed, // progressbar used
             pbLeft; // progressbar left
 
-        if (QUOTA_TITLE_NAME.hasOwnProperty(item)) {
-          title = QUOTA_TITLE_NAME[item]
+        if (QUOTA_FIELD.hasOwnProperty(item)) {
+          title = QUOTA_FIELD[item]
         } else {
           title = String(item);
         }

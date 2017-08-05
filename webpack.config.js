@@ -130,6 +130,13 @@ module.exports = {
         pathRewrite: {
           '/os-network': ''
         }
+      },
+      '/os-monitor': {
+        target: 'http://' + proxy_host + ':8086',
+        pathRewrite: {
+          '/os-monitor': ''
+        },
+        auth: 'collectd_read:collectd_read'
       }
     }
   },

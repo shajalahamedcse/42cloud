@@ -32,3 +32,8 @@ export const filledInstance = (name) => ({
   type: 'FILLED_INSTANCE',
   name
 });
+
+export const filterTimeSpan = (timeSpan) => ({
+  type: 'FILTER_TIME_SPAN',
+  timeSpan
+});

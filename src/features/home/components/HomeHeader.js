@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../../login/actions';
+import { logout } from 'features/login/actions';
 import styles from './style/HomeHeader.css';
 import { Menu } from 'antd';
 

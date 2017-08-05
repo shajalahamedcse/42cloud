@@ -122,6 +122,22 @@ const apiPath = {
   getSecurityGroups: {
     path: '/v2.0/security-groups?project_id=${project_id}',
     type: 'network'
+  },
+
+  // Monitor
+  getMonVcpuCoreUsage: {
+    path: '/query?q=',
+    type: 'monitor'
+  },
+
+  getMonVcpuTotalUsage: {
+    path: '/query?q=',
+    type: 'monitor'
+  },
+
+  getMonVmemUsage: {
+    path: '/query?q=',
+    type: 'monitor'
   }
 };
 
@@ -132,6 +148,7 @@ const proxyPrefix = {
   image: '/os-image',
   volumev3: '/os-volume',
   network: '/os-network',
+  monitor: '/os-monitor',
 };
 
 export { apiPath, proxyPrefix }

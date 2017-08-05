@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import moment from 'moment';
-import Home from '../../features/home/components/Home';
-import Login from '../../features/login/Login';
-import Console from '../../features/console/Console';
+import Home from 'features/home/';
+import Login from 'features/login';
+import Console from 'features/console';
 import { loadTokenData } from 'features/login/actions';
 
 const PrivateRoute = ({ component: Component, authed, ...rest }) => (
