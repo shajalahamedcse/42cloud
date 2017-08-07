@@ -15,11 +15,18 @@ class Flavor extends Component {
     this.props.dispatch(choosedFlavor(selectedRows[0]));
   };
 
+  componentWillMount() {
+    if (!this.props.choosedFlavor) {
+      let defaultFlavorId = this.props.flavors.data[0].id;
+      this.props.dispatch(choosedFlavor(defaultFlavorId));
+    }
+  };
 
   render() {
     const rowSelection = {
       type: 'radio',
       onChange: this.onSelectChange,
+      selectedRowKeys: [this.props.choosedFlavor],
     };
 
     if (this.props.flavors.loading) {
@@ -56,6 +63,7 @@ class Flavor extends Component {
 
 const mapStateToProps = (state) => ({
   flavors: selectFlavors(state),
+  choosedFlavor: state.features.instance.create.choosedFlavor,
 });
 
 export default connect(mapStateToProps, null)(Flavor);

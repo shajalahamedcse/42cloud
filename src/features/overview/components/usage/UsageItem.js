@@ -8,14 +8,9 @@ function UsageItem(props) {
   let columns = [], data = [];
 
   TENANT_USAGE_TABLE_COLUMN.forEach((key) => {
-    let sorter;
-    console.log(key);
-    if (key === 'name') {
-    }
     columns.push({
       title: TENANT_USAGE_FIELD[key],
       dataIndex: key,
-      sorter: sorter,
     })
   });
 

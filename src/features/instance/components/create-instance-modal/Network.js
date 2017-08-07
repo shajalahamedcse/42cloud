@@ -37,12 +37,15 @@ class Network extends Component {
         let index = networks.findIndex(network => network.id === ele);
         availableNetworksNode.push(
           <div
-            onClick={() => this.handleAddNetwork(ele)}
             className={styles.network}
             key={ele}
           >
             <span>{networks[index].name}</span>
-            <span className={styles.plus}>+</span>
+            <span
+              onClick={() => this.handleAddNetwork(ele)}
+              className={styles.add}>
+              <i className="fa fa-plus" />
+            </span>
           </div>
         )
       });
@@ -52,12 +55,15 @@ class Network extends Component {
         let index = networks.findIndex(network => network.id === ele);
         choosedNetworksNode.push(
           <div
-            onClick={() => this.handleRemoveNetwork(ele)}
             className={styles.network}
             key={ele}
           >
             <span>{networks[index].name}</span>
-            <span className={styles.plus}>+</span>
+            <span
+              onClick={() => this.handleRemoveNetwork(ele)}
+              className={styles.remove}>
+              <i className="fa fa-minus" />
+            </span>
           </div>
         )
       });
@@ -67,13 +73,17 @@ class Network extends Component {
           <Col span={12}>
             <div>
               <span>可选网络</span>
-              {availableNetworksNode}
+              <div className={styles.available}>
+                {availableNetworksNode}
+              </div>
             </div>
           </Col>
           <Col span={12}>
             <div>
               <span>已选网络</span>
-              {choosedNetworksNode}
+              <div className={styles.choosed}>
+                {choosedNetworksNode}
+              </div>
             </div>
           </Col>
         </Row>

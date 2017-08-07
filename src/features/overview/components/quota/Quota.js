@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import styles from './style/Quota.css';
 import QuotaItem from './QuotaItem.js';
-import { QUOTA_FIELD } from 'features/common/constants';
+import { QUOTA_LIST, QUOTA_FIELD } from 'features/common/constants';
 
 
 function Quota(props) {
@@ -11,14 +11,14 @@ function Quota(props) {
     let quotaItems = props.quotaSet,
         quotaItemElements = [];
 
-    for (let item in quotaItems) {
+    QUOTA_LIST.forEach(item => {
       if (quotaItems.hasOwnProperty(item) && (String(item) !== 'id')) {
         let used = quotaItems[item].in_use,
-            limit = quotaItems[item].limit,
-            left,
-            title,
-            pbUsed, // progressbar used
-            pbLeft; // progressbar left
+          limit = quotaItems[item].limit,
+          left,
+          title,
+          pbUsed, // progressbar used
+          pbLeft; // progressbar left
 
         if (QUOTA_FIELD.hasOwnProperty(item)) {
           title = QUOTA_FIELD[item]
@@ -53,7 +53,8 @@ function Quota(props) {
           />
         )
       }
-    }
+
+    });
 
     return (
       <div className={styles.container}>

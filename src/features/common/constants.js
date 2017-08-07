@@ -76,6 +76,7 @@ const INSTANCE_FIELD = {
 
 const INSTANCE_STATUS = {
   "ACTIVE": "运行中",
+  "BUILD": "构建中",
   "BUILDING": "构建中",
   "DELETED": "已删除",
   "ERROR": "错误",
@@ -152,9 +153,10 @@ const VOLUME_TABLE_COLUMN = [
   "size",
   "volume_type",
   "status",
-  "attachments",
+  // "attachments",
   "bootable",
-  "disk_format"
+  "created_at",
+  // "disk_format"
 ];
 
 const VOLUME_FIELD = {
@@ -165,7 +167,8 @@ const VOLUME_FIELD = {
   "status": "状态",
   "attachments": "连接到 serverID 的设备",
   "bootable": "可启动",
-  "disk_format": "磁盘格式"
+  "disk_format": "磁盘格式",
+  "created_at": "创建时间"
 };
 
 const VOLUME_STATUS = {
@@ -188,6 +191,20 @@ const VOLUME_TYPE = {
 };
 
 // Quota
+const QUOTA_LIST = [
+  'instances',
+  'cores',
+  'metadata_items',
+  'server_group_members',
+  'ram',
+  'server_groups',
+  'floating_ips',
+  'key_pairs',
+  'security_group_rules',
+  'injected_files',
+  'fixed_ips',
+];
+
 const QUOTA_FIELD = {
   'injected_file_content_bytes': '注入的文件内容字节数 (个)',
   'metadata_items': '元数据条目 (个)',
@@ -196,7 +213,7 @@ const QUOTA_FIELD = {
   'ram': '内存 (MB)',
   'floating_ips': '浮动IP (个)',
   'key_pairs': '密钥对 (个)',
-  'instances': '实例 (个)',
+  'instances': '云主机 (个)',
   'security_group_rules': '安全组规则 (个)',
   'injected_files': '注入的文件 (个)',
   'cores': 'vCPU数量 (核)',
@@ -228,5 +245,6 @@ export {
   VOLUME_STATUS,
   VOLUME_TYPE,
 
+  QUOTA_LIST,
   QUOTA_FIELD,
 }

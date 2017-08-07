@@ -1,0 +1,10 @@
+.log > div {
+    background-color: #111;
+    padding: 5px;
+    color: #ffffff;
+}
+
+.log {
+    height: 600px;
+    overflow-y: scroll;
+}

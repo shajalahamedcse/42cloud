@@ -94,7 +94,6 @@ const pollServerInfo = (serverID) => {
         }
       }).then(res => {
         res.json().then(resBody => {
-          console.log(resBody);
           dispatch(pollServerInfoSuccess(resBody.server));
           if (resBody.server.status === 'ACTIVE') {
             clearInterval(intervalID);
@@ -120,7 +119,6 @@ const createServerRequest = () => {
 };
 
 const createServer = (serverBody) => {
-  console.log(serverBody);
   let securityGroups = [];
   serverBody.choosedSecurityGroup.forEach(item => {
     securityGroups.push({
@@ -135,15 +133,23 @@ const createServer = (serverBody) => {
     })
   });
 
+  let server = {
+    "name": serverBody.filledInstance,
+    "imageRef": serverBody.choosedImage,
+    "flavorRef": serverBody.choosedFlavor,
+    "networks": networks
+  }
+
+  if (serverBody.choosedKeypair) {
+    server["key_name"] = serverBody.choosedKeypair;
+  }
+
+  if (securityGroups) {
+    server["security_groups"] = securityGroups;
+  }
+
   let reqBody = {
-    "server": {
-      "name": serverBody.filledInstance,
-      "imageRef": serverBody.choosedImage,
-      "flavorRef": serverBody.choosedFlavor,
-      "key_name": serverBody.choosedKeypair,
-      "security_groups": securityGroups,
-      "networks": networks
-    }
+    server,
   };
 
   return (dispatch) => {
@@ -159,9 +165,17 @@ const createServer = (serverBody) => {
       },
     }).then((res) => {
       res.json().then(resBody => {
-        console.log(resBody);
-        dispatch(createServerSuccess(resBody.server));
-        dispatch(pollServerInfo(resBody.server.id));
+        let createServer = {
+          'id': resBody.server.id,
+          'name': server.name,
+          'image': {'id': server.imageRef},
+          'flavor': {'id': server.flavorRef},
+        };
+
+
+        console.log(createServer);
+        dispatch(createServerSuccess(createServer));
+        dispatch(pollServerInfo(createServer.id));
       }).catch(err => {
         console.log(err);
       })

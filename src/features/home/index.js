@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import HomeHeader from './components/HomeHeader';
 import HomeContent from './components/HomeContent';
 import HomeFooter from './components/HomeFooter';
@@ -9,6 +10,14 @@ const { Header, Content, Footer } = Layout;
 
 
 function Home() {
+  return (
+    <Redirect to={{
+      pathname: '/login',
+    }}/>
+  )
+}
+
+function test() {
   return (
     <Layout>
       <Header className={styles.header}>

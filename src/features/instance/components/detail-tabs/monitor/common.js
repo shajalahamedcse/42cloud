@@ -46,7 +46,12 @@ export const getOption = (monitorResults, timeSpan) => {
             normal: {
               width: 1
             }
-          }
+          },
+          // areaStyle: {
+          //   normal: {
+          //     color: 'rgba(128, 128, 128, 0.5)'
+          //   }
+          // }
         })
       })
     }
@@ -71,7 +76,6 @@ export const getOption = (monitorResults, timeSpan) => {
         fontSize: 12
       },
       formatter: function(params) {
-        console.log(params);
         params = params[0];
         let date = moment(params.data[0]).format(timeFormat);
         let value = params.seriesName + ': ' + params.data[1].toFixed(4);

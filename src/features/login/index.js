@@ -6,8 +6,6 @@ import { login, loadTokenData } from './actions';
 import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 
-import login_bg from 'assets/images/login_bg.jpg';
-
 const FormItem = Form.Item;
 
 class NormalLoginForm extends Component {
@@ -16,6 +14,10 @@ class NormalLoginForm extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleTry = () => {
+    this.props.dispatch(login({'username': 'admin', 'password': 'admin'}))
+  };
 
   handleSubmit(e) {
     e.preventDefault();
@@ -54,37 +56,50 @@ class NormalLoginForm extends Component {
       isLogged ?
       <Redirect to={referrer} /> :
       (
-        <div className={styles.login}>
-          <Form onSubmit={this.handleSubmit} className={styles.form}>
+        <div className={styles.wrapper}>
+          <div className={styles.login}>
+            <Form onSubmit={this.handleSubmit} className={styles.form}>
+              <FormItem>
+                {getFieldDecorator('username', {
+                  rules: [{ required: true, message: '请输入用户名！' }],
+                })(
+                  <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}
+                         placeholder="用户名"
+                  />
+                )}
+              </FormItem>
 
-            <FormItem>
-              {getFieldDecorator('userName', {
-                rules: [{ required: true, message: '请输入用户名！' }],
-              })(
-                <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />}
-                       placeholder="用户名"
-                />
-              )}
-            </FormItem>
+              <FormItem>
+                {getFieldDecorator('password', {
+                  rules: [{ required: true, message: '请输入密码！' }],
+                })(
+                  <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
+                         type="password"
+                         placeholder="密码"
+                  />
+                )}
+              </FormItem>
 
-            <FormItem>
-              {getFieldDecorator('password', {
-                rules: [{ required: true, message: '请输入密码！' }],
-              })(
-                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
-                       type="password"
-                       placeholder="密码"
-                />
-              )}
-            </FormItem>
+              <FormItem>
+                <Button type="primary" htmlType="submit" className={styles.btnLogin}>
+                  登录
+                </Button>
+              </FormItem>
 
-            <FormItem>
-              <Button type="primary" htmlType="submit" className={styles.btnLogin}>
-                登录
-              </Button>
-            </FormItem>
+              <div className={styles.github}>
+                <a href="https://github.com/qeelei/42cloud">
+                  <Icon type="github" style={{ fontSize: '20px', color: '#555' }}/>
+                </a>
+              </div>
 
-          </Form>
+              <div
+                onClick={this.handleTry}
+                className={styles.experience}>
+                免登体验
+              </div>
+            </Form>
+
+          </div>
         </div>
       )
     );

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Menu, Dropdown, Button, Icon } from 'antd';
 
+import styles from './style/MoreVolumeButton.css'
+
 class MoreVolumeButton extends Component {
   constructor(props) {
     super(props);
@@ -12,49 +14,51 @@ class MoreVolumeButton extends Component {
   };
 
   render() {
-    let selectedVolumes = this.props.selectedVolumes;
+    let choosedVolumes = this.props.choosedVolumes;
     const menu = (
-      <Menu onClick={this.handleMenuClick}>
+      <Menu
+        className={styles.menu}
+        onClick={this.handleMenuClick}>
         <Menu.Item
           key="mount"
-          disabled={selectedVolumes.length < 1}
+          disabled={true}
         >
-          <i className="fa fa-desktop">加载硬盘到主机</i>
+          <i className="fa fa-laptop">加载硬盘到主机</i>
         </Menu.Item>
 
         <Menu.Item
           key="unmount"
-          disabled={selectedVolumes.length < 1}
+          disabled={true}
         >
-          <i className="fa fa-desktop">卸载硬盘</i>
+          <i className="fa fa-chain-broken">卸载硬盘</i>
         </Menu.Item>
 
         <Menu.Item
           key="resize"
-          disabled={selectedVolumes.length !== 1}
+          disabled={choosedVolumes.length !== 1}
         >
-          <i className="fa fa-desktop">扩容</i>
+          <i className="fa fa-expand">扩容</i>
         </Menu.Item>
 
         <Menu.Item
           key="modify"
-          disabled={selectedVolumes.length !== 1}
+          disabled={choosedVolumes.length !== 1}
         >
-          <i className="fa fa-desktop">修改</i>
+          <i className="fa fa-pencil">修改</i>
         </Menu.Item>
 
         <Menu.Item
           key="delete"
-          disabled={selectedVolumes.length < 1}
+          disabled={choosedVolumes.length < 1}
         >
-          <i className="fa fa-desktop">删除</i>
+          <i className="fa fa-trash">删除</i>
         </Menu.Item>
       </Menu>
     );
 
     return(
       <Dropdown overlay={menu} trigger={['click']}>
-        <Button type="primary">
+        <Button type="primary" icon="appstore-o">
           更多操作<Icon type="down" />
         </Button>
       </Dropdown>
@@ -64,7 +68,7 @@ class MoreVolumeButton extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedVolumes: state.features.volume.selectedVolumes
+    choosedVolumes: state.features.volume.choosedVolumes,
   }
 }
 

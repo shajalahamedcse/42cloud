@@ -60,7 +60,7 @@ const fetchUnscopedToken = (dispatch, values) => {
           ],
           "password": {
             "user": {
-              "name": values.userName,
+              "name": values.username,
               "domain": {
                 "name": "Default"
               },

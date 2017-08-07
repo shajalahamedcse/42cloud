@@ -14,12 +14,6 @@ const volumeTypes = (state = {loading: false, data: []}, action) => {
       }
     }
 
-    case 'GET_VOLUME_TYPES_FAILURE': {
-      return {
-
-      }
-    }
-
     default: {
       return state;
     }

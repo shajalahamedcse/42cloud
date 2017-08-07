@@ -5,25 +5,27 @@ import { selectFlavors } from 'app/selectors/nova';
 import { selectImages } from 'app/selectors/glance';
 import { selectNetworks } from 'app/selectors/neutron';
 
+import styles from './style/Profile.css';
+
 function Profile(props) {
-  let createInstance = props.createInstance;
+  let create = props.create;
 
   let imageName = '';
   props.images.data.forEach(ele => {
-    if (ele.id === createInstance.choosedImage) {
+    if (ele.id === create.choosedImage) {
       imageName = ele.name;
     }
   });
 
   let flavorName = '';
   props.flavors.data.forEach(ele => {
-    if (ele.id === createInstance.choosedFlavor) {
+    if (ele.id === create.choosedFlavor) {
       flavorName = ele.name;
     }
   });
 
   let networksNode = [];
-  createInstance.choosedNetworks.forEach(ele => {
+  create.choosedNetworks.forEach(ele => {
     props.networks.data.forEach(item => {
       if (item.id === ele) {
         networksNode.push(
@@ -34,37 +36,40 @@ function Profile(props) {
   });
 
   let securityGroupsNode = [];
-  createInstance.choosedSecurityGroup.forEach(ele => {
+  create.choosedSecurityGroup.forEach(ele => {
     securityGroupsNode.push(
       <span key={ele}>{ele}</span>
     )
   });
 
   return (
-    <div>
-      <div>
+    <div className={styles.wrapper}>
+      <div className={styles.instance}>
         <span>主机名</span>
-        <span>{createInstance.filledInstance}</span>
+        <span>{create.filledInstance}</span>
       </div>
 
-      <div>
+      <div className={styles.image}>
         <span>镜像</span>
         <span>{imageName}</span>
       </div>
 
-      <div>
+      <div className={styles.flavor}>
         <span>规格</span>
         <span>{flavorName}</span>
       </div>
-      <div>
+
+      <div className={styles.network}>
         <span>网络</span>
         {networksNode}
       </div>
-      <div>
+
+      <div className={styles.keypair}>
         <span>密钥对</span>
-        <span>{createInstance.choosedKeypair}</span>
+        <span>{create.choosedKeypair}</span>
       </div>
-      <div>
+
+      <div className={styles.sg}>
         <span>安全组</span>
         {securityGroupsNode}
       </div>
@@ -74,7 +79,7 @@ function Profile(props) {
 
 const mapStateToProps = (state) => {
   return {
-    createInstance: state.features.instance.create,
+    create: state.features.instance.create,
     images: selectImages(state),
     flavors: selectFlavors(state),
     networks: selectNetworks(state),

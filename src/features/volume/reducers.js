@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-const selectedVolumes = (state = [], action) => {
+const choosedVolumes = (state = [], action) => {
   switch(action.type) {
     case 'SELECT_VOLUMES': {
-      return [...action.selectedVolumes]
+      return [...action.choosedVolumes]
     }
 
     default: {
@@ -13,7 +13,7 @@ const selectedVolumes = (state = [], action) => {
 };
 
 const volume = combineReducers({
-  selectedVolumes
+  choosedVolumes
 });
 
 export default volume;

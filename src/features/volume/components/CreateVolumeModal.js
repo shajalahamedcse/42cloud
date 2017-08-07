@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Form, Input, InputNumber, Radio, Spin } from 'antd';
+import { Modal, Form, Input, Radio, Spin } from 'antd';
 import { createVolume } from 'app/orm/cinder/volume/actions';
 import { selectVolumeTypes } from 'app/selectors/cinder';
 
@@ -46,13 +46,17 @@ class CustomizeForm extends Component {
                onCancel={this.handleCancel}
                onOk={this.handleOk}
         >
-          <Form layout="inline">
-            <FormItem label="名称：">
-              {getFieldDecorator('name')(<Input />)}
+          <Form>
+            <FormItem label="名称: ">
+              {getFieldDecorator('name')(
+                <Input />
+              )}
             </FormItem>
 
             <FormItem label="描述：">
-              {getFieldDecorator('description')(<TextArea />)}
+              {getFieldDecorator('description')(
+                <TextArea />
+              )}
             </FormItem>
 
             <FormItem label="类型：">
@@ -65,7 +69,7 @@ class CustomizeForm extends Component {
 
             <FormItem label="容量：">
               {getFieldDecorator('size', {initialValue: 1})(
-                <InputNumber min={1} max={10} />
+                <Input />
               )}
             </FormItem>
           </Form>

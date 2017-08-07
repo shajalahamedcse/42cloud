@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchConsoleOutput } from 'app/orm/nova/server/actions';
 import { selectConsoleOutput } from 'app/selectors/nova';
-
 import { Spin } from 'antd';
+
+import styles from './ConsoleLog.css';
 
 class ConsoleLog extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class ConsoleLog extends Component {
         )
       });
       return (
-        <div>
+        <div className={styles.log}>
           {logNode}
         </div>
       )

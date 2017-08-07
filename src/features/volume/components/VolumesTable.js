@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getVolumeTypes } from 'app/orm/cinder/volumeType/actions';
 import { selectVolumes } from 'app/selectors/cinder';
 import { selectServers } from 'app/selectors/nova';
-
+import { choosedVolumes } from 'features/volume/actions';
 import { Table, Spin } from 'antd';
+import moment from 'moment';
 import styles from './style/VolumesTable.css';
 import cx from 'classnames';
 import {
@@ -29,7 +29,7 @@ class VolumesTable extends Component {
         selectedVolumes.push(this.props.volumes.data[index])
       });
     }
-    this.props.dispatch(selectVolumes(selectedVolumes));
+    this.props.dispatch(choosedVolumes(selectedVolumes));
   };
 
   render() {
@@ -92,6 +92,13 @@ class VolumesTable extends Component {
           }
           return (<span>{attachments}</span>)
         };
+      } else if (title === 'created_at') {
+        render = (text) => {
+          let time = moment(text).format('YYYY-MM-DD HH:mm:ss');
+          return (
+            <span>{time}</span>
+          )
+        }
       }
 
       columns.push({
@@ -111,7 +118,7 @@ class VolumesTable extends Component {
 
     // 表格行的选择功能的配置
     const rowSelection = {
-      selectedRowKeys: this.props.selectedVolumes.map(item => item.id),
+      selectedRowKeys: this.props.choosedVolumes.map(item => item.id),
       onChange: this.onSelectChange
     };
 
@@ -140,7 +147,7 @@ function mapStateToProps(state) {
   return {
     volumes: selectVolumes(state),
     servers: selectServers(state),
-    selectedVolumes: state.features.volume.selectedVolumes,
+    choosedVolumes: state.features.volume.choosedVolumes,
   }
 }
 

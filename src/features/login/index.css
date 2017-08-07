@@ -1,18 +1,48 @@
 .form {
-  max-width: 350px;
-  position:fixed;
-  left:0;
-  right:0;
-  margin: auto;
-  top:100px;
+    width: 400px;
+    position:fixed;
+    left:0;
+    right:0;
+    margin: auto;
+    top:200px;
+    background-color: #ffffff;
+    padding: 50px 40px 40px 40px;
+    box-shadow: 0 0 1em #888;
+    border-radius: 5px;
+}
+
+.wrapper {
+    height: 100%;
+    position: relative;
+    background-image: url(../../assets/images/login_bg.jpg);
+    background-size: cover;
+    background-position: 50%;
 }
 
 .btnLogin {
   width: 100%;
 }
 
-.login {
-    height: 100%;
-    background-image: url('/src/assets/images/login_bg.jpg');
+.experience {
+    font-size: 14px;
+    color: #108EE9;
+    text-align: right;
+    margin-bottom: 10px;
+    display: inline-block;
+    border: 1px solid #108ee9;
+    border-radius: 5px;
+    padding: 3px 5px;
+    position: absolute;
+    right: 40px;
+    bottom: 0;
+}
 
+.experience:hover {
+    cursor: pointer;
+}
+
+.github {
+    position: absolute;
+    bottom: 10px;
+    left: 40px;
 }

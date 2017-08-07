@@ -13,13 +13,6 @@ const getVolumeTypesRequest = () => {
   }
 };
 
-const getVolumeTypesFailure = (error) => {
-  return {
-    type: 'GET_VOLUME_TYPES_FAILURE',
-    error
-  }
-};
-
 export const getVolumeTypes = () => {
   return (dispatch) => {
     dispatch(getVolumeTypesRequest());
@@ -33,9 +26,11 @@ export const getVolumeTypes = () => {
     }).then((res) => {
       res.json().then((resBody) => {
         dispatch(getVolumeTypesSuccess(resBody.volume_types));
+      }).catch(err => {
+        console.log(err);
       })
     }).catch(error => {
-      dispatch(getVolumeTypesFailure(error));
+      console.log(error);
     })
   }
 };

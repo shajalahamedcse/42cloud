@@ -18,7 +18,16 @@ const CheckboxGroup = Checkbox.Group;
 class Security extends Component {
   constructor(props) {
     super(props);
+
   }
+
+  componentWillMount() {
+    if (!this.props.create.filledInstance) {
+      let defaultServerName = 'server-' + Math.random().toString(36).substring(2,10);
+      this.props.dispatch(filledInstance(defaultServerName));
+    }
+  };
+
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -52,13 +61,14 @@ class Security extends Component {
         )
       });
 
+
       return (
         <Form>
           <FormItem
             {...formItemLayout}
             label="主机名">
             {
-              getFieldDecorator('input')(
+              getFieldDecorator('input', {initialValue: this.props.create.filledInstance})(
                 <Input />
               )
             }
@@ -66,7 +76,7 @@ class Security extends Component {
           <FormItem
             {...formItemLayout}
             label="SSH密钥对">
-            {getFieldDecorator('select')(
+            {getFieldDecorator('select', {initialValue: this.props.keypairs.data[0].name})(
               <Select>
                 {optionArrs}
               </Select>
@@ -90,7 +100,8 @@ class Security extends Component {
 
 const mapStateToProps = (state) => ({
   keypairs: selectKeypairs(state),
-  securityGroups: selectSecurityGroups(state)
+  securityGroups: selectSecurityGroups(state),
+  create: state.features.instance.create,
 });
 
 Security = Form.create({

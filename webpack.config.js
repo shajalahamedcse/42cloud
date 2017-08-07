@@ -1,7 +1,6 @@
 const path = require('path');
 
 const proxy_host = process.env.openstack_host;
-console.log(proxy_host);
 
 module.exports = {
   resolve: {

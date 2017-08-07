@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { resizeVolume } from 'app/orm/cinder/volume/actions';
-import { selectVolumes } from 'features/volume/actions';
+import { choosedVolumes } from 'features/volume/actions';
 import { Modal, Form, Input, Slider, InputNumber, Row, Col, Alert } from 'antd';
 const FormItem = Form.Item;
 
@@ -27,11 +27,11 @@ class ResizeVolumeModal extends Component {
     this.props.dispatch(
       resizeVolume(
         {'new_size': this.state.newSize},
-        this.props.selectedVolumes[0]
+        this.props.choosedVolumes[0]
       )
     );
     this.handleCancel();
-    this.props.dispatch(selectVolumes([]));
+    this.props.dispatch(choosedVolumes([]));
   }
 
   handleCancel = () => {
@@ -41,9 +41,9 @@ class ResizeVolumeModal extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     let currentSize;
-    if (this.props.selectedVolumes.length > 0) {
-      currentSize = this.props.selectedVolumes[0].size;
-      name = this.props.selectedVolumes[0].name;
+    if (this.props.choosedVolumes.length > 0) {
+      currentSize = this.props.choosedVolumes[0].size;
+      name = this.props.choosedVolumes[0].name;
     } else {
       currentSize = 1;
       name = '';
@@ -109,7 +109,7 @@ ResizeVolumeModal = Form.create()(ResizeVolumeModal);
 
 function mapStateToProps(state) {
   return {
-    selectedVolumes: state.features.volume.selectedVolumes
+    choosedVolumes: state.features.volume.choosedVolumes,
   }
 }
 export default connect(mapStateToProps, null)(ResizeVolumeModal);

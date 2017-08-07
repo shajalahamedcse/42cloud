@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import { getImages } from 'app/orm/glance/image/actions';
-import { getFlavorsInfo } from 'app/orm/nova/flavor/actions';
 import { getNetworks } from 'app/orm/neutron/network/actions';
 import { getKeypairs } from 'app/orm/nova/keypair/actions';
 import { getSecurityGroups } from 'app/orm/neutron/securityGroup/actions';
@@ -29,8 +27,6 @@ class InstanceTable extends Component {
   }
 
   handleButtonClick = () => {
-    this.props.dispatch(getImages());
-    this.props.dispatch(getFlavorsInfo());
     this.props.dispatch(getNetworks());
     this.props.dispatch(getKeypairs());
     this.props.dispatch(getSecurityGroups());
@@ -87,15 +83,15 @@ class InstanceTable extends Component {
           }
         } else if (title === 'addresses') {
           render = (text) => {
-            let ipNames = Object.keys(text);
-            let ipArrs = [];
-            ipNames.forEach(name => {
-              ipArrs.push(<div key={name}>
-                <span>{name}: </span>
-                <span>{text[name][0].addr}</span>
-              </div>)
-            });
             if (text) {
+              let ipNames = Object.keys(text);
+              let ipArrs = [];
+              ipNames.forEach(name => {
+                ipArrs.push(<div key={name}>
+                  <span>{name}: </span>
+                  <span>{text[name][0].addr}</span>
+                </div>)
+              });
               return (
                 <div>{ipArrs}</div>
               )

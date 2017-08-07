@@ -10,16 +10,11 @@
 }
 
 .title {
-    display: inline;
     font-size: 12px;
 }
 
 .number {
-    display: inline;
-    font-size: 12px;
-    /* float: right; */
-    position: absolute;
-    right: 0;
+    font-size: 11px;
 }
 
 .numberUsed {

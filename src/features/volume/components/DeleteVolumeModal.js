@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Alert } from 'antd';
 import { deleteVolume } from 'app/orm/cinder/volume/actions';
-import { selectVolumes } from 'features/volume/actions';
+import { choosedVolumes } from 'features/volume/actions';
 
 
 class DeleteVolumeModal extends Component {
@@ -13,9 +13,9 @@ class DeleteVolumeModal extends Component {
   }
 
   handleOk() {
-    this.props.dispatch(deleteVolume(this.props.selectedVolumes));
+    this.props.dispatch(deleteVolume(this.props.choosedVolumes));
     this.handleCancel();
-    this.props.dispatch(selectVolumes([]));
+    this.props.dispatch(choosedVolumes([]));
   }
 
   handleCancel = () => {
@@ -24,8 +24,8 @@ class DeleteVolumeModal extends Component {
 
   render() {
     let namesArr = [];
-    if (this.props.selectedVolumes.length > 0) {
-      this.props.selectedVolumes.forEach((ele) => {
+    if (this.props.choosedVolumes.length > 0) {
+      this.props.choosedVolumes.forEach((ele) => {
         namesArr.push(ele.name);
       })
     }
@@ -52,7 +52,7 @@ class DeleteVolumeModal extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedVolumes: state.features.volume.selectedVolumes,
+    choosedVolumes: state.features.volume.choosedVolumes,
   }
 }
 export default connect(mapStateToProps, null)(DeleteVolumeModal);

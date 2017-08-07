@@ -4,6 +4,7 @@ import { Button } from 'antd';
 
 import { getVolumesInfo } from 'app/orm/cinder/volume/actions';
 import { getServersInfo } from 'app/orm/nova/server/actions';
+import { getVolumeTypes } from 'app/orm/cinder/volumeType/actions';
 
 import VolumesTable from 'features/volume/components/VolumesTable';
 import MoreVolumeButton from 'features/volume/components/MoreVolumeButton';
@@ -29,6 +30,7 @@ class Volume extends Component {
   componentDidMount() {
     this.props.dispatch(getVolumesInfo());
     this.props.dispatch(getServersInfo());
+    this.props.dispatch(getVolumeTypes());
   }
 
   handleButtonClick = () => {
