@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import { INSTANCE_FIELD, INSTANCE_STATUS, FLAVOR_FIELD } from 'features/common/constants';
@@ -6,7 +6,7 @@ import { selectServer, selectFlavors } from 'app/selectors/nova';
 import { selectImages } from 'app/selectors/glance';
 import styles from './style/DetailOverview.css';
 
-class DetailOverview extends Component {
+class DetailOverview extends React.Component {
   constructor(props) {
     super(props);
   }

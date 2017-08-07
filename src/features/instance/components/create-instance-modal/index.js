@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Modal, Steps, Button } from 'antd';
 
@@ -22,7 +22,7 @@ import styles from './style/index.css'
 
 const Step = Steps.Step;
 
-class CreateInstanceModal extends Component {
+class CreateInstanceModal extends React.Component {
   constructor(props) {
     super(props);
 

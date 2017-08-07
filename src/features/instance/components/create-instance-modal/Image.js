@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { selectImages } from 'app/selectors/glance';
 import { Spin, Table } from 'antd';
@@ -7,7 +7,7 @@ import filesize from 'filesize';
 
 import { choosedImage } from 'features/instance/actions';
 
-class Image extends Component {
+class Image extends React.Component {
   constructor(props) {
     super(props);
 

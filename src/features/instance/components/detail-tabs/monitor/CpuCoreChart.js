@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import ReactEcharts from 'echarts-for-react';
 import { Spin } from 'antd';
 import { getOption } from './common';
 
 import { selectMonitor } from 'app/selectors/influxdb';
+
+import ReactEchartsCore from 'echarts-for-react/lib/core';
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/tooltip';
 
 function CpuCoreChart(props) {
 
@@ -16,8 +20,9 @@ function CpuCoreChart(props) {
     )
   } else {
     return(
-      <ReactEcharts
+      <ReactEchartsCore
         style={{height: '260px', width: '1000px'}}
+        echarts={echarts}
         option={getOption(props.monitor.vcpuCore.data, props.timeSpan)}
       />
     )

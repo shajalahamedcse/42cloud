@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CpuCoreChart from './CpuCoreChart';
 
-class CpuCore extends Component {
+class CpuCore extends React.Component {
   constructor(props) {
     super(props);
   }

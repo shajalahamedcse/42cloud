@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { selectVolumes } from 'app/selectors/cinder';
 import { selectServers } from 'app/selectors/nova';
@@ -14,7 +14,7 @@ import {
   VOLUME_TYPE
 } from 'features/common/constants';
 
-class VolumesTable extends Component {
+class VolumesTable extends React.Component {
   constructor(props) {
     super(props);
   }

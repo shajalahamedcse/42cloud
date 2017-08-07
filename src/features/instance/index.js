@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import { getFlavorsInfo } from 'app/orm/nova/flavor/actions';
 import InstanceTable from 'features/instance/components/InstanceTable';
 import InstanceDetail from 'features/instance/components/InstanceDetail';
 
-class Instance extends Component {
+class Instance extends React.Component {
   constructor(props) {
     super(props);
   }

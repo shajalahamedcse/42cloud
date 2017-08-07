@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Spin } from 'antd';
 import { selectKeypairs } from 'app/selectors/nova';
 import { KEYPAIR_TABLE_COLUMN, KEYPAIR_FIELD } from 'features/common/constants';
 import commonStyles from 'features/common/styles.css';
 
-class KeypairTable extends Component {
+class KeypairTable extends React.Component {
   constructor(props) {
     super(props);
   }

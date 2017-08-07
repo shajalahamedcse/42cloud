@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { selectNetworks } from 'app/selectors/neutron';
 import { Spin, Row, Col } from 'antd';
@@ -6,7 +6,7 @@ import { addNetwork, removeNetwork } from 'features/instance/actions';
 
 import styles from './style/network.css';
 
-class Network extends Component {
+class Network extends React.Component {
   constructor(props) {
     super(props);
   }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import moment from 'moment';
@@ -20,7 +20,7 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => (
   }} />
 );
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
   }

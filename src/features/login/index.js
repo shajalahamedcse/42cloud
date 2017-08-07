@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Button } from 'antd';
 import styles from './index.css';
@@ -8,7 +8,7 @@ import moment from 'moment';
 
 const FormItem = Form.Item;
 
-class NormalLoginForm extends Component {
+class NormalLoginForm extends React.Component {
   constructor(props) {
     super(props);
 

@@ -1,6 +1,23 @@
+const webpack = require('webpack');
 const path = require('path');
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const proxy_host = process.env.openstack_host;
+
+const plugins = [
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': '"production"'
+  }),
+
+  new webpack.optimize.UglifyJsPlugin({
+    parallel: true
+  }),
+
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
+  new BundleAnalyzerPlugin(),
+];
 
 module.exports = {
   resolve: {
@@ -17,9 +34,11 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    filename: 'bundle.[name].js',
     publicPath: '/',
   },
+
+  plugins: plugins,
 
   module: {
     rules: [
@@ -138,6 +157,11 @@ module.exports = {
         auth: 'collectd_read:collectd_read'
       }
     }
+  },
+
+  externals : {
+    lodash : '_',
+    moment: 'moment',
   },
 
   devtool: 'source-map'

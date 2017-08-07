@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import LimitCardPie from './LimitCardPie';
 import styles from './style/LimitCard.css';
 import cx from 'classnames';

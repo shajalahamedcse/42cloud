@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './style/SideNav.css';
 
@@ -6,7 +6,7 @@ import { Menu } from 'antd';
 
 const { SubMenu } = Menu;
 
-class SideNav extends Component {
+class SideNav extends React.Component {
   constructor(props) {
     super(props)
   }

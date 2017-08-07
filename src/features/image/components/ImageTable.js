@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Table, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { selectImages } from 'app/selectors/glance';
@@ -6,7 +6,7 @@ import filesize from 'filesize';
 
 import { IMAGE_TABLE_COLUMN, IMAGE_FIELD } from 'features/common/constants';
 
-class ImageTable extends Component {
+class ImageTable extends React.Component {
   constructor(props) {
     super(props);
   }

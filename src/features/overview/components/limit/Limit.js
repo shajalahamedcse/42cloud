@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import LimitCard from './LimitCard';
 import { Spin, Row, Col } from 'antd';
 
-class Limit extends Component {
+class Limit extends React.Component {
   constructor(props) {
     super(props);
   }

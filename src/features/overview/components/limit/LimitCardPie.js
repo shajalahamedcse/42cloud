@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import ReactEcharts from 'echarts-for-react';
+import React from 'react';
+import ReactEchartsCore from 'echarts-for-react/lib/core';
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/pie';
 
 let cardColors = {
   instances: '#24CAA1',
@@ -76,11 +78,13 @@ const getOption = (data, colorKey) => {
 
 function LimitCardPie(props) {
   return (
-    <ReactEcharts style={{display: 'inline-block',
-      backgroundColor: '#fff',
-      float: 'left',
-      height: '100px',
-      width: '100px'}}
+    <ReactEchartsCore
+      style={{display: 'inline-block',
+        backgroundColor: '#fff',
+        float: 'left',
+        height: '100px',
+        width: '100px'}}
+      echarts={echarts}
       option={getOption(props.data, props.color)}
     />
   )

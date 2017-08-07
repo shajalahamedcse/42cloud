@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Menu, Dropdown, Button, Icon } from 'antd';
 
 import styles from './style/MoreVolumeButton.css'
 
-class MoreVolumeButton extends Component {
+class MoreVolumeButton extends React.Component {
   constructor(props) {
     super(props);
   }

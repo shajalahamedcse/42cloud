@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { updateVolume } from 'app/orm/cinder/volume/actions';
 import { choosedVolumes } from 'features/volume/actions';
@@ -6,7 +6,7 @@ import { Modal, Form, Input } from 'antd';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
-class ModifyVolumeModal extends Component {
+class ModifyVolumeModal extends React.Component {
   constructor(props) {
     super(props);
   }

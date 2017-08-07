@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { resizeVolume } from 'app/orm/cinder/volume/actions';
 import { choosedVolumes } from 'features/volume/actions';
 import { Modal, Form, Input, Slider, InputNumber, Row, Col, Alert } from 'antd';
 const FormItem = Form.Item;
 
-class ResizeVolumeModal extends Component {
+class ResizeVolumeModal extends React.Component {
   constructor(props) {
     super(props);
 

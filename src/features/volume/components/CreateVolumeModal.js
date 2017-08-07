@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Modal, Form, Input, Radio, Spin } from 'antd';
 import { createVolume } from 'app/orm/cinder/volume/actions';
@@ -8,7 +8,7 @@ const RadioGroup = Radio.Group;
 const { TextArea } = Input;
 const FormItem = Form.Item;
 
-class CustomizeForm extends Component {
+class CustomizeForm extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -40,7 +40,7 @@ class CustomizeForm extends Component {
       });
       return (
         <Modal title="创建硬盘"
-               width="450px"
+               width="350px"
                okText="创建"
                visible={this.props.visible}
                onCancel={this.handleCancel}

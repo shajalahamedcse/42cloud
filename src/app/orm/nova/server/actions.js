@@ -138,7 +138,7 @@ const createServer = (serverBody) => {
     "imageRef": serverBody.choosedImage,
     "flavorRef": serverBody.choosedFlavor,
     "networks": networks
-  }
+  };
 
   if (serverBody.choosedKeypair) {
     server["key_name"] = serverBody.choosedKeypair;
@@ -226,9 +226,84 @@ const fetchConsoleOutput = (serverID) => {
   }
 };
 
+// 云主机操作
+const operateServerSuccess = () => {
+  return {
+    type: 'OPERATE_STOP_SERVER_SUCCESS',
+  }
+};
+
+const operateServer = (type, serversID) => {
+  return (dispatch) => {
+    Promise.all(serversID.map(serverID => {
+      let reqBody = {};
+      if (type === 'start') {
+        reqBody = {
+          'os-start': null
+        }
+      } else if (type === 'stop') {
+        reqBody = {
+          'os-stop': null
+        }
+      }
+
+      let scopedToken = getToken();
+      let tmpl = {'server_id': serverID};
+      let url = combineURL('operateServer', tmpl);
+      return fetch(url, {
+        method: 'POST',
+        headers: {
+          'X-Auth-Token': scopedToken,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reqBody),
+      }).then(res => {
+        console.log(res);
+        if (res.status === 202) {
+          dispatch(operateServerSuccess());
+          dispatch(pollOperateServer(type, serverID));
+        }
+      })
+    }))
+  }
+};
+
+// 轮询云主机详细信息
+const pollOperateServersSuccess = (server) => {
+  return {
+    type: 'POLL_OPERATE_SERVER_SUCCESS',
+    server
+  }
+};
+
+const pollOperateServer = (type, serverID) => {
+  return (dispatch) => {
+    let scopedToken = getToken();
+    let tmpl = {'server_id': serverID};
+    let url = combineURL('getServerInfo', tmpl);
+    let intervalID = setInterval(() => fetch(url, {
+      method: 'GET',
+      headers: {
+        'X-Auth-Token': scopedToken
+      }
+    }).then(res => {
+      res.json().then(resBody => {
+        console.log(resBody);
+        dispatch(pollOperateServersSuccess(resBody.server));
+        if (type === 'start' && resBody.server.status === 'ACTIVE') {
+          clearInterval(intervalID);
+        } else if (type === 'stop' && resBody.server.status === 'SHUTOFF') {
+          clearInterval(intervalID);
+        }
+      })
+    }), 2000)
+  }
+};
+
 export {
   getServersInfo,
   getServerInfo,
   createServer,
   fetchConsoleOutput,
+  operateServer,
 };

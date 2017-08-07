@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MemChart from './MemChart';
 
-class Mem extends Component {
+class Mem extends React.Component {
   constructor(props) {
     super(props);
   }

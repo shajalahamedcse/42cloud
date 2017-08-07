@@ -32,6 +32,20 @@ const servers = (state = {loading: false, data:[]}, action) => {
       }
     }
 
+    case 'POLL_OPERATE_SERVER_SUCCESS': {
+      let data = [...state.data];
+      let index = data.findIndex(ele => (ele.id === action.server.id));
+      data[index] = action.server;
+      return {
+        ...state,
+        data
+      }
+    }
+
+    case 'OPERATE_SERVER_SUCCESS': {
+      return state
+    }
+
     default: {
       return state
     }

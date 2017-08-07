@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { logout } from 'features/login/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './style/TopNav.css';
 
-class TopNav extends Component {
+class TopNav extends React.Component {
   constructor(props) {
     super(props);
 

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CpuCoreChart from './CpuCoreChart';
 import CpuTotalChart from './CpuTotalChart';
 import MemChart from './MemChart';
 
-class Monitor extends Component {
+class Monitor extends React.Component {
   constructor(props) {
     super(props);
   }

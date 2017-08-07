@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Modal, Alert } from 'antd';
 import { deleteVolume } from 'app/orm/cinder/volume/actions';
 import { choosedVolumes } from 'features/volume/actions';
 
 
-class DeleteVolumeModal extends Component {
+class DeleteVolumeModal extends React.Component {
   constructor(props) {
     super(props);
 

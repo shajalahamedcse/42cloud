@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Spin, Form, Input, Checkbox, Select } from 'antd';
 
@@ -15,7 +15,7 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 const CheckboxGroup = Checkbox.Group;
 
-class Security extends Component {
+class Security extends React.Component {
   constructor(props) {
     super(props);
 

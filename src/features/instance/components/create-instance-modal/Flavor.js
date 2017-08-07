@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { selectFlavors } from 'app/selectors/nova';
 import { FLAVOR_TABLE_COLUMN, FLAVOR_FIELD } from 'features/common/constants';
@@ -6,7 +6,7 @@ import { choosedFlavor } from 'features/instance/actions';
 
 import { Spin, Table } from 'antd';
 
-class Flavor extends Component {
+class Flavor extends React.Component {
   constructor(props) {
     super(props);
   }

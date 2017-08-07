@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
 
@@ -15,7 +15,7 @@ import ResizeVolumeModal from 'features/volume/components/ResizeVolumeModal';
 
 import commonStyles from 'features/common/styles.css';
 
-class Volume extends Component {
+class Volume extends React.Component {
   constructor(props) {
     super(props);
 

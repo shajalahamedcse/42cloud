@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Tabs, Radio } from 'antd';
 import ConsoleLog from './ConsoleLog';
@@ -12,7 +12,7 @@ const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const TabPane = Tabs.TabPane;
 
-class DetailTabs extends Component {
+class DetailTabs extends React.Component {
   constructor(props) {
     super(props);
 

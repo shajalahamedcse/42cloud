@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import DetailOverview from './DetailOverview';
 import { getServerInfo } from 'app/orm/nova/server/actions';
@@ -8,7 +8,7 @@ import DetailTabs from './detail-tabs';
 
 import styles from './style/InstanceDetail.css';
 
-class InstanceDetail extends Component {
+class InstanceDetail extends React.Component {
   constructor(props) {
     super(props);
   }

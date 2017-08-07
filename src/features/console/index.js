@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import SideNav from './components/sider/SideNav';
 import TopNav from './components/header/TopNav';
@@ -8,7 +8,7 @@ import styles from './index.css';
 
 const { Header, Sider, Content } = Layout;
 
-class Console extends Component {
+class Console extends React.Component {
   constructor(props) {
     super(props);
   }

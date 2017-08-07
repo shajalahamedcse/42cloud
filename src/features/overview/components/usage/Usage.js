@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import _ from 'lodash';
 import { combineURL } from 'app/commons/common';
 import { Spin, DatePicker, Button } from 'antd';
@@ -6,7 +6,7 @@ import UsageItem from './UsageItem';
 import moment from 'moment';
 import styles from './style/Usage.css';
 
-class Usage extends Component {
+class Usage extends React.Component {
   constructor(props) {
     super(props);
 

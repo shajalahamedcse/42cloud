@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CpuTotalChart from './CpuTotalChart';
 
-class CpuTotal extends Component {
+class CpuTotal extends React.Component {
   constructor(props) {
     super(props);
   }

@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ReactEcharts from 'echarts-for-react';
 import { Spin } from 'antd';
 import { selectMonitor } from 'app/selectors/influxdb';
 import { getOption } from './common';
+
+import ReactEchartsCore from 'echarts-for-react/lib/core';
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/tooltip';
 
 function CpuTotalChart(props) {
   if (props.monitor.vcpuTotal.loading ||
@@ -14,7 +18,8 @@ function CpuTotalChart(props) {
     )
   } else {
     return(
-      <ReactEcharts
+      <ReactEchartsCore
+        echarts={echarts}
         style={{height: '260px', width: '1000px'}}
         option={getOption(props.monitor.vcpuTotal.data, props.timeSpan)}
       />

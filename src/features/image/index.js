@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { getImages } from 'app/orm/glance/image/actions';
 import ImageTable from 'features/image/components/ImageTable';
 import commonStyles from 'features/common/styles.css';
 
-class Image extends Component {
+class Image extends React.Component {
   constructor(props) {
     super(props);
   }
