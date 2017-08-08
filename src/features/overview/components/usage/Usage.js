@@ -1,9 +1,10 @@
 import React from 'react';
-import _ from 'lodash';
+import { connect } from 'react-redux';
 import { combineURL } from 'app/commons/common';
 import { Spin, DatePicker, Button } from 'antd';
 import UsageItem from './UsageItem';
 import moment from 'moment';
+import { selectLogin } from 'app/selectors/auth';
 import styles from './style/Usage.css';
 
 class Usage extends React.Component {
@@ -54,7 +55,7 @@ class Usage extends React.Component {
 
   getTenantUsage() {
     let scopedToken = localStorage.getItem('scopedToken');
-    let projectID = sessionStorage.getItem('projectID');
+    let projectID = localStorage.getItem('projectID');
     let tmpl = {'project_id': projectID};
     let url = combineURL('getTenantUsage', tmpl);
     let startTime, endTime;
@@ -140,5 +141,10 @@ class Usage extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    login: selectLogin(state),
+  }
+};
 
-export default Usage;
+export default connect(mapStateToProps, null)(Usage);

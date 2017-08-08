@@ -3,13 +3,18 @@ import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import styles from './style/Quota.css';
 import QuotaItem from './QuotaItem.js';
+import { selectQuotaSet } from 'app/selectors/nova';
 import { QUOTA_LIST, QUOTA_FIELD } from 'features/common/constants';
 
 
 function Quota(props) {
-  if (props.loading) {
-    let quotaItems = props.quotaSet,
-        quotaItemElements = [];
+  if (props.quotaSet.loading) {
+    return (
+      <Spin />
+    )
+  } else {
+    let quotaItems = props.quotaSet.data,
+      quotaItemElements = [];
 
     QUOTA_LIST.forEach(item => {
       if (quotaItems.hasOwnProperty(item) && (String(item) !== 'id')) {
@@ -66,17 +71,12 @@ function Quota(props) {
         </div>
       </div>
     )
-  } else {
-    return (
-      <Spin />
-    )
   }
 }
 
 function mapStateToProps(state) {
   return {
-    loading: state.orm.nova.quotaSet.loading,
-    quotaSet: state.orm.nova.quotaSet.data,
+    quotaSet: selectQuotaSet(state)
   }
 }
 export default connect(mapStateToProps, null)(Quota);

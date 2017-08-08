@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
-import moment from 'moment';
 import Home from 'features/home/';
 import Login from 'features/login';
 import Console from 'features/console';
-import { loadTokenData } from 'features/login/actions';
+import { loadTokenData } from 'app/orm/auth/login/actions';
+import { selectLogin } from 'app/selectors/auth'
+import { decideIfLogged } from 'app/commons/common';
 
 const PrivateRoute = ({ component: Component, authed, ...rest }) => (
   <Route {...rest} render={(para) => {
@@ -26,19 +27,7 @@ class App extends React.Component {
   }
 
   render() {
-    let isLogged = this.props.isLogged;
-    if (!isLogged) {
-      let scopedToken = localStorage.getItem('scopedToken');
-      let expiresUTC = localStorage.getItem('expires_at');
-      let nowUTC = moment.utc().format();
-      if (scopedToken && (moment(expiresUTC).isAfter(nowUTC))) {
-        isLogged = true;
-        this.props.dispatch(loadTokenData(scopedToken));
-      } else {
-        localStorage.clear();
-        sessionStorage.clear();
-      }
-    }
+    let isLogged = this.props.login.isLogged ? true : decideIfLogged();
 
     return (
       <BrowserRouter>
@@ -59,7 +48,7 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    isLogged: state.auth.isLogged
+    login: selectLogin(state)
   }
 }
 

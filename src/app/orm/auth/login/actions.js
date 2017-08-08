@@ -1,47 +1,65 @@
 import _ from 'lodash';
 import { parseURLPrefix, combineIdentityURL } from 'app/commons/common';
 
+
+//
+const loginRequest = () => {
+  return {
+    type: 'LOGIN_REQUEST'
+  }
+};
+
 const loginSuccess = () => {
   return {
     type: 'LOGIN_SUCCESS',
   }
-}
+};
 
 const loginFailure = () => {
   return {
     type: 'LOGIN_FAILURE'
   }
-}
+};
 
-const loginRequest = () => {
+
+//
+const logoutRequest = () => {
   return {
-    type: 'LOGIN_REQUEST'
+    type: 'LOGOUT_REQUEST'
   }
-}
+};
 
 const logoutSuccess = () => {
   return {
     type: 'LOGOUT_SUCCESS'
   }
-}
+};
 
 const logoutFailure = () => {
   return {
     type: 'LOGOUT_FAILURE'
   }
-}
+};
 
-const logoutRequest = () => {
+
+//
+const loadTokenDataRequest = () => {
   return {
-    type: 'LOGOUT_REQUEST'
+    type: 'LOAD_TOKEN_DATA_REQUEST'
   }
-}
+};
 
 const loadTokenDataSuccess = () => {
   return {
     type: 'LOAD_TOKEN_DATA_SUCCESS'
   }
-}
+};
+
+const loadTokenDataFailure = () => {
+  return {
+    type: 'LOAD_TOKEN_DATA_FAILURE'
+  }
+};
 
 
 // 
@@ -51,6 +69,7 @@ const login = (values) => {
   }
 };
 
+// 获取临时Token
 const fetchUnscopedToken = (dispatch, values) => {
     const auth = {
       "auth": {
@@ -85,6 +104,7 @@ const fetchUnscopedToken = (dispatch, values) => {
     })
 };
 
+// 获取用户所属的所有project
 const getOwnProjects = (dispatch, res) => {
   res.json().then((resBody) => {
     const userId = resBody.token.user.id;
@@ -107,6 +127,7 @@ const getOwnProjects = (dispatch, res) => {
   })
 };
 
+//
 const fetchScopedToken = (dispatch, res, unscopedToken) => {
   res.json().then((resBody) => {
     const auth = {
@@ -125,7 +146,7 @@ const fetchScopedToken = (dispatch, res, unscopedToken) => {
           }
         }
       }
-    }
+    };
 
     const tokenURL = combineIdentityURL('fetchToken');
     fetch(tokenURL, {
@@ -137,8 +158,8 @@ const fetchScopedToken = (dispatch, res, unscopedToken) => {
     }).then((res) => {
       res.json().then((resBody) => {
         let urlPrefix = parseURLPrefix(resBody);
-        sessionStorage.setItem('urlPrefix', JSON.stringify(urlPrefix));
-        sessionStorage.setItem('projectID', resBody.token.project.id);
+        localStorage.setItem('urlPrefix', JSON.stringify(urlPrefix));
+        localStorage.setItem('projectID', resBody.token.project.id);
         localStorage.setItem('scopedToken', res.headers.get('X-Subject-Token'));
         localStorage.setItem('expires_at', resBody.token.expires_at);
         dispatch(loginSuccess());
@@ -153,8 +174,10 @@ const fetchScopedToken = (dispatch, res, unscopedToken) => {
   })
 };
 
+//
 const loadTokenData = (token) => {
   return (dispatch) => {
+    dispatch(loadTokenDataRequest());
     const tokenURL = combineIdentityURL('getTokenData');
     fetch(tokenURL, {
       method: 'GET',
@@ -165,8 +188,8 @@ const loadTokenData = (token) => {
     }).then((res) => {
       res.json().then((resBody) => {
         let urlPrefix = parseURLPrefix(resBody);
-        sessionStorage.setItem('urlPrefix', JSON.stringify(urlPrefix));
-        sessionStorage.setItem('projectID', resBody.token.project.id);
+        localStorage.setItem('urlPrefix', JSON.stringify(urlPrefix));
+        localStorage.setItem('projectID', resBody.token.project.id);
         dispatch(loadTokenDataSuccess());
       }).catch((err) => {
         console.log(err);
@@ -181,6 +204,7 @@ const loadTokenData = (token) => {
 //
 const logout = (token) => {
   return (dispatch) => {
+    dispatch(logoutRequest());
     const tokenURL = combineIdentityURL('deleteToken');
     fetch(tokenURL, {
       method: 'DELETE',

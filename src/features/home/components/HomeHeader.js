@@ -1,27 +1,26 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from 'features/login/actions';
+import { logout } from 'app/orm/auth/login/actions';
 import styles from './style/HomeHeader.css';
 import { Menu } from 'antd';
+import { selectLogin } from 'app/selectors/auth';
 
 
 class HomeHeader extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handleLogout() {
+  handleLogout = () => {
     const scopedToken = localStorage.getItem('scopedToken');
     this.props.dispatch(logout(scopedToken));
     localStorage.removeItem('scopedToken');
     this.props.history.push('/login');
-  }
+  };
 
   render() {
-    let isLogged = this.props.isLogged;
+    let isLogged = this.props.login.isLogged;
     return (
       <div>
           <span className={styles.logo}>42cloud</span>
@@ -65,7 +64,7 @@ class HomeHeader extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    isLogged: state.auth.isLogged
+    login: selectLogin(state)
   }
 }
 

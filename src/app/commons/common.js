@@ -1,5 +1,25 @@
 import { apiPath, proxyPrefix } from 'app/config/api';
 import _ from 'lodash';
+import moment from 'moment';
+
+const decideIfLogged = () => {
+  let isLogged = false;
+  let scopedToken = localStorage.getItem('scopedToken');
+    let expiresUTC = localStorage.getItem('expires_at');
+    let urlPrefix = localStorage.getItem('urlPrefix');
+    let projectID = localStorage.getItem('projectID');
+
+    let nowUTC = moment.utc().format();
+    if (scopedToken &&
+      urlPrefix &&
+      projectID &&
+      moment(expiresUTC).isAfter(nowUTC)){
+      isLogged = true;
+    } else {
+      localStorage.clear();
+    }
+    return isLogged
+};
 
 // return a parsed URL object
 const parseURL = (url) => {
@@ -31,7 +51,9 @@ const combineIdentityURL = (operation) => {
 // After Identity Passed.
 const combineURL = (operation, tmpl={}) => {
   let serviceType = apiPath[operation].type;
-  let urlPrefix = JSON.parse(sessionStorage.getItem('urlPrefix'));
+  console.log(localStorage);
+  console.log(localStorage.getItem('urlPrefix'));
+  let urlPrefix = JSON.parse(localStorage.getItem('urlPrefix'));
   let url = proxyPrefix[serviceType] +
     urlPrefix[serviceType] +
     apiPath[operation].path;
@@ -71,6 +93,12 @@ const getQueryStatement = (serverID, timeSpan, timeStep) => {
 
 };
 
-export { parseURLPrefix, combineURL, combineIdentityURL, getToken, getQueryStatement };
+export { parseURLPrefix,
+  combineURL,
+  combineIdentityURL,
+  getToken,
+  getQueryStatement,
+  decideIfLogged
+};
 
 

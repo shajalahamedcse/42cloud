@@ -13,7 +13,7 @@ class Overview extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.dispatch(getProjectQuota());
   }
 

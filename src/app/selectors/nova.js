@@ -7,3 +7,5 @@ export const selectServer = (state) => state.orm.nova.server;
 export const selectKeypairs = (state) => state.orm.nova.keypairs;
 
 export const selectConsoleOutput = (state) => state.orm.nova.consoleOutput;
+
+export const selectQuotaSet = (state) => state.orm.nova.quotaSet;

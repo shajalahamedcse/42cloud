@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LimitCard from './LimitCard';
+import { selectQuotaSet } from 'app/selectors/nova';
 import { Spin, Row, Col } from 'antd';
 
 class Limit extends React.Component {
@@ -9,36 +10,37 @@ class Limit extends React.Component {
   }
 
   render() {
-    if (!this.props.loading) {
+    if (this.props.quotaSet.loading) {
       return (
         <Spin />
       )
     } else {
+      let quotaSetData = this.props.quotaSet.data;
       return (
         <Row gutter={20}>
           <Col xs={12} md={12} xl={6}>
-          <LimitCard data={this.props.quotaSet.instances}
+          <LimitCard data={quotaSetData.instances}
                      colorKey='instances'
                      kind="云主机"
           />
           </Col>
 
           <Col xs={12} md={12} xl={6}>
-          <LimitCard data={this.props.quotaSet.cores}
+          <LimitCard data={quotaSetData.cores}
                      colorKey='cores'
                      kind="CPU核"
           />
           </Col>
 
           <Col xs={12} md={12} xl={6}>
-          <LimitCard data={this.props.quotaSet.ram}
+          <LimitCard data={quotaSetData.ram}
                      colorKey='ram'
                      kind="内存"
           />
           </Col>
 
           <Col xs={12} md={12} xl={6}>
-          <LimitCard data={this.props.quotaSet.ram}
+          <LimitCard data={quotaSetData.ram}
                      colorKey='ram'
                      kind="内存"
           />
@@ -51,8 +53,7 @@ class Limit extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    quotaSet: state.orm.nova.quotaSet.data,
-    loading: state.orm.nova.quotaSet.loading,
+    quotaSet: selectQuotaSet(state),
   }
 
 }

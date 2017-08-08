@@ -2,8 +2,12 @@ const initialState = {
   isLogged: false,
 };
 
-const authReducer = (state = initialState, action) => {
+const login = (state = initialState, action) => {
   switch (action.type) {
+    case 'LOGIN_REQUEST': {
+      return state
+    }
+
     case 'LOGIN_SUCCESS': {
       return {
         ...state,
@@ -11,10 +15,21 @@ const authReducer = (state = initialState, action) => {
       }
     }
 
+    case 'LOGOUT_REQUEST': {
+      return state
+    }
+
     case 'LOGOUT_SUCCESS': {
       return {
         ...state,
-        ...initialState
+        isLogged: false
+      }
+    }
+
+    case 'LOAD_TOKEN_DATA_REQUEST': {
+      return {
+        ...state,
+        isLogged: false
       }
     }
 
@@ -29,6 +44,6 @@ const authReducer = (state = initialState, action) => {
       return state
     }
   }
-}
+};
 
-export default authReducer;
+export { login };

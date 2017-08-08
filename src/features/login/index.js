@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Button } from 'antd';
 import styles from './index.css';
-import { login, loadTokenData } from './actions';
+import { login, loadTokenData } from 'app/orm/auth/login/actions';
 import { Redirect } from 'react-router-dom';
-import moment from 'moment';
+import { decideIfLogged } from 'app/commons/common';
+import { selectLogin } from 'app/selectors/auth';
 
 const FormItem = Form.Item;
 
@@ -31,19 +32,7 @@ class NormalLoginForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
 
-    let isLogged = this.props.isLogged;
-    if (!isLogged) {
-      let scopedToken = localStorage.getItem('scopedToken');
-      let expiresUTC = localStorage.getItem('expires_at');
-      let nowUTC = moment.utc().format();
-      if (scopedToken && moment(expiresUTC).isAfter(nowUTC)) {
-        isLogged = true;
-        this.props.dispatch(loadTokenData(scopedToken));
-      } else {
-        localStorage.clear();
-        sessionStorage.clear();
-      }
-    }
+    let isLogged = this.props.login.isLogged ? true : decideIfLogged();
 
     let referrer, location = this.props.location;
     if (location.state) {
@@ -108,7 +97,7 @@ class NormalLoginForm extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    isLogged: state.auth.isLogged
+    login: selectLogin(state)
   }
 }
 

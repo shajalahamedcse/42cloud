@@ -7,4 +7,5 @@
 .log {
     height: 600px;
     overflow-y: scroll;
+    word-wrap: break-word;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { logout } from 'features/login/actions';
+import { logout } from 'app/orm/auth/login/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './style/TopNav.css';
@@ -7,15 +7,13 @@ import styles from './style/TopNav.css';
 class TopNav extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handleLogout() {
+  handleLogout = () => {
     let scopedToken = localStorage.getItem('scopedToken');
     this.props.dispatch(logout(scopedToken));
     localStorage.removeItem('scopedToken');
-  }
+  };
 
   render() {
     return (

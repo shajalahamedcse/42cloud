@@ -17,7 +17,7 @@ const getSecurityGroups = () => {
   return (dispatch) => {
     dispatch(getSecurityGroupsRequest());
     let scopedToken = getToken();
-    let projectID = sessionStorage.getItem('projectID');
+    let projectID = localStorage.getItem('projectID');
     let tmpl = {'project_id': projectID};
     let url = combineURL('getSecurityGroups', tmpl);
     fetch(url, {
