@@ -4,10 +4,10 @@ This project is a React-based SPA. It aimed at providing a complete Dashboard Po
 ## Frontend Technology stack
 - React
 - Redux
-- Webpack
-- Babel
 - React-Router
 - Redux-Thunk
+- Webpack
+- Babel
 - CSS-Modules
 - Echarts
 - Ant-Design
