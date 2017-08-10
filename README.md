@@ -2,7 +2,7 @@
 
 This project is a React-based SPA. It aimed at providing a complete Dashboard Portal to the IaaS platform based on OpenStack.
 
-## Frontend Technologies Used
+## Frontend Technology stack
 
 - React
 - Redux
