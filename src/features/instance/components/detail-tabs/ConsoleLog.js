@@ -11,7 +11,7 @@ class ConsoleLog extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.dispatch(fetchConsoleOutput(this.props.instanceID));
   }
 

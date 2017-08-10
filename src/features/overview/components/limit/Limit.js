@@ -16,6 +16,7 @@ class Limit extends React.Component {
       )
     } else {
       let quotaSetData = this.props.quotaSet.data;
+      console.log(quotaSetData);
       return (
         <Row gutter={20}>
           <Col xs={12} md={12} xl={6}>
@@ -40,9 +41,9 @@ class Limit extends React.Component {
           </Col>
 
           <Col xs={12} md={12} xl={6}>
-          <LimitCard data={quotaSetData.ram}
-                     colorKey='ram'
-                     kind="内存"
+          <LimitCard data={quotaSetData.security_groups}
+                     colorKey='securityGroups'
+                     kind="安全组"
           />
           </Col>
         </Row>

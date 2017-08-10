@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import SideNav from './components/sider/SideNav';
 import TopNav from './components/header/TopNav';
-import { CONSOLE_ROUTES as console_routes } from './constants';
+import { BREADCRUMB_FIELD, CONSOLE_ROUTES } from 'features/common/constants';
 import { Layout, Breadcrumb } from 'antd';
 import styles from './index.css';
 
@@ -16,7 +16,10 @@ class Console extends React.Component {
   render() {
     let feature = this.props.match.params.feature;
     return (
-      <Layout className={styles.layout}>
+      <Layout
+        style={{'flexDirection': 'column'}}
+        className={styles.layout}
+      >
         <Header className={styles.header}>
           <TopNav />
         </Header>
@@ -28,16 +31,16 @@ class Console extends React.Component {
         <Content className={styles.content}>
           <Breadcrumb className={styles.breadcrumb}>
             <Breadcrumb.Item>
-              <Link to="/">主页</Link>
+              <Link to="/">{BREADCRUMB_FIELD['console']}</Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
-              <Link to={"/console/" + [feature]}>{feature}</Link>
+              <Link to={"/console/" + [feature]}>{BREADCRUMB_FIELD[feature]}</Link>
             </Breadcrumb.Item>
           </Breadcrumb>
 
           <Route
             path="/console/:feature"
-            component={console_routes[feature]}
+            component={CONSOLE_ROUTES[feature]}
           />
         </Content>
       </Layout>

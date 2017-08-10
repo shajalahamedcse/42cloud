@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 
-import { getServersInfo } from 'app/orm/nova/server/actions';
+import { getServersInfo, getServer } from 'app/orm/nova/server/actions';
 import { getImages } from 'app/orm/glance/image/actions';
 import { getFlavorsInfo } from 'app/orm/nova/flavor/actions';
 
@@ -14,7 +14,7 @@ class Instance extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.dispatch(getServersInfo());
     this.props.dispatch(getImages());
     this.props.dispatch(getFlavorsInfo());

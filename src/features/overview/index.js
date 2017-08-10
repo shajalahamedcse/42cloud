@@ -5,6 +5,7 @@ import Quota from './components/quota/Quota';
 import Usage from './components/usage/Usage';
 import { Row, Col } from 'antd';
 import { getProjectQuota } from 'app/orm/nova/quota/actions';
+import { getServers } from 'app/orm/nova/server/actions';
 
 import styles from './index.css';
 
@@ -15,6 +16,7 @@ class Overview extends React.Component {
 
   componentWillMount() {
     this.props.dispatch(getProjectQuota());
+    this.props.dispatch(getServers());
   }
 
   render() {

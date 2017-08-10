@@ -1,9 +1,44 @@
 import { combineURL, getToken } from 'app/commons/common';
 
-const getServersInfoSuccess = (servers) => {
+const getServersSuccess = (servers) => {
+  return {
+    type: 'GET_SERVERS_SUCCESS',
+    servers
+  }
+};
+
+const getServersRequest = () => {
+  return {
+    type: 'GET_SERVERS_REQUEST'
+  }
+};
+
+const getServers = () => {
+  return (dispatch) => {
+    dispatch(getServersRequest());
+    let scopedToken = getToken();
+    let url = combineURL('getServers');
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'X-Auth-Token': scopedToken
+      }
+    }).then(res => {
+      res.json().then(resBody => {
+        dispatch(getServersSuccess(resBody.servers));
+      }).catch(err => {
+        throw err;
+      })
+    }).catch(err => {
+      throw err;
+    })
+  }
+};
+
+const getServersInfoSuccess = (serversInfo) => {
   return {
     type: 'GET_SERVERS_INFO_SUCCESS',
-    servers
+    serversInfo
   }
 };
 
@@ -15,15 +50,15 @@ const getServersInfoRequest = () => {
 
 const getServersInfo = () => {
   return (dispatch) => {
-    getServersInfoRequest();
-   let scopedToken = getToken();
-   let url = combineURL('getServersInfo');
-   fetch(url, {
-     method: 'GET',
-     headers: {
-       'X-Auth-Token': scopedToken
-     }
-   }).then((res) => {
+    dispatch(getServersInfoRequest());
+    let scopedToken = getToken();
+    let url = combineURL('getServersInfo');
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'X-Auth-Token': scopedToken
+      }
+    }).then((res) => {
      res.json().then((resBody) => {
        dispatch(getServersInfoSuccess(resBody.servers));
      }).catch((err) => {
@@ -98,7 +133,13 @@ const pollServerInfo = (serverID) => {
           if (resBody.server.status === 'ACTIVE') {
             clearInterval(intervalID);
           }
+        }).catch(err => {
+          clearInterval(intervalID);
+          throw err;
         })
+      }).catch(err => {
+        clearInterval(intervalID);
+        throw err;
       })
     }, 3000);
   }
@@ -171,16 +212,13 @@ const createServer = (serverBody) => {
           'image': {'id': server.imageRef},
           'flavor': {'id': server.flavorRef},
         };
-
-
-        console.log(createServer);
         dispatch(createServerSuccess(createServer));
         dispatch(pollServerInfo(createServer.id));
       }).catch(err => {
-        console.log(err);
+        throw err;
       })
     }).catch(err => {
-      console.log(err);
+      throw err;
     })
   }
 };
@@ -281,26 +319,35 @@ const pollOperateServer = (type, serverID) => {
     let scopedToken = getToken();
     let tmpl = {'server_id': serverID};
     let url = combineURL('getServerInfo', tmpl);
-    let intervalID = setInterval(() => fetch(url, {
-      method: 'GET',
-      headers: {
-        'X-Auth-Token': scopedToken
-      }
-    }).then(res => {
-      res.json().then(resBody => {
-        console.log(resBody);
-        dispatch(pollOperateServersSuccess(resBody.server));
-        if (type === 'start' && resBody.server.status === 'ACTIVE') {
-          clearInterval(intervalID);
-        } else if (type === 'stop' && resBody.server.status === 'SHUTOFF') {
-          clearInterval(intervalID);
+    let intervalID = setInterval(() => {
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'X-Auth-Token': scopedToken
         }
+      }).then(res => {
+        res.json().then(resBody => {
+          console.log(resBody);
+          dispatch(pollOperateServersSuccess(resBody.server));
+          if (type === 'start' && resBody.server.status === 'ACTIVE') {
+            clearInterval(intervalID);
+          } else if (type === 'stop' && resBody.server.status === 'SHUTOFF') {
+            clearInterval(intervalID);
+          }
+        }).catch(err => {
+          clearInterval(intervalID);
+          throw err;
+        })
+      }).catch(err => {
+        clearInterval(intervalID);
+        throw err;
       })
-    }), 2000)
+    }, 2000)
   }
 };
 
 export {
+  getServers,
   getServersInfo,
   getServerInfo,
   createServer,

@@ -4,7 +4,7 @@ import { Tabs, Radio } from 'antd';
 import ConsoleLog from './ConsoleLog';
 import Monitor from './monitor';
 import { getMonitor } from 'app/orm/influxdb/monitor/actions';
-import { MONITOR_TIME_SPAN, MONITOR_TIME_STEP } from './constants';
+import { MONITOR_TIME_SPAN, MONITOR_TIME_STEP } from 'features/common/constants';
 import { filterTimeSpan } from 'features/instance/actions';
 import styles from './index.css';
 

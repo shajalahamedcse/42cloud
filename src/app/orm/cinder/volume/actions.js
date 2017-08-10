@@ -66,7 +66,7 @@ const getVolumesInfo = () => {
 
 
 
-// 轮询
+//
 const pollVolumeInfoSuccess = (volume) => {
   return {
     type: 'POLL_VOLUME_INFO_SUCCESS',
@@ -91,9 +91,15 @@ const pollVolumeInfo = (volumeID) => {
           if (resBody.volume.status === 'available') {
             clearInterval(intervalID);
           }
+        }).catch(err => {
+          clearInterval(intervalID);
+          throw err;
         })
+      }).catch(err => {
+        clearInterval(intervalID);
+        throw err;
       })
-    }, 1000);
+    }, 2000);
   }
 };
 
@@ -276,9 +282,15 @@ const pollVolumeIfDeleted = (volume) => {
             dispatch(pollVolumeIfDeletedSuccess(volume));
             clearInterval(intervalID);
           }
+        }).catch(err => {
+          clearInterval(intervalID);
+          throw err;
         })
+      }).catch(err => {
+        clearInterval(intervalID);
+        throw err;
       })
-    }, 1000)
+    }, 2000)
   }
 };
 

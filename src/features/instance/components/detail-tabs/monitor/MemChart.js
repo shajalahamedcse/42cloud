@@ -20,7 +20,7 @@ function MemChart(props) {
     return(
       <ReactEchartsCore
         echarts={echarts}
-        style={{height: '260px', width: '1000px'}}
+        style={{height: '260px'}}
         option={getOption(props.monitor.vmem.data, props.timeSpan)}
       />
       )

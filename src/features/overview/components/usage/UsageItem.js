@@ -1,45 +1,94 @@
 import React from 'react';
-import { Table } from 'antd';
+import { connect } from 'react-redux';
+import { Table, Spin } from 'antd';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { selectServers } from 'app/selectors/nova';
 import styles from './style/UsageItem.css';
 import { TENANT_USAGE_TABLE_COLUMN, TENANT_USAGE_FIELD } from 'features/common/constants';
 
-function UsageItem(props) {
-  let columns = [], data = [];
-
-  TENANT_USAGE_TABLE_COLUMN.forEach((key) => {
-    columns.push({
-      title: TENANT_USAGE_FIELD[key],
-      dataIndex: key,
-    })
-  });
-
-  let uniqueKey = 0;
-  if (props.tenantUsage.hasOwnProperty('server_usages')) {
-    props.tenantUsage.server_usages.forEach((ele) => {
-      let obj = {};
-      obj['key'] = uniqueKey++;
-      TENANT_USAGE_TABLE_COLUMN.forEach((key) => {
-        if (key === 'started_at') {
-          obj[key] = moment(ele[key]).startOf('day').fromNow();
-        } else if (key === 'hours') {
-          obj[key] = Math.floor(ele[key]) + ' 小时';
-        } else {
-          obj[key] = ele[key];
-        }
-      });
-      data.push(obj);
-    });
-  } else {
-    data = [];
+class UsageItem extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
-  return (
-    <Table className={styles.item}
-           columns={columns}
-           dataSource={data}
-           size="middle" />
-  )
+  render () {
+    if (this.props.servers.loading) {
+      return (
+        <Spin />
+      )
+    } else {
+      let serversId = [];
+      this.props.servers.data.forEach(item => {
+        serversId.push(item.id);
+      });
+
+      let columns = [];
+      TENANT_USAGE_TABLE_COLUMN.forEach((title) => {
+        let render;
+        if (title === 'name') {
+          render = (text, record) => {
+            if (serversId.indexOf(record.instance_id) !== -1) {
+              return (
+                <Link to={"/console/instance/" + record.instance_id}>
+                  <span>{text}</span>
+                </Link>
+              )
+            } else {
+              return (
+                <span>
+                  {text}
+                  <span className={styles.deleted}>(已删除)</span>
+                </span>
+              )
+            }
+          }
+        }
+
+        columns.push({
+          title: TENANT_USAGE_FIELD[title],
+          dataIndex: title,
+          render
+        })
+      });
+
+      let data = [];
+      if (this.props.tenantUsage.hasOwnProperty('server_usages')) {
+        this.props.tenantUsage.server_usages.forEach((ele) => {
+          let obj = {};
+          obj['instance_id'] = ele.instance_id;
+          TENANT_USAGE_TABLE_COLUMN.forEach((key) => {
+            if (key === 'started_at') {
+              obj[key] = moment(ele[key]).startOf('day').fromNow();
+            } else if (key === 'hours') {
+              obj[key] = Math.floor(ele[key]) + ' 小时';
+            } else {
+              obj[key] = ele[key];
+            }
+          });
+          data.push(obj);
+        });
+      } else {
+        data = [];
+      }
+
+      return (
+        <Table
+          className={styles.item}
+          columns={columns}
+          dataSource={data}
+          size="middle"
+          rowKey="instance_id"
+        />
+      )
+
+    }
+  }
 }
 
-export default UsageItem;
+const mapStateToProps = (state) => {
+  return {
+    servers: selectServers(state)
+  }
+};
+export default connect(mapStateToProps, null)(UsageItem);

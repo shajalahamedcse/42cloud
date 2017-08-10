@@ -1,21 +1,45 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
 const proxy_host = process.env.openstack_host;
 
-const plugins = [
-  new webpack.DefinePlugin({
-    'process.env.NODE_ENV': '"production"'
+let env = process.env.NODE_ENV;
+
+console.log(env);
+let outputFile;
+let scriptPath;
+
+if (env === 'production') {
+  outputFile = 'bundle.[name].min.js';
+  scriptPath = 'https://cdn.bootcss.com';
+} else {
+  outputFile = 'bundle.[name].js';
+  scriptPath = '/dev';
+}
+
+const HtmlwebpackPlugin = require('html-webpack-plugin');
+let plugins = [
+  new HtmlwebpackPlugin({
+    title: 'This is test',
+    filename: 'index.html', // this file will be generated.
+    template: path.resolve(__dirname, 'src/index.ejs'),
+    inject: 'body',
+    vars: {
+      "script_path": scriptPath,
+    }
   }),
-
-  new webpack.optimize.UglifyJsPlugin({ parallel: true }),
-
-  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-
-  // new BundleAnalyzerPlugin(),
 ];
+
+if (env === 'production') {
+  plugins.push(
+    new webpack.optimize.UglifyJsPlugin({ parallel: true })
+  )
+} else if (env === 'development') {
+  // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  // plugins.push(
+  //   new BundleAnalyzerPlugin()
+  // )
+}
 
 module.exports = {
   resolve: {
@@ -34,7 +58,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.[name].js',
+    filename: outputFile,
     publicPath: '/',
   },
 
@@ -159,13 +183,13 @@ module.exports = {
     }
   },
 
-  externals : {
-    'lodash': '_',
-    'moment': 'moment',
-    'echarts': 'echarts',
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-  },
+  // externals : {
+  //   'lodash': '_',
+  //   'moment': 'moment',
+  //   'echarts': 'echarts',
+  //   'react': 'React',
+  //   'react-dom': 'ReactDOM',
+  // },
 
   devtool: 'source-map'
 };

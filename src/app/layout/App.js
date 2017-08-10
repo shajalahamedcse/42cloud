@@ -29,6 +29,7 @@ class App extends React.Component {
   render() {
     let isLogged = this.props.login.isLogged ? true : decideIfLogged();
 
+
     return (
       <BrowserRouter>
         <div style={{height: '100%'}}>

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { parseURLPrefix, combineIdentityURL } from 'app/commons/common';
 
 
@@ -108,10 +107,9 @@ const fetchUnscopedToken = (dispatch, values) => {
 const getOwnProjects = (dispatch, res) => {
   res.json().then((resBody) => {
     const userId = resBody.token.user.id;
-    const data = {'user_id': userId};
+    const tmpl = {'user_id': userId};
     const unscopedToken = res.headers.get('X-Subject-Token');
-    let projectURL = combineIdentityURL('getOwnProjects');
-    projectURL = _.template(projectURL)(data);
+    let projectURL = combineIdentityURL('getOwnProjects', tmpl);
 
     fetch(projectURL, {
       headers: {

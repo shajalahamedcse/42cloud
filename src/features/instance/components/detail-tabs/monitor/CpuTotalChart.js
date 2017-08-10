@@ -20,7 +20,7 @@ function CpuTotalChart(props) {
     return(
       <ReactEchartsCore
         echarts={echarts}
-        style={{height: '260px', width: '1000px'}}
+        style={{height: '260px'}}
         option={getOption(props.monitor.vcpuTotal.data, props.timeSpan)}
       />
     )

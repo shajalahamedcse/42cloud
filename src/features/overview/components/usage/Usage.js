@@ -11,13 +11,6 @@ class Usage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.getTenantUsage = this.getTenantUsage.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onStartChange = this.onStartChange.bind(this);
-    this.onEndChange = this.onEndChange.bind(this);
-    this.disabledEndDate = this.disabledEndDate.bind(this);
-    this.onSubmitDate = this.onSubmitDate.bind(this);
-
     this.state = {
       startValue: null,
       endValue: null,
@@ -26,16 +19,17 @@ class Usage extends React.Component {
     }
   }
 
-  onSubmitDate() {
+  onSubmitDate = () => {
     this.getTenantUsage()
-  }
+  };
 
-  onChange(field, value) {
+  onChange = (field, value) => {
     this.setState({
       ...this.state,
       [field]: value
     });
-  }
+
+  };
 
   onStartChange = (value) => {
     this.onChange('startValue', value);
@@ -45,48 +39,44 @@ class Usage extends React.Component {
     this.onChange('endValue', value);
   };
 
-  disabledEndDate(endValue) {
-    const { startValue } = this.state;
-    if (!endValue || !startValue) {
-      return false;
+  disabledStartDate = (value) => {
+    if (value) {
+      return value.valueOf() > moment().endOf('day').valueOf();
     }
-    return endValue.valueOf() <= startValue.valueOf();
-  }
+  };
 
-  getTenantUsage() {
+  disabledEndDate = (value) => {
+    if (value) {
+      return value.valueOf() > moment().endOf('day').valueOf();
+    }
+  };
+
+  getTenantUsage = () => {
     let scopedToken = localStorage.getItem('scopedToken');
     let projectID = localStorage.getItem('projectID');
     let tmpl = {'project_id': projectID};
     let url = combineURL('getTenantUsage', tmpl);
-    let startTime, endTime;
+    let startTime, startUTCTime, endTime, endUTCTime;
     if (this.state.startValue && this.state.endValue) {
       // 开始日期那天开始的 UTC 时间
-      startTime = moment(this.state.startValue).
-                  startOf('day').
-                  utc().
-                  format('YYYY-MM-DDTHH:mm:ss');
+      startTime = moment(this.state.startValue).startOf('day').format('YYYY-MM-DDTHH:mm:ss');
+      startUTCTime = moment(this.state.startValue).startOf('day').utc().format('YYYY-MM-DDTHH:mm:ss');
 
       // 结束日期那天结束的 UTC 时间
-      endTime = moment(this.state.endValue).
-                endOf('day').
-                utc().
-                format('YYYY-MM-DDTHH:mm:ss');
+      endTime = moment(this.state.endValue).endOf('day').format('YYYY-MM-DDTHH:mm:ss');
+      endUTCTime = moment(this.state.endValue).endOf('day').utc().format('YYYY-MM-DDTHH:mm:ss');
+
     } else {
       // 昨天开始的 UTC 时间
-      startTime = moment().
-                  subtract(1, 'day').
-                  startOf('day').
-                  utc().
-                  format('YYYY-MM-DDTHH:mm:ss');
+      startTime = moment().subtract(1, 'days').startOf('day').format('YYYY-MM-DDTHH:mm:ss');
+      startUTCTime = moment().subtract(1, 'days').startOf('day').utc().format('YYYY-MM-DDTHH:mm:ss');
 
       // 今天结束的 UTC 时间
-      endTime = moment().
-                endOf('day').
-                utc().
-                format('YYYY-MM-DDTHH:mm:ss');
+      endTime = moment().endOf('day').format('YYYY-MM-DDTHH:mm:ss');
+      endUTCTime = moment().endOf('day').utc().format('YYYY-MM-DDTHH:mm:ss');
     }
 
-    url = url + '&start=' + startTime + '&end=' + endTime;
+    url = url + '&start=' + startUTCTime + '&end=' + endUTCTime;
 
     fetch(url, {
       method: 'GET',
@@ -103,9 +93,9 @@ class Usage extends React.Component {
         });
       })
     })
-  }
+  };
 
-  componentDidMount() {
+  componentWillMount() {
     this.getTenantUsage();
   }
 
@@ -115,22 +105,34 @@ class Usage extends React.Component {
         <div>
           <div className={styles.header}>
             <span className={styles.title}>使用情况摘要</span>
-            <DatePicker size="large"
-                        className={styles.date}
-                        placeholder={this.state.startValue}
-                        onChange={this.onStartChange} />
-            <DatePicker size="large"
-                        className={styles.date}
-                        disabledDate={this.disabledEndDate}
-                        placeholder={this.state.endValue}
-                        onChange={this.onEndChange} />
-            <Button size="large"
-                    type="primary"
-                    onClick={this.onSubmitDate}>
+
+            <DatePicker
+              size="large"
+              className={styles.date}
+              disabledDate={this.disabledStartDate}
+              placeholder={this.state.startValue}
+              onChange={this.onStartChange}
+            />
+
+            <DatePicker
+              size="large"
+              className={styles.date}
+              disabledDate={this.disabledEndDate}
+              placeholder={this.state.endValue}
+              onChange={this.onEndChange}
+            />
+
+            <Button
+              size="large"
+              type="primary"
+              onClick={this.onSubmitDate}
+            >
               提交
             </Button>
           </div>
-          <UsageItem tenantUsage={this.state.tenantUsage} />
+          <UsageItem
+            tenantUsage={this.state.tenantUsage}
+          />
         </div>
       )
     } else {

@@ -43,16 +43,16 @@ const parseURLPrefix = (data) => {
 };
 
 //
-const combineIdentityURL = (operation) => {
+const combineIdentityURL = (operation, tmpl={}) => {
   let serviceType = apiPath[operation].type;
-  return proxyPrefix[serviceType] + apiPath[operation].path;
+  let url = proxyPrefix[serviceType] +
+      apiPath[operation].path;
+  return _.template(url)(tmpl);
 };
 
 // After Identity Passed.
 const combineURL = (operation, tmpl={}) => {
   let serviceType = apiPath[operation].type;
-  console.log(localStorage);
-  console.log(localStorage.getItem('urlPrefix'));
   let urlPrefix = JSON.parse(localStorage.getItem('urlPrefix'));
   let url = proxyPrefix[serviceType] +
     urlPrefix[serviceType] +
@@ -93,7 +93,8 @@ const getQueryStatement = (serverID, timeSpan, timeStep) => {
 
 };
 
-export { parseURLPrefix,
+export {
+  parseURLPrefix,
   combineURL,
   combineIdentityURL,
   getToken,

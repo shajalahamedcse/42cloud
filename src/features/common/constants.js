@@ -1,3 +1,17 @@
+import Overview from 'features/overview';
+import Instance from 'features/instance';
+import Image from 'features/image/';
+import Volume from 'features/volume/';
+import keypair from 'features/keypair';
+
+const CONSOLE_ROUTES = {
+  'overview': Overview,
+  'instance': Instance,
+  'image': Image,
+  'volume': Volume,
+  'keypair': keypair
+};
+
 // Usage
 const TENANT_USAGE_TABLE_COLUMN = [
   'name',
@@ -9,7 +23,7 @@ const TENANT_USAGE_TABLE_COLUMN = [
 ];
 
 const TENANT_USAGE_FIELD = {
-  'name': '实例名称',
+  'name': '名称',
   'flavor': '规格',
   'vcpus': 'vCPU数量',
   'memory_mb': '内存(MB)',
@@ -222,7 +236,38 @@ const QUOTA_FIELD = {
   'security_groups': '安全组 (个)',
 };
 
+//
+const BREADCRUMB_FIELD = {
+  'console': '控制台',
+  'overview': '总览',
+  'instance': '云主机',
+  'volume': '硬盘',
+  'image': '镜像',
+  'keypair': 'SSH密钥'
+};
+
+//
+const MONITOR_TIME_SPAN = {
+  "1hour": "1h",        //最近1小时
+  "6hours": "6h",       //最近6小时
+  "1day": "24h",        //最近1天
+  "1month": "30d",      //最近1个月
+  "6months": "180d",    //最近半年
+  "1year": "365d",      //最近1年
+};
+
+const MONITOR_TIME_STEP = {
+  "1hour": "20s",
+  "6hours": "2m",
+  "1day": "8m",
+  "1month": "4h",
+  "6months": "24h",
+  "1year": "48h",
+};
+
 export {
+  CONSOLE_ROUTES,
+
   TENANT_USAGE_FIELD,
   TENANT_USAGE_TABLE_COLUMN,
 
@@ -247,4 +292,9 @@ export {
 
   QUOTA_LIST,
   QUOTA_FIELD,
+
+  BREADCRUMB_FIELD,
+
+  MONITOR_TIME_STEP,
+  MONITOR_TIME_SPAN
 }

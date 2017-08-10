@@ -27,7 +27,7 @@ class Volume extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.dispatch(getVolumesInfo());
     this.props.dispatch(getServersInfo());
     this.props.dispatch(getVolumeTypes());

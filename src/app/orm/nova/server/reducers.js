@@ -1,10 +1,10 @@
-const servers = (state = {loading: false, data:[]}, action) => {
-  switch(action.type) {
+const serversInfo = (state = {loading: false, data:[]}, action) => {
+  switch (action.type) {
     case 'GET_SERVERS_INFO_SUCCESS': {
       return {
         ...state,
         loading: false,
-        data: action.servers,
+        data: action.serversInfo,
       }
     }
 
@@ -52,8 +52,31 @@ const servers = (state = {loading: false, data:[]}, action) => {
   }
 };
 
+const servers = (state = {loading: false, data: []}, action) => {
+  switch (action.type) {
+    case 'GET_SERVERS_SUCCESS': {
+      return {
+        ...state,
+        loading: false,
+        data: action.servers
+      }
+    }
+
+    case 'GET_SERVERS_REQUEST': {
+      return {
+        ...state,
+        loading: true,
+      }
+    }
+
+    default: {
+      return state
+    }
+  }
+};
+
 const server = (state = {loading: false, data: {}}, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'GET_SERVER_INFO_REQUEST': {
       return {
         ...state,
@@ -76,7 +99,7 @@ const server = (state = {loading: false, data: {}}, action) => {
 };
 
 const consoleOutput = (state = {loading: false, data: ''}, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'FETCH_CONSOLE_OUTPUT_SUCCESS': {
       return {
         ...state,
@@ -98,6 +121,7 @@ const consoleOutput = (state = {loading: false, data: ''}, action) => {
 };
 
 export {
+  serversInfo,
   servers,
   server,
   consoleOutput,

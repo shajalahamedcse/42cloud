@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { selectVolumes } from 'app/selectors/cinder';
-import { selectServers } from 'app/selectors/nova';
+import { selectServersInfo } from 'app/selectors/nova';
 import { choosedVolumes } from 'features/volume/actions';
 import { Table, Spin } from 'antd';
 import moment from 'moment';
-import styles from './style/VolumesTable.css';
+import commonStyles from 'features/common/styles.css';
 import cx from 'classnames';
 import {
   VOLUME_STATUS,
@@ -48,12 +48,15 @@ class VolumesTable extends React.Component {
             <span>
               <i className={cx(
                 {
-                  [styles.creating]: text === 'creating',
-                  [styles.available]: text === 'available'
+                  [commonStyles.creating]: text === 'creating',
+                  [commonStyles.available]: text === 'available',
+                  [commonStyles.deleting]: text === 'deleting'
                 }
               )}>
               </i>
+              <i>
               {VOLUME_STATUS[text]}
+              </i>
             </span>
           )
         }
@@ -96,7 +99,7 @@ class VolumesTable extends React.Component {
         render = (text) => {
           let time = moment(text).format('YYYY-MM-DD HH:mm:ss');
           return (
-            <span>{time}</span>
+            <span className={commonStyles.time}>{time}</span>
           )
         }
       }
@@ -129,7 +132,6 @@ class VolumesTable extends React.Component {
     } else {
       return (
         <Table
-          className={styles.table}
           rowSelection={rowSelection}
           columns={columns}
           bordered={true}
@@ -146,7 +148,7 @@ class VolumesTable extends React.Component {
 function mapStateToProps(state) {
   return {
     volumes: selectVolumes(state),
-    servers: selectServers(state),
+    servers: selectServersInfo(state),
     choosedVolumes: state.features.volume.choosedVolumes,
   }
 }

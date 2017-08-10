@@ -8,13 +8,15 @@ import { getKeypairs } from 'app/orm/nova/keypair/actions';
 import { getSecurityGroups } from 'app/orm/neutron/securityGroup/actions';
 import { operateServer } from 'app/orm/nova/server/actions';
 
-import { selectServers, selectFlavors } from 'app/selectors/nova';
+import { selectServersInfo, selectFlavors } from 'app/selectors/nova';
 import { selectImages } from 'app/selectors/glance';
 
 import { Table, Spin, Button, Modal } from 'antd';
 import { INSTANCE_TABLE_COLUMN, INSTANCE_FIELD, INSTANCE_STATUS } from 'features/common/constants';
 
 import CreateInstanceModal from './create-instance-modal';
+
+import cx from 'classnames';
 
 import commonStyles from 'features/common/styles.css';
 
@@ -108,7 +110,6 @@ class InstanceTable extends React.Component {
 
   // 选择列表项时的处理函数
   handleSelectChange = (selectedRowKeys, selectedRows) => {
-    console.log('hello');
     let stopArr = [];
     let startArr = [];
     let selectedServersArr = [];
@@ -222,6 +223,21 @@ class InstanceTable extends React.Component {
               )
             }
           }
+        } else if (title === 'status') {
+          render = (text) => {
+            return (
+              <span>
+                <i className={cx(
+                  {
+                    [commonStyles.active]: text === 'ACTIVE',
+                    [commonStyles.shutoff]: text === 'SHUTOFF'
+                  }
+                )}>
+                </i>
+                <i>{INSTANCE_STATUS[text]}</i>
+              </span>
+            )
+          }
         } else if (title === 'created') {
           className = commonStyles.time;
         }
@@ -255,7 +271,7 @@ class InstanceTable extends React.Component {
             imagesIndex = imagesData.findIndex(image => image.id === ele.image.id);
             data[item] = imagesData[imagesIndex].name;
           } else if (item === 'status') {
-            data[item] = INSTANCE_STATUS[ele.status];
+            data[item] = ele.status;
           } else if (item === 'created') {
             data[item] = moment(ele[item]).format('YYYY-MM-DD HH:mm:ss');
           } else {
@@ -335,7 +351,7 @@ class InstanceTable extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  servers: selectServers(state),
+  servers: selectServersInfo(state),
   flavors: selectFlavors(state),
   images: selectImages(state)
 });

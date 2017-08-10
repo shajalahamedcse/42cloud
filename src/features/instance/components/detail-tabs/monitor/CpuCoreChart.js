@@ -21,7 +21,7 @@ function CpuCoreChart(props) {
   } else {
     return(
       <ReactEchartsCore
-        style={{height: '260px', width: '1000px'}}
+        style={{height: '260px'}}
         echarts={echarts}
         option={getOption(props.monitor.vcpuCore.data, props.timeSpan)}
       />
