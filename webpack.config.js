@@ -28,20 +28,26 @@ let plugins = [
       "script_path": scriptPath,
     }
   }),
+
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
   }),
+
+  // 忽略 moment 的本地化内容
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
 ];
 
 if (env === 'production') {
   plugins.push(
     new webpack.optimize.UglifyJsPlugin({ parallel: true })
-  )
+  );
+
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  plugins.push(
+    new BundleAnalyzerPlugin()
+  );
 } else if (env === 'development') {
-  // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-  // plugins.push(
-  //   new BundleAnalyzerPlugin()
-  // )
+
 }
 
 module.exports = {
@@ -186,13 +192,13 @@ module.exports = {
     }
   },
 
-  // externals : {
-  //   'lodash': '_',
-  //   'moment': 'moment',
-  //   'echarts': 'echarts',
-  //   'react': 'React',
-  //   'react-dom': 'ReactDOM',
-  // },
+  externals : {
+    'lodash': '_',
+    'moment': 'moment',
+    'echarts': 'echarts',
+    // 'react': 'React',
+    // 'react-dom': 'ReactDOM',
+  },
 
   devtool: 'source-map'
 };

@@ -16,7 +16,6 @@ class Limit extends React.Component {
       )
     } else {
       let quotaSetData = this.props.quotaSet.data;
-      console.log(quotaSetData);
       return (
         <Row gutter={20}>
           <Col xs={12} md={12} xl={6}>

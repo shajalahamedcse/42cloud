@@ -6,9 +6,7 @@ import { getOption } from './common';
 import { selectMonitor } from 'app/selectors/influxdb';
 
 import ReactEchartsCore from 'echarts-for-react/lib/core';
-import echarts from 'echarts/lib/echarts';
-import 'echarts/lib/chart/line';
-import 'echarts/lib/component/tooltip';
+import echarts from 'echarts';
 
 function CpuCoreChart(props) {
 
