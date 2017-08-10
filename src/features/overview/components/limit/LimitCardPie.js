@@ -29,7 +29,7 @@ const getOption = (data, colorKey) => {
 
   let unusedHolderStyle = {
     normal: {
-      color: '#F5F5F5'
+      color: '#ECECEC'
     }
   };
 
