@@ -50,7 +50,8 @@ class VolumesTable extends React.Component {
                 {
                   [commonStyles.creating]: text === 'creating',
                   [commonStyles.available]: text === 'available',
-                  [commonStyles.deleting]: text === 'deleting'
+                  [commonStyles.deleting]: text === 'deleting',
+                  [commonStyles.inuse]: text === 'in-use',
                 }
               )}>
               </i>

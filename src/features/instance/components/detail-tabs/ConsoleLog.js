@@ -21,13 +21,20 @@ class ConsoleLog extends React.Component {
         <Spin />
       )
     } else {
-      let log = this.props.consoleOutput.data.split('\n');
+      let data = this.props.consoleOutput.data;
       let logNode = [];
-      log.forEach((ele, index) => {
+      if (data) {
+        let log = data.split('\n');
+        log.forEach((ele, index) => {
+          logNode.push(
+            <div key={index}>{ele}</div>
+          )
+        });
+      } else {
         logNode.push(
-          <div key={index}>{ele}</div>
+          <div key="null">暂无日志</div>
         )
-      });
+      }
       return (
         <div className={styles.log}>
           {logNode}

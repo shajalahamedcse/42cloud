@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { selectServersInfo } from 'app/selectors/nova';
 import { selectNetworks } from 'app/selectors/neutron';
 import { Spin } from 'antd';
-import instance from 'assets/svg/instance.svg';
-
 
 const serverMargin = 50,
   nicLineOffsetTop = 28,
@@ -16,9 +14,6 @@ const serverMargin = 50,
   instanceWidth = 80,
   instanceBorder = 3,
   nicConnectWidth = 4;
-
-
-// const bgColors = ['#108ee9', '#eb4b4b', '#34a853', '#fbbc05', '#999999', '#364d79'];
 
 const bgColors  = [
   '#dc69aa', '#b6a2de','#5ab1ef','#ffb980','#d87a80', '#9a7fd1','#588dd5','#f5994e','#c05050','#c14089'
@@ -157,7 +152,7 @@ class NetworkTopology extends React.Component {
                 'color': bgColors[nic.netIndex]
               }}
             >
-              {nic.data.addr.split('.').slice(2, 4).join('.')}
+              *.{nic.data.addr.split('.').slice(2, 4).join('.')}
             </div>
           )
         });
@@ -271,6 +266,7 @@ class NetworkTopology extends React.Component {
               'width': `${netLineWidth}px`,
               'backgroundColor': bgColors[networkIndex],
               'left': networkLeft,
+              'zIndex': '2'
             }}
           >
           </div>
@@ -282,9 +278,7 @@ class NetworkTopology extends React.Component {
         <div
           style={{
             'position': 'relative',
-            'backgroundColor': '#ffffff',
             'height': networkHeight,
-            'margin': '20px'
           }}
         >
           {networksArr}

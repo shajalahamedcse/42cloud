@@ -45,7 +45,10 @@ class SideNav extends React.Component {
             <Menu.Item key="image">
               <Link to="/console/image">镜像</Link>
             </Menu.Item>
-            {/*<Menu.Item key="vpc">VPC 网络</Menu.Item>*/}
+
+            <Menu.Item key="vpc">
+              <Link to="/console/vpc">VPC 网络</Link>
+            </Menu.Item>
           </SubMenu>
 
           {/*<SubMenu*/}

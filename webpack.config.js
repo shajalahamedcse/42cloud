@@ -90,6 +90,7 @@ module.exports = {
           }
         ],
       },
+
       {
         test: /\.css$/,
         use: [
@@ -103,6 +104,7 @@ module.exports = {
           }
         ]
       },
+
       {
         test: /\.less$/,
         use: [
@@ -111,6 +113,7 @@ module.exports = {
           'less-loader'
         ]
       },
+
       // {
       //   test: /\.(jpg|png|svg)$/,
       //   use: [
@@ -122,12 +125,14 @@ module.exports = {
       //     }
       //   ]
       // },
+
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [
           'file-loader'
         ]
       },
+
       {
         test: /\.(jpg|png|svg|gif)$/,
         use: [

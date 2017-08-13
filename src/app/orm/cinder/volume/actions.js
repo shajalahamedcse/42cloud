@@ -220,20 +220,24 @@ const deleteVolume = (selectedVolumes) => {
       let scopedToken = getToken();
       let tmpl = {'volume_id': ele.id};
       let url = combineURL('deleteVolume', tmpl);
-      fetch(url, {
+      return fetch(url, {
         method: 'DELETE',
         headers: {
           'X-Auth-Token': scopedToken
         }
-      }).then((res) => {
-        if (res.status === 202) {
-          dispatch(deleteVolumeSuccess());
-          dispatch(pollVolumeIfDeleted(ele));
-        }
-      }).catch((err) => {
-        throw err;
       })
-    }))
+    })).then(res => {
+      console.log(res);
+      res.forEach(item => {
+        if (item.status === 202) {
+          console.log('dispatch');
+          dispatch(deleteVolumeSuccess());
+          dispatch(pollVolumeIfDeleted(item));
+        }
+      })
+    }).catch(err => {
+      throw err
+    })
   }
 };
 

@@ -22,6 +22,11 @@ class DetailOverview extends React.Component {
       let flavorsInfo = this.props.flavors.data;
       let serverInfo = this.props.server.data;
 
+      // 镜像
+      let imageIndex = this.props.images.data.findIndex(image => image.id === serverInfo.image.id);
+      let imageName = this.props.images.data[imageIndex].name;
+
+      // 网络
       let networkArrs = [];
       let addressKeys = Object.keys(serverInfo.addresses);
       addressKeys.forEach(key => {
@@ -46,8 +51,33 @@ class DetailOverview extends React.Component {
         }
       });
 
-      let imageIndex = this.props.images.data.findIndex(image => image.id === serverInfo.image.id);
-      let imageName = this.props.images.data[imageIndex].name;
+      // 密钥对
+      let keyName = '';
+      if (serverInfo.key_name) {
+        keyName = serverInfo.key_name;
+      } else {
+        keyName = '无';
+      }
+
+      // 安全组
+      let securityGroupsArr = [];
+      if (serverInfo.security_groups.length > 0) {
+        let securityGroupsName = [];
+        serverInfo.security_groups.forEach(ele => {
+          securityGroupsName.push(ele.name);
+        });
+        securityGroupsName = securityGroupsName.filter((item, index, arr) => arr.indexOf(item) === index);
+        securityGroupsArr.push(<dl key="securityGroups">
+          <dt>{INSTANCE_FIELD['security_groups']}</dt>
+          <dd>{securityGroupsName.join(',')}</dd>
+          </dl>
+        );
+      } else {
+        securityGroupsArr.push(<dl key="null">
+          <dt>{INSTANCE_FIELD['security_groups']}</dt>
+          <dd>无</dd>
+        </dl>)
+      }
 
       return (
         <div className={styles.overview}>
@@ -94,10 +124,9 @@ class DetailOverview extends React.Component {
             <div className={styles.subtitle}>安全配置</div>
             <dl>
               <dt>{INSTANCE_FIELD['key_name']}</dt>
-              <dd>{serverInfo.key_name}</dd>
-              <dt>{INSTANCE_FIELD['security_groups']}</dt>
-              <dd>{serverInfo.security_groups[0].name}</dd>
+              <dd>{keyName}</dd>
             </dl>
+            {securityGroupsArr}
           </div>
         </div>
       )

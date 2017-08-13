@@ -3,13 +3,15 @@ import Instance from 'features/instance';
 import Image from 'features/image/';
 import Volume from 'features/volume/';
 import keypair from 'features/keypair';
+import VPC from 'features/vpc';
 
 const CONSOLE_ROUTES = {
   'overview': Overview,
   'instance': Instance,
   'image': Image,
   'volume': Volume,
-  'keypair': keypair
+  'keypair': keypair,
+  'vpc': VPC
 };
 
 // Usage

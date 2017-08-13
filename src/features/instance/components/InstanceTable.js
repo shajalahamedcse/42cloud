@@ -115,17 +115,14 @@ class InstanceTable extends React.Component {
     let selectedServersArr = [];
     if (selectedRows.length) {
       selectedRows.forEach(item => {
-        console.log(item);
         if (item.status === 'ACTIVE') {
           stopArr.push(item);
           selectedServersArr.push(item.id);
-          console.log(selectedServersArr);
           this.setState({
             stop: stopArr,
             selectedServers: selectedServersArr,
           })
         } else if (item.status === 'SHUTOFF') {
-          console.log(item);
           startArr.push(item);
           selectedServersArr.push(item.id);
           this.setState({
