@@ -9,7 +9,7 @@ const getNetworksRequest = () => ({
   type: 'GET_NETWORKS_REQUEST',
 });
 
-export const getNetworks = () => {
+const getNetworks = () => {
   return (dispatch) => {
     dispatch(getNetworksRequest());
     let scopedToken = getToken();
@@ -30,3 +30,5 @@ export const getNetworks = () => {
     })
   }
 };
+
+export { getNetworks };

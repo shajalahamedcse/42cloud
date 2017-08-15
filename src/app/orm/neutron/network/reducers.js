@@ -1,5 +1,5 @@
 const networks = (state = { loading: false, data: [] }, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'GET_NETWORKS_SUCCESS': {
       return {
         ...state,

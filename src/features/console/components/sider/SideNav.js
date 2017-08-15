@@ -31,8 +31,8 @@ class SideNav extends React.Component {
           </Menu.Item>
 
           <SubMenu
-            key="comnet"
-            title={<i className={(styles.fa) + " " + "fa fa-server fa-lg"}>计算与网络</i>}
+            key="compute"
+            title={<i className={(styles.fa) + " " + "fa fa-server fa-lg"}>计算</i>}
           >
             <Menu.Item key="instance">
               <Link to="/console/instance">云主机</Link>
@@ -47,7 +47,22 @@ class SideNav extends React.Component {
             </Menu.Item>
 
             <Menu.Item key="vpc">
-              <Link to="/console/vpc">VPC 网络</Link>
+              <Link to="/console/vpc">VPC</Link>
+            </Menu.Item>
+          </SubMenu>
+
+          <SubMenu
+            key="network"
+            title={<i className={(styles.fa) + " " + "fa fa-server fa-lg"}>网络</i>}
+          >
+            <Menu.Item key="router">
+              <Link to="/console/router">路由器</Link>
+            </Menu.Item>
+            <Menu.Item key="subnet">
+              <Link to="/console/subnet">子网</Link>
+            </Menu.Item>
+            <Menu.Item key="port">
+              <Link to="/console/port">端口</Link>
             </Menu.Item>
           </SubMenu>
 

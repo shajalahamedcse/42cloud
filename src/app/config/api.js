@@ -124,6 +124,21 @@ const apiPath = {
     type: 'network'
   },
 
+  getRouters: {
+    path: '/v2.0/routers',
+    type: 'network'
+  },
+
+  getSubnets: {
+    path: '/v2.0/subnets',
+    type: 'network'
+  },
+
+  getPorts: {
+    path: '/v2.0/ports',
+    type: 'network'
+  },
+
   // Monitor
   getMonVcpuCoreUsage: {
     path: '/query?q=',

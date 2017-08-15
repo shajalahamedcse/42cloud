@@ -137,7 +137,6 @@ class VolumesTable extends React.Component {
           columns={columns}
           bordered={true}
           size="middle"
-          rowClassName={(record, index) => ('row' + index)}
           dataSource={data}
           rowKey='id'
         />

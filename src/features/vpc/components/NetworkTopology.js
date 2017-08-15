@@ -16,7 +16,8 @@ const serverMargin = 50,
   nicConnectWidth = 4;
 
 const bgColors  = [
-  '#dc69aa', '#b6a2de','#5ab1ef','#ffb980','#d87a80', '#9a7fd1','#588dd5','#f5994e','#c05050','#c14089'
+  '#dc69aa', '#b6a2de','#5ab1ef','#ffb980','#d87a80',
+  '#9a7fd1','#588dd5','#f5994e','#c05050','#c14089'
 ];
 
 class NetworkTopology extends React.Component {
@@ -185,6 +186,8 @@ class NetworkTopology extends React.Component {
             >
             </div>
 
+            {instanceNicsArr}
+
             <div
               style={{
                 'backgroundColor': '#222',
@@ -199,7 +202,6 @@ class NetworkTopology extends React.Component {
               <i className="fa fa-laptop"></i>
               <i>云主机</i>
             </div>
-              {instanceNicsArr}
           </div>
         );
 

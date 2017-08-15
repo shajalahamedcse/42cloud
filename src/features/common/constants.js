@@ -4,6 +4,9 @@ import Image from 'features/image/';
 import Volume from 'features/volume/';
 import keypair from 'features/keypair';
 import VPC from 'features/vpc';
+import Router from 'features/router';
+import Subnet from 'features/subnet';
+import Port from 'features/port';
 
 const CONSOLE_ROUTES = {
   'overview': Overview,
@@ -11,7 +14,10 @@ const CONSOLE_ROUTES = {
   'image': Image,
   'volume': Volume,
   'keypair': keypair,
-  'vpc': VPC
+  'vpc': VPC,
+  'router': Router,
+  'subnet': Subnet,
+  'port': Port,
 };
 
 // Usage
@@ -245,7 +251,11 @@ const BREADCRUMB_FIELD = {
   'instance': '云主机',
   'volume': '硬盘',
   'image': '镜像',
-  'keypair': 'SSH密钥'
+  'keypair': 'SSH密钥',
+  'vpc': 'VPC 网络',
+  'subnet': '子网',
+  'port': '端口',
+  'router': '路由器',
 };
 
 //
@@ -265,6 +275,62 @@ const MONITOR_TIME_STEP = {
   "1month": "4h",
   "6months": "24h",
   "1year": "48h",
+};
+
+//
+const ROUTER_TABLE_COLUMN = [
+  'name',
+  'status',
+  'admin_state_up',
+  'external_gateway_info'
+];
+
+const ROUTER_FIELD = {
+  "name": "名称",
+  "status": "状态",
+  "admin_state_up": "管理状态",
+  "external_gateway_info": "外部网关"     //只显示ip_address
+};
+
+const NETWORK_FIELD = {
+  "status": "状态",
+  "name": "名称",
+  "admin_state_up": "管理状态",
+  "router:external": "外部网络",     // true是， false否
+};
+
+// 子网
+const SUBNET_TABLE_COLUMN = [
+  'name',
+  'cidr',
+  'ip_version',
+  'gateway_ip'
+];
+
+const SUBNET_FIELD = {
+  "name": "名称",
+  "cidr": "网络地址",
+  "ip_version": "IP协议版本",
+  "gateway_ip": "网关地址",
+};
+
+// 端口
+const PORT_TABLE_COLUMN = [
+  'name',
+  'fixed_ip',
+  'device_owner',
+  'device_id',
+  'status',
+  'admin_state_up'
+];
+
+const PORT_FIELD = {
+  "name": "名称",
+  "fixed_ip": "固定IP", // 显示ip_address
+  "device_owner": "连接的设备的类型",
+  "device_id": "连接的设备的ID",
+  "status": "状态",
+  "admin_state_up": "管理状态",
 };
 
 export {
@@ -298,5 +364,14 @@ export {
   BREADCRUMB_FIELD,
 
   MONITOR_TIME_STEP,
-  MONITOR_TIME_SPAN
+  MONITOR_TIME_SPAN,
+
+  ROUTER_FIELD,
+  ROUTER_TABLE_COLUMN,
+
+  SUBNET_FIELD,
+  SUBNET_TABLE_COLUMN,
+
+  PORT_FIELD,
+  PORT_TABLE_COLUMN,
 }

@@ -59,7 +59,6 @@ class ImageTable extends React.Component {
           columns={columns}
           bordered
           size="middle"
-          rowClassName={(record, index) => ('row' + index)}
           dataSource={data}
           rowKey='id'
         />
