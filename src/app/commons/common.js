@@ -2,6 +2,11 @@ import { apiPath, proxyPrefix } from 'app/config/api';
 import _ from 'lodash';
 import moment from 'moment';
 
+// 数组去重
+const uniqueArr = (arr) => {
+  return arr.filter((item, index, arr) => arr.indexOf(item) === index);
+};
+
 const decideIfLogged = () => {
   let isLogged = false;
   let scopedToken = localStorage.getItem('scopedToken');
@@ -13,7 +18,7 @@ const decideIfLogged = () => {
     if (scopedToken &&
       urlPrefix &&
       projectID &&
-      moment(expiresUTC).isAfter(nowUTC)){
+      moment(expiresUTC).isAfter(nowUTC)) {
       isLogged = true;
     } else {
       localStorage.clear();
@@ -99,7 +104,8 @@ export {
   combineIdentityURL,
   getToken,
   getQueryStatement,
-  decideIfLogged
+  decideIfLogged,
+  uniqueArr,
 };
 
 

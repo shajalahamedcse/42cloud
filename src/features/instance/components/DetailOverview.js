@@ -4,6 +4,7 @@ import { Spin } from 'antd';
 import { INSTANCE_FIELD, INSTANCE_STATUS, FLAVOR_FIELD } from 'features/common/constants';
 import { selectServer, selectFlavors } from 'app/selectors/nova';
 import { selectImages } from 'app/selectors/glance';
+import { uniqueArr } from 'app/commons/common';
 import styles from './style/DetailOverview.css';
 
 class DetailOverview extends React.Component {
@@ -21,8 +22,6 @@ class DetailOverview extends React.Component {
     } else {
       let flavorsInfo = this.props.flavors.data;
       let serverInfo = this.props.server.data;
-
-      console.log(flavorsInfo, serverInfo);
 
       // 镜像
       let imageIndex = this.props.images.data.findIndex(image => image.id === serverInfo.image.id);
@@ -68,7 +67,7 @@ class DetailOverview extends React.Component {
         serverInfo.security_groups.forEach(ele => {
           securityGroupsName.push(ele.name);
         });
-        securityGroupsName = securityGroupsName.filter((item, index, arr) => arr.indexOf(item) === index);
+        securityGroupsName = uniqueArr(securityGroupsName);
         securityGroupsArr.push(<dl key="securityGroups">
           <dt>{INSTANCE_FIELD['security_groups']}</dt>
           <dd>{securityGroupsName.join(',')}</dd>

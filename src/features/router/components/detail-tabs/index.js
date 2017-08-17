@@ -21,6 +21,7 @@ class DetailTabs extends React.Component {
   render() {
     return (
         <Tabs
+          animated={false}
           defaultActiveKey="subnet"
           onTabClick={(key) => this.handleTabClick(key)}
           className={styles.detailtabs}

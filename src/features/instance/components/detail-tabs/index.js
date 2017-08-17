@@ -44,6 +44,7 @@ class DetailTabs extends React.Component {
   render() {
     return (
       <Tabs
+        animated={false}
         onChange={this.handleChange}
         onTabClick={this.handleTabClick}
         className={styles.detailtabs}

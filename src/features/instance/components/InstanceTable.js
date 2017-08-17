@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { uniqueArr } from 'app/commons/common';
 
 import { getNetworks } from 'app/orm/neutron/network/actions';
 import { getKeypairs } from 'app/orm/nova/keypair/actions';
@@ -191,9 +192,8 @@ class InstanceTable extends React.Component {
         } else if (title === 'security_groups') {
           render = (text) => {
             if (text) {
-              // 数组去重
               let sgArr = text.map(sg => sg.name);
-              sgArr = sgArr.filter((item, index, arr) => arr.indexOf(item) === index);
+              sgArr = uniqueArr(sgArr);
               return (
                 <div>{sgArr.join(',')}</div>
               )

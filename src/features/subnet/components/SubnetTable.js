@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { selectSubnets } from 'app/selectors/neutron';
 import { selectRouterPorts } from 'app/selectors/neutron';
+import { uniqueArr } from 'app/commons/common';
 import { SUBNET_TABLE_COLUMN, SUBNET_FIELD } from 'features/common/constants';
 import { Spin, Table } from 'antd';
 
@@ -49,7 +50,7 @@ class SubnetTable extends React.Component {
           subnetIds.push(item.subnet_id);
         });
       });
-      subnetIds = subnetIds.filter((id, index, arr) => arr.indexOf(id) === index);
+      subnetIds = uniqueArr(subnetIds);
 
       let subnetsData = [];
       this.props.subnets.data.forEach(item => {
