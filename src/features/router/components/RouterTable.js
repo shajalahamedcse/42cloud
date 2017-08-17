@@ -1,8 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { selectRouters } from 'app/selectors/neutron';
 import { Spin, Table } from 'antd';
 import { ROUTER_FIELD, ROUTER_TABLE_COLUMN } from 'features/common/constants';
+
+import commonStyles from 'features/common/styles.css';
 
 class RouterTable extends React.Component {
   constructor(props) {
@@ -16,22 +19,36 @@ class RouterTable extends React.Component {
       )
     } else {
       const columns = [];
-      let render;
       ROUTER_TABLE_COLUMN.forEach(item => {
-        if (item === 'external_gateway_info') {
-          let ipArrs = [];
+        let render;
+        if (item === 'name') {
+          render = (text, record) => {
+            return (
+              <Link to={"/console/routers/" + record.id}>
+                <span>{text}</span>
+              </Link>
+            )
+          }
+        } else if (item === 'external_gateway_info') {
           render = (text) => {
+            let ipArrs = [];
             text['external_fixed_ips'].forEach(ip => {
               ipArrs.push(
                 <div key={ip['ip_address']}>
                   {ip['ip_address']}
-                  </div>
+                </div>
               )
             });
             return (
               <span>{ipArrs}</span>
             )
           };
+        } else if (item === 'admin_state_up') {
+          render = (text) => {
+            return (
+              <span>{text.toString()}</span>
+            )
+          }
         }
 
         columns.push({
@@ -47,13 +64,15 @@ class RouterTable extends React.Component {
       });
 
       return(
-        <Table
-          columns={columns}
-          dataSource={data}
-          bordered
-          size="middle"
-          rowKey="id"
-        />
+        <div className={commonStyles.wrapper}>
+          <Table
+            columns={columns}
+            dataSource={data}
+            bordered
+            size="middle"
+            rowKey="id"
+          />
+        </div>
       )
     }
   }

@@ -1,9 +1,9 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import RouterTable from './components/RouterTable';
+import RouterTable from 'features/router/components/RouterTable';
+import RouterDetail from 'features/router/components/RouterDetail';
 import { getRouters } from 'app/orm/neutron/router/actions';
-
-import commonStyles from 'features/common/styles.css'
 
 class Router extends React.Component {
   constructor(props) {
@@ -15,9 +15,19 @@ class Router extends React.Component {
   }
 
   render() {
-    return(
-      <div className={commonStyles.wrapper}>
-        <RouterTable />
+    return (
+      <div>
+        <Route
+          path="/console/routers"
+          exact
+          component={RouterTable}
+        />
+
+        <Route
+          path="/console/routers/:id"
+          exact
+          component={RouterDetail}
+        />
       </div>
     )
   }

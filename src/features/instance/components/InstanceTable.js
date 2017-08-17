@@ -183,7 +183,7 @@ class InstanceTable extends React.Component {
           sorter = (a, b) => a.name.length - b.name.length;
           render = (text, record) => {
             return (
-              <Link to={"/console/instance/" + record.id}>
+              <Link to={"/console/instances/" + record.id}>
                 <span>{text}</span>
               </Link>
             )
@@ -336,7 +336,6 @@ class InstanceTable extends React.Component {
           </div>
 
           <Table
-            className={commonStyles.table}
             rowSelection={rowSelection}
             bordered
             size="middle"

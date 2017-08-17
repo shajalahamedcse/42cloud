@@ -10,15 +10,9 @@ class Port extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
-    this.props.dispatch(getPorts());
-  }
-
   render() {
     return (
-      <div
-        className={commonStyles.wrapper}
-      >
+      <div>
         <PortTable />
       </div>
     )

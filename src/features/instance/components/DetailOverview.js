@@ -22,6 +22,8 @@ class DetailOverview extends React.Component {
       let flavorsInfo = this.props.flavors.data;
       let serverInfo = this.props.server.data;
 
+      console.log(flavorsInfo, serverInfo);
+
       // 镜像
       let imageIndex = this.props.images.data.findIndex(image => image.id === serverInfo.image.id);
       let imageName = this.props.images.data[imageIndex].name;
@@ -81,7 +83,7 @@ class DetailOverview extends React.Component {
 
       return (
         <div className={styles.overview}>
-          <div className={styles.title}>实例详情</div>
+          <div className={styles.title}>云主机详情</div>
 
           <div className={styles.basic}>
             <div className={styles.subtitle}>基本信息</div>

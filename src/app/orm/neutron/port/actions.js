@@ -31,4 +31,36 @@ const getPorts = () => {
   }
 };
 
-export { getPorts };
+const getRouterPortsSuccess = (ports) => ({
+  type: 'GET_ROUTER_PORTS_SUCCESS',
+  ports
+});
+
+const getRouterPortsRequest = () => ({
+  type: 'GET_ROUTER_PORTS_REQUEST'
+});
+
+const getRouterPorts = (routerId) => {
+  return (dispatch) => {
+    dispatch(getRouterPortsRequest());
+    let scopedToken = getToken();
+    let tmpl = {'router_id': routerId};
+    let url = combineURL('getRouterPorts', tmpl);
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'X-Auth-Token': scopedToken
+      }
+    }).then(res => {
+      res.json().then(resBody => {
+        dispatch(getRouterPortsSuccess(resBody.ports));
+      }).catch(err => {
+        throw err;
+      })
+    }).catch(err => {
+      throw err;
+    })
+  }
+};
+
+export { getPorts, getRouterPorts };

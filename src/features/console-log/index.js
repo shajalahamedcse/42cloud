@@ -4,7 +4,7 @@ import { fetchConsoleOutput } from 'app/orm/nova/server/actions';
 import { selectConsoleOutput } from 'app/selectors/nova';
 import { Spin } from 'antd';
 
-import styles from './ConsoleLog.css';
+import styles from './index.css';
 
 class ConsoleLog extends React.Component {
   constructor(props) {

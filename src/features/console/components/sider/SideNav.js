@@ -34,35 +34,35 @@ class SideNav extends React.Component {
             key="compute"
             title={<i className={(styles.fa) + " " + "fa fa-server fa-lg"}>计算</i>}
           >
-            <Menu.Item key="instance">
-              <Link to="/console/instance">云主机</Link>
+            <Menu.Item key="instances">
+              <Link to="/console/instances">云主机</Link>
             </Menu.Item>
-            <Menu.Item key="volume">
-              <Link to="/console/volume">
+
+            <Menu.Item key="volumes">
+              <Link to="/console/volumes">
                 硬盘
               </Link>
             </Menu.Item>
-            <Menu.Item key="image">
-              <Link to="/console/image">镜像</Link>
-            </Menu.Item>
 
-            <Menu.Item key="vpc">
-              <Link to="/console/vpc">VPC</Link>
+            <Menu.Item key="images">
+              <Link to="/console/images">镜像</Link>
             </Menu.Item>
           </SubMenu>
 
           <SubMenu
-            key="network"
+            key="net"
             title={<i className={(styles.fa) + " " + "fa fa-server fa-lg"}>网络</i>}
           >
-            <Menu.Item key="router">
-              <Link to="/console/router">路由器</Link>
+            <Menu.Item key="vpc">
+              <Link to="/console/vpc">VPC</Link>
             </Menu.Item>
-            <Menu.Item key="subnet">
-              <Link to="/console/subnet">子网</Link>
+
+            <Menu.Item key="networks">
+              <Link to="/console/networks">网络</Link>
             </Menu.Item>
-            <Menu.Item key="port">
-              <Link to="/console/port">端口</Link>
+
+            <Menu.Item key="routers">
+              <Link to="/console/routers">路由器</Link>
             </Menu.Item>
           </SubMenu>
 
@@ -77,8 +77,8 @@ class SideNav extends React.Component {
             title={<i className={(styles.fa) + " " + "fa fa-bolt fa-lg"}>安全</i>}
           >
             {/*<Menu.Item key="secgroup">安全组</Menu.Item>*/}
-            <Menu.Item key="keypair">
-              <Link to="/console/keypair">
+            <Menu.Item key="keypairs">
+              <Link to="/console/keypairs">
                 SSH密钥
               </Link>
             </Menu.Item>

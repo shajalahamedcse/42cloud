@@ -129,6 +129,11 @@ const apiPath = {
     type: 'network'
   },
 
+  getRouterInfo: {
+    path: '/v2.0/routers/${router_id}',
+    type: 'network'
+  },
+
   getSubnets: {
     path: '/v2.0/subnets',
     type: 'network'
@@ -137,6 +142,23 @@ const apiPath = {
   getPorts: {
     path: '/v2.0/ports',
     type: 'network'
+  },
+
+  getRouterPorts: {
+    path: '/v2.0/ports?device_id=${router_id}',
+    type: 'network'
+  },
+
+  getRouterSnatPorts: {
+
+  },
+
+  getRouterGatewayPorts: {
+
+  },
+
+  getRouterInterfacePorts: {
+
   },
 
   // Monitor

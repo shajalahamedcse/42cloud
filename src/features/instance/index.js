@@ -24,13 +24,13 @@ class Instance extends React.Component {
     return (
       <div>
         <Route
-          path="/console/instance"
+          path="/console/instances"
           exact
           component={InstanceTable}
         />
 
         <Route
-          path="/console/instance/:id"
+          path="/console/instances/:id"
           exact
           component={InstanceDetail}
         />

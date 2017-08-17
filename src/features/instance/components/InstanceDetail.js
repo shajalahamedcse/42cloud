@@ -13,10 +13,13 @@ class InstanceDetail extends React.Component {
     super(props);
   }
 
-  render() {
+  componentWillMount() {
     this.props.dispatch(getServerInfo(this.props.match.params.id));
     this.props.dispatch(getImages());
     this.props.dispatch(getFlavorsInfo());
+  }
+
+  render() {
     return (
       <div className={styles.wrapper}>
         <DetailOverview />

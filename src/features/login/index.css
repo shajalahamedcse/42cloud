@@ -25,12 +25,11 @@
 
 .experience {
     background-color: #34A853;
-    font-size: 16px;
+    font-size: 14px;
     color: #fff;
     text-align: right;
     margin-bottom: 10px;
     display: inline-block;
-    border: 1px solid #34A853;
     border-radius: 5px;
     padding: 5px 10px;
     position: absolute;
@@ -39,16 +38,12 @@
 }
 
 .experience:hover {
-    color: #34A853;
-    background-color: #ffffff;
-}
-
-.experience:hover {
+    opacity: .8;
     cursor: pointer;
 }
 
 .github {
     position: absolute;
-    bottom: 10px;
+    bottom: 8px;
     left: 40px;
 }

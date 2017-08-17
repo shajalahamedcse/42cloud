@@ -77,7 +77,7 @@ class NormalLoginForm extends React.Component {
 
               <div className={styles.github}>
                 <a href="https://github.com/qeelei/42cloud">
-                  <Icon type="github" style={{ fontSize: '30px', color: '#222' }}/>
+                  <Icon type="github" style={{ fontSize: '26px', color: '#222' }}/>
                 </a>
               </div>
 

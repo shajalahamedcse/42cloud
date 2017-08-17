@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Tabs, Radio } from 'antd';
-import ConsoleLog from './ConsoleLog';
-import Monitor from './monitor';
+import ConsoleLog from 'features/console-log';
+import Monitor from 'features/monitor';
 import { getMonitor } from 'app/orm/influxdb/monitor/actions';
 import { MONITOR_TIME_SPAN, MONITOR_TIME_STEP } from 'features/common/constants';
 import { filterTimeSpan } from 'features/instance/actions';

@@ -30,7 +30,7 @@ class UsageItem extends React.Component {
           render = (text, record) => {
             if (serversId.indexOf(record.instance_id) !== -1) {
               return (
-                <Link to={"/console/instance/" + record.instance_id}>
+                <Link to={"/console/instances/" + record.instance_id}>
                   <span>{text}</span>
                 </Link>
               )

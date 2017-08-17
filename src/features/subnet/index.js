@@ -16,9 +16,7 @@ class Subnet extends React.Component {
 
   render() {
     return (
-      <div
-        className={commonStyles.wrapper}
-      >
+      <div>
         <SubnetTable />
       </div>
     )

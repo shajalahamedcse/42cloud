@@ -5,19 +5,17 @@ import Volume from 'features/volume/';
 import keypair from 'features/keypair';
 import VPC from 'features/vpc';
 import Router from 'features/router';
-import Subnet from 'features/subnet';
-import Port from 'features/port';
+import Network from 'features/network';
 
 const CONSOLE_ROUTES = {
   'overview': Overview,
-  'instance': Instance,
-  'image': Image,
-  'volume': Volume,
-  'keypair': keypair,
+  'instances': Instance,
+  'images': Image,
+  'volumes': Volume,
+  'keypairs': keypair,
   'vpc': VPC,
-  'router': Router,
-  'subnet': Subnet,
-  'port': Port,
+  'routers': Router,
+  'networks': Network
 };
 
 // Usage
@@ -49,7 +47,7 @@ const FLAVOR_TABLE_COLUMN = [
 ];
 
 const FLAVOR_FIELD = {
-  "name": "规格名称",
+  "name": "名称",
   "id": "规格ID",
   "vcpus": "vCPU数量",
   "ram": "内存大小",
@@ -164,7 +162,7 @@ const KEYPAIR_TABLE_COLUMN = [
 ];
 
 const KEYPAIR_FIELD = {
-  "name": "密钥对名称",
+  "name": "名称",
   "fingerprint": "公钥指纹",
 };
 
@@ -248,14 +246,12 @@ const QUOTA_FIELD = {
 const BREADCRUMB_FIELD = {
   'console': '控制台',
   'overview': '总览',
-  'instance': '云主机',
-  'volume': '硬盘',
-  'image': '镜像',
-  'keypair': 'SSH密钥',
+  'instances': '云主机',
+  'volumes': '硬盘',
+  'images': '镜像',
+  'keypairs': 'SSH密钥',
   'vpc': 'VPC 网络',
-  'subnet': '子网',
-  'port': '端口',
-  'router': '路由器',
+  'routers': '路由器',
 };
 
 //
@@ -277,7 +273,22 @@ const MONITOR_TIME_STEP = {
   "1year": "48h",
 };
 
-//
+// 网络
+const NETWORK_TABLE_COLUMN = [
+  'name',
+  'status',
+  'admin_state_up',
+  'router:external'
+];
+
+const NETWORK_FIELD = {
+  "status": "状态",
+  "name": "名称",
+  "admin_state_up": "管理状态",
+  "router:external": "外部网络",     // true是， false否
+};
+
+// 路由器
 const ROUTER_TABLE_COLUMN = [
   'name',
   'status',
@@ -290,13 +301,6 @@ const ROUTER_FIELD = {
   "status": "状态",
   "admin_state_up": "管理状态",
   "external_gateway_info": "外部网关"     //只显示ip_address
-};
-
-const NETWORK_FIELD = {
-  "status": "状态",
-  "name": "名称",
-  "admin_state_up": "管理状态",
-  "router:external": "外部网络",     // true是， false否
 };
 
 // 子网
@@ -317,7 +321,7 @@ const SUBNET_FIELD = {
 // 端口
 const PORT_TABLE_COLUMN = [
   'name',
-  'fixed_ip',
+  'fixed_ips',
   'device_owner',
   'device_id',
   'status',
@@ -326,7 +330,7 @@ const PORT_TABLE_COLUMN = [
 
 const PORT_FIELD = {
   "name": "名称",
-  "fixed_ip": "固定IP", // 显示ip_address
+  "fixed_ips": "固定IP", // 显示ip_address
   "device_owner": "连接的设备的类型",
   "device_id": "连接的设备的ID",
   "status": "状态",
@@ -365,6 +369,9 @@ export {
 
   MONITOR_TIME_STEP,
   MONITOR_TIME_SPAN,
+
+  NETWORK_FIELD,
+  NETWORK_TABLE_COLUMN,
 
   ROUTER_FIELD,
   ROUTER_TABLE_COLUMN,
