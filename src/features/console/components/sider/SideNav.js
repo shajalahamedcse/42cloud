@@ -53,10 +53,6 @@ class SideNav extends React.Component {
             key="net"
             title={<i className={(styles.fa) + " " + "fa fa-sitemap fa-lg"}>网络</i>}
           >
-            <Menu.Item key="vpc">
-              <Link to="/console/vpc">VPC</Link>
-            </Menu.Item>
-
             <Menu.Item key="networks">
               <Link to="/console/networks">网络</Link>
             </Menu.Item>

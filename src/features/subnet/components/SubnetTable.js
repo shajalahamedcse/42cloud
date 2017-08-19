@@ -6,14 +6,10 @@ import { uniqueArr } from 'app/commons/common';
 import { SUBNET_TABLE_COLUMN, SUBNET_FIELD } from 'features/common/constants';
 import { Spin, Table } from 'antd';
 
-class SubnetTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+function SubnetTable(props) {
 
-  render() {
-    if (this.props.subnets.loading ||
-      this.props.routerPorts.loading) {
+    if (props.subnets.loading ||
+      props.routerPorts.loading) {
       return (
         <Spin />
       )
@@ -45,7 +41,7 @@ class SubnetTable extends React.Component {
 
       // 获取特定路由器的子网并且去重
       let subnetIds = [];
-      this.props.routerPorts.data.forEach(port => {
+      props.routerPorts.data.forEach(port => {
         port.fixed_ips.forEach(item => {
           subnetIds.push(item.subnet_id);
         });
@@ -53,7 +49,7 @@ class SubnetTable extends React.Component {
       subnetIds = uniqueArr(subnetIds);
 
       let subnetsData = [];
-      this.props.subnets.data.forEach(item => {
+      props.subnets.data.forEach(item => {
         if (subnetIds.indexOf(item.id) >= 0) {
           subnetsData.push(item);
         }
@@ -64,7 +60,7 @@ class SubnetTable extends React.Component {
         data.push(item)
       });
 
-      return(
+      return (
         <Table
           columns={columns}
           dataSource={data}
@@ -74,7 +70,6 @@ class SubnetTable extends React.Component {
         />
       )
     }
-  }
 }
 
 const mapStateToProps = (state) => ({

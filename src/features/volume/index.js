@@ -38,6 +38,7 @@ class Volume extends React.Component {
   };
 
   handleModalVisible = (modal, visible) => {
+    console.log(modal, visible);
     if (modal === 'create') {
       this.setState({
         createVisible: visible

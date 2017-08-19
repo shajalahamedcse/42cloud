@@ -10,4 +10,6 @@ export const selectPorts = (state) => state.orm.neutron.ports;
 
 export const selectRouterPorts = (state) => state.orm.neutron.routerPorts;
 
+export const selectRouterInterfacePorts = (state) => state.orm.neutron.routerInterfacePorts;
+
 export const selectSecurityGroups = (state) => state.orm.neutron.securityGroups;

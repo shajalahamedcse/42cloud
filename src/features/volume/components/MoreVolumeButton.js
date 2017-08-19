@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Menu, Dropdown, Button, Icon } from 'antd';
+import { Menu } from 'antd';
+import MoreOperate from 'features/components/more-operate';
 
 import styles from './style/MoreVolumeButton.css'
 
@@ -15,6 +16,7 @@ class MoreVolumeButton extends React.Component {
 
   render() {
     let choosedVolumes = this.props.choosedVolumes;
+
     const menu = (
       <Menu
         className={styles.menu}
@@ -57,11 +59,7 @@ class MoreVolumeButton extends React.Component {
     );
 
     return(
-      <Dropdown overlay={menu} trigger={['click']}>
-        <Button type="primary" icon="appstore-o">
-          更多操作<Icon type="down" />
-        </Button>
-      </Dropdown>
+      <MoreOperate menu={menu} />
     )
   }
 }

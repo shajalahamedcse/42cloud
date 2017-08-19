@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Subnet from 'features/subnet';
 import Port from 'features/port';
+import Graph from 'features/graph';
+import { getSubnets } from 'app/orm/neutron/subnet/actions';
+import { getRouterInterfacePorts } from 'app/orm/neutron/port/actions';
 import { Tabs } from 'antd';
-
 const TabPane = Tabs.TabPane;
 
 import styles from './index.css';
@@ -15,7 +17,10 @@ class DetailTabs extends React.Component {
 
   handleTabClick = (key) => {
     console.log(key);
-    console.log(this.props.routerId);
+    if (key === 'graph') {
+      this.props.dispatch(getRouterInterfacePorts(this.props.routerID));
+      this.props.dispatch(getSubnets());
+    }
   };
 
   render() {
@@ -26,7 +31,9 @@ class DetailTabs extends React.Component {
           onTabClick={(key) => this.handleTabClick(key)}
           className={styles.detailtabs}
         >
-          <TabPane tab="子网" key="subnet">
+          <TabPane
+            tab="子网"
+            key="subnet">
             <Subnet />
           </TabPane>
 
@@ -39,7 +46,7 @@ class DetailTabs extends React.Component {
           </TabPane>
 
           <TabPane tab="图形化" key="graph">
-            图形化
+            <Graph />
           </TabPane>
 
           <TabPane tab="操作日志" key="log">

@@ -24,6 +24,7 @@
     }
 }
 
+.build,
 .inuse,
 .available,
 .deleting,
@@ -46,6 +47,7 @@
     box-shadow: 0 0 4px #108EE9;
 }
 
+.build,
 .deleting,
 .creating {
     -webkit-animation-name: blink;

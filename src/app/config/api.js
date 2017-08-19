@@ -150,15 +150,18 @@ const apiPath = {
   },
 
   getRouterSnatPorts: {
-
+    path: '/v2.0/ports?device_id=${router_id}&device_owner=network:router_centralized_snat',
+    type: 'network'
   },
 
   getRouterGatewayPorts: {
-
+    path: '/v2.0/ports?device_id=${router_id}&device_owner=network:router_gateway',
+    type: 'network'
   },
 
   getRouterInterfacePorts: {
-
+    path: '/v2.0/ports?device_id=${router_id}&device_owner=network:router_interface_distributed',
+    type: 'network'
   },
 
   // Monitor

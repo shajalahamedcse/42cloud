@@ -95,7 +95,6 @@ const getQueryStatement = (serverID, timeSpan, timeStep) => {
       AND time > now() - ${timeSpan} 
       GROUP BY time(${timeStep}), host, type, type_instance`
   }
-
 };
 
 export {

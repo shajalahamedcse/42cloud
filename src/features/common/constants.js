@@ -3,7 +3,6 @@ import Instance from 'features/instance';
 import Image from 'features/image/';
 import Volume from 'features/volume/';
 import keypair from 'features/keypair';
-import VPC from 'features/vpc';
 import Router from 'features/router';
 import Network from 'features/network';
 
@@ -13,7 +12,6 @@ const CONSOLE_ROUTES = {
   'images': Image,
   'volumes': Volume,
   'keypairs': keypair,
-  'vpc': VPC,
   'routers': Router,
   'networks': Network
 };
@@ -97,7 +95,6 @@ const INSTANCE_FIELD = {
 const INSTANCE_STATUS = {
   "ACTIVE": "运行中",
   "BUILD": "构建中",
-  "BUILDING": "构建中",
   "DELETED": "已删除",
   "ERROR": "错误",
   "HARD_REBOOT": "硬重启中",
@@ -308,7 +305,8 @@ const SUBNET_TABLE_COLUMN = [
   'name',
   'cidr',
   'ip_version',
-  'gateway_ip'
+  'gateway_ip',
+  'network_id',
 ];
 
 const SUBNET_FIELD = {
@@ -316,6 +314,7 @@ const SUBNET_FIELD = {
   "cidr": "网络地址",
   "ip_version": "IP协议版本",
   "gateway_ip": "网关地址",
+  "network_id": "网络"
 };
 
 // 端口

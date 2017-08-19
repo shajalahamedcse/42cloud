@@ -4,13 +4,8 @@ import { selectRouterPorts } from 'app/selectors/neutron';
 import { Spin, Table } from 'antd';
 import { PORT_TABLE_COLUMN, PORT_FIELD } from 'features/common/constants';
 
-class PortTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    if (this.props.routerPorts.loading) {
+function PortTable(props) {
+    if (props.routerPorts.loading) {
       return (
         <Spin />
       )
@@ -58,7 +53,7 @@ class PortTable extends React.Component {
       });
 
       const data = [];
-      this.props.routerPorts.data.forEach(item => {
+      props.routerPorts.data.forEach(item => {
         data.push(item);
       });
 
@@ -72,7 +67,6 @@ class PortTable extends React.Component {
         />
       )
     }
-  }
 }
 
 const mapStateToProps = (state) => ({

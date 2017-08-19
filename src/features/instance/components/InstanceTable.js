@@ -1,8 +1,10 @@
 import React from 'react'
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { uniqueArr } from 'app/commons/common';
+import MoreOperate from 'features/components/more-operate';
 
 import { getNetworks } from 'app/orm/neutron/network/actions';
 import { getKeypairs } from 'app/orm/nova/keypair/actions';
@@ -12,8 +14,11 @@ import { operateServer } from 'app/orm/nova/server/actions';
 import { selectServersInfo, selectFlavors } from 'app/selectors/nova';
 import { selectImages } from 'app/selectors/glance';
 
-import { Table, Spin, Button, Modal } from 'antd';
-import { INSTANCE_TABLE_COLUMN, INSTANCE_FIELD, INSTANCE_STATUS } from 'features/common/constants';
+import { Table, Spin, Button, Modal, Menu, Dropdown, Icon } from 'antd';
+import {
+  INSTANCE_TABLE_COLUMN,
+  INSTANCE_FIELD,
+  INSTANCE_STATUS } from 'features/common/constants';
 
 import CreateInstanceModal from './create-instance-modal';
 
@@ -37,6 +42,10 @@ class InstanceTable extends React.Component {
       start: [],
       selectedServers: [],
     }
+  }
+
+  componentDidMount() {
+    console.log(ReactDOM.findDOMNode(this));
   }
 
   // 操作云主机
@@ -230,7 +239,8 @@ class InstanceTable extends React.Component {
                 <i className={cx(
                   {
                     [commonStyles.active]: text === 'ACTIVE',
-                    [commonStyles.shutoff]: text === 'SHUTOFF'
+                    [commonStyles.shutoff]: text === 'SHUTOFF',
+                    [commonStyles.build]: text === 'BUILD'
                   }
                 )}>
                 </i>
@@ -281,6 +291,41 @@ class InstanceTable extends React.Component {
         dataArrs.push(data);
       });
 
+      const menu = (
+        <Menu>
+          <Menu.Item
+            key="mount"
+            disabled={true}
+          >
+            <i className="fa fa-laptop">加载硬盘到主机</i>
+          </Menu.Item>
+
+          <Menu.Item
+            key="unmount"
+            disabled={true}
+          >
+            <i className="fa fa-chain-broken">卸载硬盘</i>
+          </Menu.Item>
+
+          <Menu.Item
+            key="resize"
+          >
+            <i className="fa fa-expand">扩容</i>
+          </Menu.Item>
+
+          <Menu.Item
+            key="modify"
+          >
+            <i className="fa fa-pencil">修改</i>
+          </Menu.Item>
+
+          <Menu.Item
+            key="delete"
+          >
+            <i className="fa fa-trash">删除</i>
+          </Menu.Item>
+        </Menu>
+      );
 
       //
       return (
@@ -333,6 +378,11 @@ class InstanceTable extends React.Component {
             >
               关机
             </Button>
+
+            <MoreOperate
+              menu={menu}
+            />
+
           </div>
 
           <Table

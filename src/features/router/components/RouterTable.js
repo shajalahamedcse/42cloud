@@ -7,13 +7,8 @@ import { ROUTER_FIELD, ROUTER_TABLE_COLUMN } from 'features/common/constants';
 
 import commonStyles from 'features/common/styles.css';
 
-class RouterTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    if (this.props.routers.loading) {
+function RouterTable(props) {
+    if (props.routers.loading) {
       return(
         <Spin />
       )
@@ -59,7 +54,7 @@ class RouterTable extends React.Component {
       });
 
       const data = [];
-      this.props.routers.data.forEach(item => {
+      props.routers.data.forEach(item => {
         data.push(item)
       });
 
@@ -75,8 +70,6 @@ class RouterTable extends React.Component {
         </div>
       )
     }
-  }
-
 }
 
 const mapStateToProps = (state) => {

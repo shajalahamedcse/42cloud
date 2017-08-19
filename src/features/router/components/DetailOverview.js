@@ -18,13 +18,15 @@ function DetailOverview(props) {
         <div className={styles.title}>路由器详情</div>
 
         <div className={styles.basic}>
-          <div className={styles.subtitle}>基本信息</div>
-          <dl>
-            <dt>{ROUTER_FIELD['name']}</dt>
-            <dd>{routerInfo.name}</dd>
-            <dt>{ROUTER_FIELD['status']}</dt>
-            <dd>{routerInfo.status}</dd>
-          </dl>
+          <p>
+            <span>{ROUTER_FIELD['name']}：</span>
+            <span>{routerInfo.name}</span>
+          </p>
+
+          <p>
+            <span>{ROUTER_FIELD['status']}：</span>
+            <span>{routerInfo.status}</span>
+          </p>
         </div>
       </div>
     )
