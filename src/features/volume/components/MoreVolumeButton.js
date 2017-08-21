@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Menu } from 'antd';
-import MoreOperate from 'features/components/more-operate';
+import MoreOperate from 'components/more-operate';
 
 import styles from './style/MoreVolumeButton.css'
 

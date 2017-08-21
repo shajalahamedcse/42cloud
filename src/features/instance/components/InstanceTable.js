@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { uniqueArr } from 'app/commons/common';
-import MoreOperate from 'features/components/more-operate';
+import MoreOperate from 'components/more-operate';
 
 import { getNetworks } from 'app/orm/neutron/network/actions';
 import { getKeypairs } from 'app/orm/nova/keypair/actions';
