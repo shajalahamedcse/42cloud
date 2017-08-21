@@ -157,7 +157,8 @@ class Graph extends React.Component {
               'width': '45px',
               'height': '45px',
               'backgroundImage': `url(${router})`,
-              'backgroundSize': '45px 45xp'
+              'backgroundSize': '45px 45xp',
+              'transform': 'rotate(45deg)'
             }}
           >
           </div>
