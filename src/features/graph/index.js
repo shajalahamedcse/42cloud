@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { uniqueArr } from 'app/commons/common';
 import instance from 'assets/images/instance.svg';
@@ -12,6 +13,9 @@ import {
 
 import { selectServersInfo } from 'app/selectors/nova';
 import { Spin } from 'antd';
+
+const instanceIconSize = '45px',
+  instanceIconSep = '30px';
 
 class Graph extends React.Component {
   constructor(props) {
@@ -42,6 +46,9 @@ class Graph extends React.Component {
             }
           });
         });
+        if (serversArr.length > 5) {
+          serversArr = serversArr.splice(0, 5);
+        }
         mapNetworkIDToServer[network.id] = serversArr;
       });
       console.log(mapNetworkIDToServer);
@@ -82,19 +89,38 @@ class Graph extends React.Component {
 
         mapNetworkIDToServer[networkID].forEach((server) => {
           serverNodeArr.push(
-            <span
+            <div
               key={server.id}
               style={{
-                'width': '30px',
-                'height': '30px',
-                'display': 'inline-block',
-                'marginRight': '20px',
-                'backgroundImage': `url(${instance})`,
-                'backgroundSize': '30px 30px',
-                'verticalAlign': 'bottom'
+                'float': 'left'
               }}
             >
-            </span>
+              <Link to={"/console/instances/" + server.id}>
+                <div
+                  style={{
+                    'overflow': 'hidden',
+                    'textOverflow': 'ellipsis',
+                    'width': instanceIconSize,
+                    'whiteSpace': 'nowrap'
+                  }}
+                >
+                  {server.name}
+                </div>
+              </Link>
+
+              <div
+                style={{
+                  'width': instanceIconSize,
+                  'height': instanceIconSize,
+                  'display': 'inline-block',
+                  'marginRight': instanceIconSep,
+                  'backgroundImage': `url(${instance})`,
+                  'backgroundSize': instanceIconSize,
+                  'verticalAlign': 'bottom',
+                }}
+              >
+              </div>
+            </div>
           )
         });
 
@@ -106,7 +132,7 @@ class Graph extends React.Component {
               >
                 <span
                   style={{
-                    'borderBottom': '3px solid #111',
+                    'borderBottom': '5px solid #111',
                     'display': 'inline-block',
                     'width': '100px',
                     'position': 'relative',
@@ -119,6 +145,7 @@ class Graph extends React.Component {
                   style={{
                     'position': 'relative',
                     'left': '-16px',
+                    'color': '#111'
                   }}
                 >
                   {subnet.cidr}
@@ -133,13 +160,17 @@ class Graph extends React.Component {
             key={networkID}
           >
             <div
+              style={{
+                'overflow': 'hidden'
+              }}
             >
               {serverNodeArr}
             </div>
             <div
               style={{
-                'border': '1px dashed #111',
-                'marginBottom': '30px',
+                'border': '1px dashed #a7a7a7',
+                'marginBottom': '50px',
+                'padding': '10px 0'
               }}
             >
               {subnetNodeArr}
