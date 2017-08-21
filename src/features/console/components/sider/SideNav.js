@@ -35,17 +35,33 @@ class SideNav extends React.Component {
             title={<i className={(styles.fa) + " " + "fa fa-server fa-lg"}>计算</i>}
           >
             <Menu.Item key="instances">
-              <Link to="/console/instances">云主机</Link>
+              <Link to="/console/instances">
+                <div
+                  className={styles.item}
+                >
+                  云主机
+                </div>
+              </Link>
             </Menu.Item>
 
             <Menu.Item key="volumes">
               <Link to="/console/volumes">
-                硬盘
+                <div
+                  className={styles.item}
+                >
+                  硬盘
+                </div>
               </Link>
             </Menu.Item>
 
             <Menu.Item key="images">
-              <Link to="/console/images">镜像</Link>
+              <Link to="/console/images">
+                <div
+                  className={styles.item}
+                >
+                  镜像
+                </div>
+              </Link>
             </Menu.Item>
           </SubMenu>
 
@@ -54,11 +70,23 @@ class SideNav extends React.Component {
             title={<i className={(styles.fa) + " " + "fa fa-sitemap fa-lg"}>网络</i>}
           >
             <Menu.Item key="networks">
-              <Link to="/console/networks">网络</Link>
+                <Link to="/console/networks">
+                  <div
+                    className={styles.item}
+                  >
+                    网络
+                  </div>
+                </Link>
             </Menu.Item>
 
             <Menu.Item key="routers">
-              <Link to="/console/routers">路由器</Link>
+              <Link to="/console/routers">
+                <div
+                  className={styles.item}
+                >
+                  路由器
+                </div>
+              </Link>
             </Menu.Item>
           </SubMenu>
 
@@ -70,12 +98,16 @@ class SideNav extends React.Component {
 
           <SubMenu
             key="security"
-            title={<i className={(styles.fa) + " " + "fa fa-bolt fa-lg"}>安全</i>}
+            title={<i className={(styles.bolt) + " " + "fa fa-bolt fa-lg"}>安全</i>}
           >
             {/*<Menu.Item key="secgroup">安全组</Menu.Item>*/}
             <Menu.Item key="keypairs">
               <Link to="/console/keypairs">
-                SSH密钥
+                <div
+                  className={styles.item}
+                >
+                  SSH密钥
+                </div>
               </Link>
             </Menu.Item>
           </SubMenu>

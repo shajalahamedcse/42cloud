@@ -9,7 +9,13 @@ function DetailOverview(props) {
 
   if (props.routerInfo.loading) {
     return (
-      <Spin />
+      <div
+        style={{
+          'textAlign': 'center'
+        }}
+      >
+        <Spin />
+      </div>
     )
   } else {
     let routerInfo = props.routerInfo.data;

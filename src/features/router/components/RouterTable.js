@@ -4,13 +4,18 @@ import { connect } from 'react-redux';
 import { selectRouters } from 'app/selectors/neutron';
 import { Spin, Table } from 'antd';
 import { ROUTER_FIELD, ROUTER_TABLE_COLUMN } from 'features/common/constants';
-
 import commonStyles from 'features/common/styles.css';
 
 function RouterTable(props) {
     if (props.routers.loading) {
       return(
-        <Spin />
+        <div
+          style={{
+            'textAlign': 'center'
+          }}
+        >
+          <Spin />
+        </div>
       )
     } else {
       const columns = [];

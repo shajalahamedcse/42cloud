@@ -12,7 +12,13 @@ class NetworkTable extends React.Component {
   render() {
     if (this.props.networks.loading) {
       return (
-        <Spin />
+        <div
+          style={{
+            'textAlign': 'center'
+          }}
+        >
+          <Spin />
+        </div>
       )
     } else {
       let columns = [];

@@ -17,7 +17,13 @@ class DetailOverview extends React.Component {
       this.props.flavors.loading ||
       this.props.images.loading) {
       return (
-        <Spin />
+        <div
+          style={{
+            'textAlign': 'center'
+          }}
+        >
+          <Spin />
+        </div>
       )
     } else {
       let flavorsInfo = this.props.flavors.data;

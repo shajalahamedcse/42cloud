@@ -128,7 +128,13 @@ class VolumesTable extends React.Component {
 
     if (this.props.volumes.loading && this.props.servers.loading) {
       return (
-        <Spin />
+        <div
+          style={{
+            'textAlign': 'center'
+          }}
+        >
+          <Spin />
+        </div>
       )
     } else {
       return (

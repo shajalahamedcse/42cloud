@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -42,10 +41,6 @@ class InstanceTable extends React.Component {
       start: [],
       selectedServers: [],
     }
-  }
-
-  componentDidMount() {
-    console.log(ReactDOM.findDOMNode(this));
   }
 
   // 操作云主机
@@ -176,7 +171,13 @@ class InstanceTable extends React.Component {
       this.props.flavors.loading ||
       this.props.images.loading) {
       return (
-        <Spin />
+        <div
+          style={{
+            'textAlign': 'center'
+          }}
+        >
+          <Spin />
+        </div>
       )
     } else {
       // 列表项选择配置
@@ -297,32 +298,7 @@ class InstanceTable extends React.Component {
             key="mount"
             disabled={true}
           >
-            <i className="fa fa-laptop">加载硬盘到主机</i>
-          </Menu.Item>
-
-          <Menu.Item
-            key="unmount"
-            disabled={true}
-          >
-            <i className="fa fa-chain-broken">卸载硬盘</i>
-          </Menu.Item>
-
-          <Menu.Item
-            key="resize"
-          >
-            <i className="fa fa-expand">扩容</i>
-          </Menu.Item>
-
-          <Menu.Item
-            key="modify"
-          >
-            <i className="fa fa-pencil">修改</i>
-          </Menu.Item>
-
-          <Menu.Item
-            key="delete"
-          >
-            <i className="fa fa-trash">删除</i>
+            <i className="fa fa-laptop">删除云主机</i>
           </Menu.Item>
         </Menu>
       );

@@ -14,7 +14,13 @@ class ImageTable extends React.Component {
   render() {
     if (this.props.images.loading) {
       return (
-        <Spin />
+        <div
+          style={{
+            'textAlign': 'center'
+          }}
+        >
+          <Spin />
+        </div>
       )
     } else {
       let columns = [];

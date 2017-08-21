@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { uniqueArr } from 'app/commons/common';
 import instance from 'assets/images/instance.svg';
 import router from 'assets/images/router.svg';
+import { Tooltip } from 'antd';
+import { INSTANCE_STATUS } from 'features/common/constants';
 
 import {
   selectRouterInterfacePorts,
@@ -14,8 +16,9 @@ import {
 import { selectServersInfo } from 'app/selectors/nova';
 import { Spin } from 'antd';
 
-const instanceIconSize = '45px',
-  instanceIconSep = '30px';
+const instanceIconSize = '35px',
+  instanceSep = '15px',
+  routerIconSize = '60px';
 
 class Graph extends React.Component {
   constructor(props) {
@@ -28,7 +31,13 @@ class Graph extends React.Component {
       this.props.serversInfo.loading ||
       this.props.networks.loading) {
       return (
-        <Spin />
+        <div
+          style={{
+            'textAlign': 'center'
+          }}
+        >
+          <Spin />
+        </div>
       )
     } else {
       // 网络上的云主机
@@ -51,7 +60,6 @@ class Graph extends React.Component {
         }
         mapNetworkIDToServer[network.id] = serversArr;
       });
-      console.log(mapNetworkIDToServer);
 
 
       // 内网端口
@@ -88,11 +96,24 @@ class Graph extends React.Component {
         let serverNodeArr = [];
 
         mapNetworkIDToServer[networkID].forEach((server) => {
+          const content = (
+            <div>
+              <div>
+                <span>名称：</span>
+                <span>{server.name}</span>
+              </div>
+              <div>
+                <span>状态：</span>
+                <span>{INSTANCE_STATUS[server.status]}</span>
+              </div>
+            </div>
+          );
           serverNodeArr.push(
             <div
               key={server.id}
               style={{
-                'float': 'left'
+                'float': 'left',
+                'margin': `0 ${instanceSep}`,
               }}
             >
               <Link to={"/console/instances/" + server.id}>
@@ -108,18 +129,19 @@ class Graph extends React.Component {
                 </div>
               </Link>
 
-              <div
-                style={{
-                  'width': instanceIconSize,
-                  'height': instanceIconSize,
-                  'display': 'inline-block',
-                  'marginRight': instanceIconSep,
-                  'backgroundImage': `url(${instance})`,
-                  'backgroundSize': instanceIconSize,
-                  'verticalAlign': 'bottom',
-                }}
-              >
-              </div>
+              <Tooltip placement="top" title={content}>
+                <div
+                  style={{
+                    'width': instanceIconSize,
+                    'height': instanceIconSize,
+                    'display': 'inline-block',
+                    'backgroundImage': `url(${instance})`,
+                    'backgroundSize': instanceIconSize,
+                    'verticalAlign': 'bottom',
+                  }}
+                >
+                </div>
+              </Tooltip>
             </div>
           )
         });
@@ -132,7 +154,7 @@ class Graph extends React.Component {
               >
                 <span
                   style={{
-                    'borderBottom': '5px solid #111',
+                    'borderTop': '5px solid #111',
                     'display': 'inline-block',
                     'width': '100px',
                     'position': 'relative',
@@ -141,13 +163,7 @@ class Graph extends React.Component {
                   }}
                 >
                 </span>
-                <span
-                  style={{
-                    'position': 'relative',
-                    'left': '-16px',
-                    'color': '#111'
-                  }}
-                >
+                <span>
                   {subnet.cidr}
                 </span>
               </div>
@@ -168,9 +184,10 @@ class Graph extends React.Component {
             </div>
             <div
               style={{
-                'border': '1px dashed #a7a7a7',
+                'border': '1px dotted #a7a7a7',
                 'marginBottom': '50px',
-                'padding': '10px 0'
+                'padding': '10px 0',
+                'backgroundColor': '#ececec'
               }}
             >
               {subnetNodeArr}
@@ -181,12 +198,16 @@ class Graph extends React.Component {
 
       return (
         <div
+          style={{
+            'overflow': 'hidden',
+            'padding': '100px 50px'
+          }}
         >
           <div
             style={{
               'float': 'left',
-              'width': '45px',
-              'height': '45px',
+              'width': routerIconSize,
+              'height': routerIconSize,
               'backgroundImage': `url(${router})`,
               'backgroundSize': '45px 45xp',
               'transform': 'rotate(45deg)'
@@ -198,7 +219,7 @@ class Graph extends React.Component {
               'float': 'left',
               'width': '50px',
               'position': 'relative',
-              'top': '20px',
+              'top': '28px',
               'borderTop': '5px solid #111',
             }}
           >

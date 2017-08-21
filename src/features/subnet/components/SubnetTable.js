@@ -11,7 +11,13 @@ function SubnetTable(props) {
     if (props.subnets.loading ||
       props.routerPorts.loading) {
       return (
-        <Spin />
+        <div
+          style={{
+            'textAlign': 'center'
+          }}
+        >
+          <Spin />
+        </div>
       )
     } else {
       const columns = [];

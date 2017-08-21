@@ -13,7 +13,13 @@ class KeypairTable extends React.Component {
   render() {
     if (this.props.keypairs.loading) {
       return (
-        <Spin />
+        <div
+          style={{
+            'textAlign': 'center'
+          }}
+        >
+          <Spin />
+        </div>
       )
     } else {
       let columns = [];

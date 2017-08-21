@@ -7,7 +7,13 @@ import { PORT_TABLE_COLUMN, PORT_FIELD } from 'features/common/constants';
 function PortTable(props) {
     if (props.routerPorts.loading) {
       return (
-        <Spin />
+        <div
+          style={{
+            'textAlign': 'center'
+          }}
+        >
+          <Spin />
+        </div>
       )
     } else {
       const columns = [];
