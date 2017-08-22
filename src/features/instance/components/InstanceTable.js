@@ -295,10 +295,9 @@ class InstanceTable extends React.Component {
       const menu = (
         <Menu>
           <Menu.Item
-            key="mount"
-            disabled={true}
+            key="delete"
           >
-            <i className="fa fa-laptop">删除云主机</i>
+            {/*<i className="fa fa-trash">删除</i>*/}
           </Menu.Item>
         </Menu>
       );
