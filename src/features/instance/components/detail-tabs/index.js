@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Tabs, Radio } from 'antd';
-import ConsoleLog from 'features/console-log';
-import Monitor from 'features/monitor';
+import ConsoleLog from 'components/console-log';
+import Monitor from 'components/monitor';
 import { getMonitor } from 'app/orm/influxdb/monitor/actions';
 import { MONITOR_TIME_SPAN, MONITOR_TIME_STEP } from 'features/common/constants';
 import { filterTimeSpan } from 'features/instance/actions';
@@ -50,7 +50,7 @@ class DetailTabs extends React.Component {
         className={styles.detailtabs}
       >
         <TabPane tab="控制台日志" key="log">
-          <ConsoleLog instanceID={this.props.instanceID} />
+          <ConsoleLog />
         </TabPane>
 
         <TabPane tab="监控" key="monitor">

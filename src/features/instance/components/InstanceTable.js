@@ -13,7 +13,7 @@ import { operateServer } from 'app/orm/nova/server/actions';
 import { selectServersInfo, selectFlavors } from 'app/selectors/nova';
 import { selectImages } from 'app/selectors/glance';
 
-import { Table, Spin, Button, Modal, Menu, Dropdown, Icon } from 'antd';
+import { Table, Spin, Button, Modal, Menu } from 'antd';
 import {
   INSTANCE_TABLE_COLUMN,
   INSTANCE_FIELD,
@@ -293,11 +293,14 @@ class InstanceTable extends React.Component {
       });
 
       const menu = (
-        <Menu>
+        <Menu
+          className={commonStyles.menu}
+        >
           <Menu.Item
             key="delete"
+            disabled={true}
           >
-            {/*<i className="fa fa-trash">删除</i>*/}
+            <i className="fa fa-trash">删除</i>
           </Menu.Item>
         </Menu>
       );
@@ -354,9 +357,7 @@ class InstanceTable extends React.Component {
               关机
             </Button>
 
-            <MoreOperate
-              menu={menu}
-            />
+            <MoreOperate menu={menu} />
 
           </div>
 

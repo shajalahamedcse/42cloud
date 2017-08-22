@@ -296,7 +296,6 @@ const operateServer = (type, serversID) => {
         },
         body: JSON.stringify(reqBody),
       }).then(res => {
-        console.log(res);
         if (res.status === 202) {
           dispatch(operateServerSuccess());
           dispatch(pollOperateServer(type, serverID));
@@ -326,6 +325,7 @@ const pollOperateServer = (type, serverID) => {
           'X-Auth-Token': scopedToken
         }
       }).then(res => {
+        console.log(res);
         res.json().then(resBody => {
           console.log(resBody);
           dispatch(pollOperateServersSuccess(resBody.server));

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchConsoleOutput } from 'app/orm/nova/server/actions';
 import { selectConsoleOutput } from 'app/selectors/nova';
 import { Spin } from 'antd';
 
@@ -9,10 +8,6 @@ import styles from './index.css';
 class ConsoleLog extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount() {
-    this.props.dispatch(fetchConsoleOutput(this.props.instanceID));
   }
 
   render() {

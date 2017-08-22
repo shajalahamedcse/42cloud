@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Subnet from 'features/subnet';
-import Port from 'features/port';
-import Graph from 'features/graph';
+import SubnetTable from 'components/subnet-table';
+import PortTable from 'components/port-table';
+import Graph from 'components/graph';
 import { getServersInfo } from 'app/orm/nova/server/actions';
 import { getSubnets } from 'app/orm/neutron/subnet/actions';
 import { getRouterInterfacePorts } from 'app/orm/neutron/port/actions';
@@ -18,7 +18,6 @@ class DetailTabs extends React.Component {
   }
 
   handleTabClick = (key) => {
-    console.log(key);
     if (key === 'graph') {
       this.props.dispatch(getRouterInterfacePorts(this.props.routerID));
       this.props.dispatch(getNetworks());
@@ -35,14 +34,12 @@ class DetailTabs extends React.Component {
           onTabClick={(key) => this.handleTabClick(key)}
           className={styles.detailtabs}
         >
-          <TabPane
-            tab="子网"
-            key="subnet">
-            <Subnet />
+          <TabPane tab="子网" key="subnet">
+            <SubnetTable />
           </TabPane>
 
           <TabPane tab="端口" key="port">
-            <Port />
+            <PortTable />
           </TabPane>
 
           <TabPane tab="配置" key="setting">

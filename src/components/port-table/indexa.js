@@ -1,5 +1,5 @@
 import React from 'react';
-import PortTable from './components/PortTable';
+import PortTable from './index';
 
 function Port() {
   return (

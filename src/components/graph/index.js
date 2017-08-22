@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { uniqueArr } from 'app/commons/common';
 import instance from 'assets/images/instance.svg';
 import router from 'assets/images/router.svg';
+import internet from 'assets/images/cloud.svg';
 import { Tooltip } from 'antd';
 import { INSTANCE_STATUS } from 'features/common/constants';
 
@@ -18,7 +19,8 @@ import { Spin } from 'antd';
 
 const instanceIconSize = '35px',
   instanceSep = '15px',
-  routerIconSize = '60px';
+  routerIconSize = '60px',
+  internetIconSize = '100px';
 
 class Graph extends React.Component {
   constructor(props) {
@@ -151,6 +153,9 @@ class Graph extends React.Component {
             subnetNodeArr.push(
               <div
                 key={subnet.id}
+                style={{
+                  'margin': '20px 0'
+                }}
               >
                 <span
                   style={{
@@ -158,7 +163,7 @@ class Graph extends React.Component {
                     'display': 'inline-block',
                     'width': '100px',
                     'position': 'relative',
-                    'left': '-21px',
+                    'left': '-31px',
                     'bottom': '2px'
                   }}
                 >
@@ -182,12 +187,13 @@ class Graph extends React.Component {
             >
               {serverNodeArr}
             </div>
+
             <div
               style={{
                 'border': '1px dotted #a7a7a7',
                 'marginBottom': '50px',
                 'padding': '10px 0',
-                'backgroundColor': '#ececec'
+                'backgroundColor': '#f7f7f7'
               }}
             >
               {subnetNodeArr}
@@ -206,20 +212,45 @@ class Graph extends React.Component {
           <div
             style={{
               'float': 'left',
+              'width': internetIconSize,
+              'height': internetIconSize,
+              'backgroundImage': `url(${internet})`,
+              'backgroundSize': internetIconSize,
+            }}
+          >
+          </div>
+
+          <div
+            style={{
+              'float': 'left',
+              'width': '50px',
+              'top': '60px',
+              'position': 'relative',
+              'borderTop': '5px solid #111',
+            }}
+          >
+          </div>
+
+          <div
+            style={{
+              'float': 'left',
               'width': routerIconSize,
               'height': routerIconSize,
               'backgroundImage': `url(${router})`,
               'backgroundSize': '45px 45xp',
-              'transform': 'rotate(45deg)'
+              'transform': 'rotate(45deg)',
+              'position': 'relative',
+              'top': '32px',
             }}
           >
           </div>
+
           <div
             style={{
               'float': 'left',
               'width': '50px',
               'position': 'relative',
-              'top': '28px',
+              'top': '60px',
               'borderTop': '5px solid #111',
             }}
           >
@@ -229,7 +260,7 @@ class Graph extends React.Component {
             style={{
               'float': 'left',
               'borderLeft': '5px solid #111',
-              'padding': '20px'
+              'padding': '20px 30px'
             }}
           >
             {networkNodeArr}

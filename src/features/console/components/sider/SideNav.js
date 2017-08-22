@@ -17,8 +17,8 @@ class SideNav extends React.Component {
         <div className="logo" />
         <Menu
           theme="dark"
-          defaultOpenKeys={['comnet']}
-          defaultSelectedKeys={[this.props.selected]}
+          defaultOpenKeys={['compute', 'net']}
+          selectedKeys={[this.props.selected]}
           mode="inline"
         >
 
@@ -34,7 +34,9 @@ class SideNav extends React.Component {
             key="compute"
             title={<i className={(styles.fa) + " " + "fa fa-server fa-lg"}>计算</i>}
           >
-            <Menu.Item key="instances">
+            <Menu.Item
+              key="instances"
+            >
               <Link to="/console/instances">
                 <div
                   className={styles.item}

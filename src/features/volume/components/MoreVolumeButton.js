@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Menu } from 'antd';
 import MoreOperate from 'components/more-operate';
 
-import styles from './style/MoreVolumeButton.css'
+import commonStyles from 'features/common/styles.css'
 
 class MoreVolumeButton extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class MoreVolumeButton extends React.Component {
 
     const menu = (
       <Menu
-        className={styles.menu}
+        className={commonStyles.menu}
         onClick={this.handleMenuClick}>
         <Menu.Item
           key="mount"

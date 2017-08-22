@@ -73,3 +73,7 @@
 .shutoff {
     background-color: #EB4B4B;
 }
+
+.menu i::before {
+    margin-right: 5px;
+}
