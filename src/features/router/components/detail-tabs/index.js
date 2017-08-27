@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SubnetTable from 'components/subnet-table';
 import PortTable from 'components/port-table';
 import Graph from 'components/graph';
-import { getServersInfo } from 'app/orm/nova/server/actions';
+import { getServers } from 'app/orm/nova/server/actions';
 import { getSubnets } from 'app/orm/neutron/subnet/actions';
 import { getRouterInterfacePorts } from 'app/orm/neutron/port/actions';
 import { getNetworks } from 'app/orm/neutron/network/actions';
@@ -21,7 +21,7 @@ class DetailTabs extends React.Component {
     if (key === 'graph') {
       this.props.dispatch(getRouterInterfacePorts(this.props.routerID));
       this.props.dispatch(getNetworks());
-      this.props.dispatch(getServersInfo());
+      this.props.dispatch(getServers());
       this.props.dispatch(getSubnets());
     }
   };

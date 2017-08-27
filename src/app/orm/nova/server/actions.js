@@ -1,9 +1,11 @@
-import { combineURL, getToken } from 'app/commons/common';
+import { combineURL, getToken, ormItems } from 'app/commons/common';
 
 const getServersSuccess = (servers) => {
+  let [items, itemsById] = servers;
   return {
     type: 'GET_SERVERS_SUCCESS',
-    servers
+    items,
+    itemsById
   }
 };
 
@@ -25,7 +27,7 @@ const getServers = () => {
       }
     }).then(res => {
       res.json().then(resBody => {
-        dispatch(getServersSuccess(resBody.servers));
+        dispatch(getServersSuccess(ormItems(resBody.servers)));
       }).catch(err => {
         throw err;
       })
@@ -35,62 +37,27 @@ const getServers = () => {
   }
 };
 
-const getServersInfoSuccess = (serversInfo) => {
-  return {
-    type: 'GET_SERVERS_INFO_SUCCESS',
-    serversInfo
-  }
-};
-
-const getServersInfoRequest = () => {
-  return {
-    type: 'GET_SERVERS_INFO_REQUEST',
-  }
-};
-
-const getServersInfo = () => {
-  return (dispatch) => {
-    dispatch(getServersInfoRequest());
-    let scopedToken = getToken();
-    let url = combineURL('getServersInfo');
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'X-Auth-Token': scopedToken
-      }
-    }).then((res) => {
-     res.json().then((resBody) => {
-       dispatch(getServersInfoSuccess(resBody.servers));
-     }).catch((err) => {
-       console.log(err);
-     })
-   }).catch((err) => {
-     console.log(err);
-   })
-  }
-};
-
 //
-const getServerInfoSuccess = (server) => {
+const getServerSuccess = (server) => {
   return {
-    type: 'GET_SERVER_INFO_SUCCESS',
+    type: 'GET_SERVER_SUCCESS',
     server
   }
 };
 
-const getServerInfoRequest = () => {
+const getServerRequest = () => {
   return {
-    type: 'GET_SERVER_INFO_REQUEST'
+    type: 'GET_SERVER_REQUEST'
   }
 };
 
-const getServerInfo = (serverID) => {
+const getServer = (serverID) => {
   return (dispatch) => {
-    dispatch(getServerInfoRequest());
+    dispatch(getServerRequest());
 
     let scopedToken = getToken();
     let tmpl = {'server_id': serverID};
-    let url = combineURL('getServerInfo', tmpl);
+    let url = combineURL('getServer', tmpl);
     fetch(url, {
       method: 'GET',
       headers: {
@@ -98,7 +65,7 @@ const getServerInfo = (serverID) => {
       }
     }).then(res => {
       res.json().then(resBody => {
-        dispatch(getServerInfoSuccess(resBody.server));
+        dispatch(getServerSuccess(resBody.server));
       }).catch(err => {
         throw err;
       })
@@ -109,18 +76,18 @@ const getServerInfo = (serverID) => {
 };
 
 //
-const pollServerInfoSuccess = (server) => {
+const pollServerSuccess = (server) => {
   return {
     type: 'POLL_SERVER_INFO_SUCCESS',
     server,
   }
 };
 
-const pollServerInfo = (serverID) => {
+const pollServer = (serverID) => {
   return (dispatch) => {
     let scopedToken = getToken();
     let tmpl = {'server_id': serverID};
-    let url = combineURL('getServerInfo', tmpl);
+    let url = combineURL('getServer', tmpl);
     let intervalID = setInterval(() => {
       fetch(url, {
         method: 'GET',
@@ -129,8 +96,8 @@ const pollServerInfo = (serverID) => {
         }
       }).then(res => {
         res.json().then(resBody => {
-          dispatch(pollServerInfoSuccess(resBody.server));
-          if (resBody.server.status === 'ACTIVE') {
+          dispatch(pollServerSuccess(resBody.server));
+          if (['ACTIVE', 'ERROR'].indexOf(resBody.server.status) !== -1) {
             clearInterval(intervalID);
           }
         }).catch(err => {
@@ -147,9 +114,17 @@ const pollServerInfo = (serverID) => {
 
 //
 const createServerSuccess = (server) => {
+  let notification = {
+    'action': 'creating server',
+    'id': server.id,
+    'payload': server,
+    'willChange': true
+  };
+
   return {
     type: 'CREATE_SERVER_SUCCESS',
-    server
+    notification,
+    server,
   }
 };
 
@@ -207,13 +182,15 @@ const createServer = (serverBody) => {
     }).then((res) => {
       res.json().then(resBody => {
         let createServer = {
-          'id': resBody.server.id,
+          ...resBody.server,
           'name': server.name,
           'image': {'id': server.imageRef},
           'flavor': {'id': server.flavorRef},
         };
+
+
         dispatch(createServerSuccess(createServer));
-        dispatch(pollServerInfo(createServer.id));
+        dispatch(pollServer(resBody.server.id));
       }).catch(err => {
         throw err;
       })
@@ -306,7 +283,7 @@ const operateServer = (type, serversID) => {
 };
 
 // 轮询云主机详细信息
-const pollOperateServersSuccess = (server) => {
+const pollOperateServerSuccess = (server) => {
   return {
     type: 'POLL_OPERATE_SERVER_SUCCESS',
     server
@@ -317,7 +294,7 @@ const pollOperateServer = (type, serverID) => {
   return (dispatch) => {
     let scopedToken = getToken();
     let tmpl = {'server_id': serverID};
-    let url = combineURL('getServerInfo', tmpl);
+    let url = combineURL('getServer', tmpl);
     let intervalID = setInterval(() => {
       fetch(url, {
         method: 'GET',
@@ -327,8 +304,7 @@ const pollOperateServer = (type, serverID) => {
       }).then(res => {
         console.log(res);
         res.json().then(resBody => {
-          console.log(resBody);
-          dispatch(pollOperateServersSuccess(resBody.server));
+          dispatch(pollOperateServerSuccess(resBody.server));
           if (type === 'start' && resBody.server.status === 'ACTIVE') {
             clearInterval(intervalID);
           } else if (type === 'stop' && resBody.server.status === 'SHUTOFF') {
@@ -348,8 +324,7 @@ const pollOperateServer = (type, serverID) => {
 
 export {
   getServers,
-  getServersInfo,
-  getServerInfo,
+  getServer,
   createServer,
   fetchConsoleOutput,
   operateServer,

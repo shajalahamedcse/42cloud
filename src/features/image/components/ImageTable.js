@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Spin } from 'antd';
 import { connect } from 'react-redux';
-import { selectImages } from 'app/selectors/glance';
+import { selectImages } from 'app/selectors/orm/glance';
 import filesize from 'filesize';
 
 import { IMAGE_TABLE_COLUMN, IMAGE_FIELD } from 'features/common/constants';
@@ -55,9 +55,16 @@ class ImageTable extends React.Component {
         })
       });
 
-      let data = [];
-      this.props.images.data.forEach((ele) => {
-        data.push(ele);
+      let images = this.props.images;
+      let dataArrs = [];
+      images.items.forEach(imageId => {
+        let image = images.itemsById[imageId];
+        let data = {};
+        IMAGE_TABLE_COLUMN.forEach(col => {
+          data['id'] = imageId;
+          data[col] = image[col];
+        });
+        dataArrs.push(data);
       });
 
       return (
@@ -65,7 +72,7 @@ class ImageTable extends React.Component {
           columns={columns}
           bordered
           size="middle"
-          dataSource={data}
+          dataSource={dataArrs}
           rowKey='id'
         />
       )

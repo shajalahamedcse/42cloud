@@ -1,4 +1,4 @@
-const subnets = (state = {loading: false, data: []}, action) => {
+const subnets = (state = {loading: false, items: [], itemsById: {} }, action) => {
   switch (action.type) {
     case 'GET_SUBNETS_REQUEST': {
       return {
@@ -11,7 +11,8 @@ const subnets = (state = {loading: false, data: []}, action) => {
       return {
         ...state,
         loading: false,
-        data: action.subnets
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 

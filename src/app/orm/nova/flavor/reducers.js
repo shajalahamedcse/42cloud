@@ -1,10 +1,11 @@
-const flavors = (state = {loading: false, data: []}, action) => {
+const flavors = (state = {loading: false, items: [], itemsById: {}}, action) => {
   switch(action.type) {
     case 'GET_FLAVORS_INFO_SUCCESS': {
       return {
         ...state,
         loading: false,
-        data: action.flavors
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 

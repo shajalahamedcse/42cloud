@@ -102,7 +102,14 @@ class SideNav extends React.Component {
             key="security"
             title={<i className={(styles.bolt) + " " + "fa fa-bolt fa-lg"}>安全</i>}
           >
-            {/*<Menu.Item key="secgroup">安全组</Menu.Item>*/}
+            <Menu.Item key="secgroup">
+              <div
+                className={styles.item}
+              >
+                安全组
+              </div>
+            </Menu.Item>
+
             <Menu.Item key="keypairs">
               <Link to="/console/keypairs">
                 <div

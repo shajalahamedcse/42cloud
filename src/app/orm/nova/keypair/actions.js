@@ -1,9 +1,13 @@
-import { combineURL } from 'app/commons/common';
+import { combineURL, ormItems } from 'app/commons/common';
 
-const getKeypairsSuccess = (keypairs) => ({
-  type: 'GET_KEYPAIRS_SUCCESS',
-  keypairs
-});
+const getKeypairsSuccess = (keypairs) => {
+  let [items, itemsById] = keypairs;
+  return {
+    type: 'GET_KEYPAIRS_SUCCESS',
+    items,
+    itemsById,
+  }
+};
 
 const getKeypairsRequest = () => ({
   type: 'GET_KEYPAIRS_REQUEST',
@@ -21,7 +25,11 @@ const getKeypairs = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        dispatch(getKeypairsSuccess(resBody.keypairs));
+        let newKeypairs = [];
+        resBody.keypairs.forEach(item => {
+          newKeypairs.push(item.keypair);
+        });
+        dispatch(getKeypairsSuccess(ormItems(newKeypairs, 'name')));
       }).catch((err) => {
         console.log(err);
       })

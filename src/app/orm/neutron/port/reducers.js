@@ -1,4 +1,4 @@
-const ports = (state = {loading: false, data: []}, action) => {
+const ports = (state = {loading: false, items: [], itemsById: {} }, action) => {
   switch (action.type) {
     case 'GET_PORTS_REQUEST': {
       return {
@@ -11,7 +11,8 @@ const ports = (state = {loading: false, data: []}, action) => {
       return {
         ...state,
         loading: false,
-        data: action.ports
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 
@@ -21,7 +22,7 @@ const ports = (state = {loading: false, data: []}, action) => {
   }
 };
 
-const routerPorts = (state = {loading: false, data: []}, action) => {
+const routerPorts = (state = {loading: false, items: [], itemsById: {} }, action) => {
   switch (action.type) {
     case 'GET_ROUTER_PORTS_REQUEST': {
       return {
@@ -34,7 +35,8 @@ const routerPorts = (state = {loading: false, data: []}, action) => {
       return {
         ...state,
         loading: false,
-        data: action.ports
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 
@@ -44,7 +46,7 @@ const routerPorts = (state = {loading: false, data: []}, action) => {
   }
 };
 
-const routerInterfacePorts = (state = {loading: false, data: []}, action) => {
+const routerInterfacePorts = (state = {loading: false, items: [], itemsById: {} }, action) => {
   switch (action.type) {
     case 'GET_ROUTER_INTERFACE_PORTS_REQUEST': {
       return {
@@ -57,7 +59,8 @@ const routerInterfacePorts = (state = {loading: false, data: []}, action) => {
       return {
         ...state,
         loading: false,
-        data: action.ports
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 

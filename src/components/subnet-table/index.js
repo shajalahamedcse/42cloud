@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectSubnets } from 'app/selectors/neutron';
-import { selectRouterPorts } from 'app/selectors/neutron';
+import { selectSubnets, selectRouterPorts } from 'app/selectors/orm/neutron';
 import { uniqueArr } from 'app/commons/common';
 import { SUBNET_TABLE_COLUMN, SUBNET_FIELD } from 'features/common/constants';
 import { Spin, Table } from 'antd';
@@ -47,17 +46,19 @@ function SubnetTable(props) {
 
       // 获取特定路由器的子网并且去重
       let subnetIds = [];
-      props.routerPorts.data.forEach(port => {
-        port.fixed_ips.forEach(item => {
+      let routerPorts = props.routerPorts;
+      routerPorts.items.forEach(id => {
+        routerPorts.itemsById[id].fixed_ips.forEach(item => {
           subnetIds.push(item.subnet_id);
         });
       });
       subnetIds = uniqueArr(subnetIds);
 
       let subnetsData = [];
-      props.subnets.data.forEach(item => {
-        if (subnetIds.indexOf(item.id) >= 0) {
-          subnetsData.push(item);
+      let subnets = props.subnets;
+      subnets.items.forEach(id => {
+        if (subnetIds.indexOf(id) >= 0) {
+          subnetsData.push(subnets.itemsById[id]);
         }
       });
 

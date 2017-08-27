@@ -5,7 +5,7 @@ import Home from 'features/home/';
 import Login from 'features/login';
 import Console from 'features/console';
 import { loadTokenData } from 'app/orm/auth/login/actions';
-import { selectLogin } from 'app/selectors/auth'
+import { selectLogin } from 'app/selectors/orm/auth'
 import { decideIfLogged } from 'app/commons/common';
 
 const PrivateRoute = ({ component: Component, authed, ...rest }) => (

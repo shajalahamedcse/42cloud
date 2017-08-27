@@ -1,10 +1,11 @@
-const volumeTypes = (state = {loading: false, data: []}, action) => {
+const volumeTypes = (state = {loading: false, items: [], itemsById: {} }, action) => {
   switch(action.type) {
     case 'GET_VOLUME_TYPES_SUCCESS': {
       return {
         ...state,
         loading: false,
-        data: action.volumeTypes
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 

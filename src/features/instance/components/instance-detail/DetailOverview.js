@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import { INSTANCE_FIELD, INSTANCE_STATUS, FLAVOR_FIELD } from 'features/common/constants';
-import { selectServer, selectFlavors } from 'app/selectors/nova';
-import { selectImages } from 'app/selectors/glance';
+import { selectServer, selectFlavors } from 'app/selectors/orm/nova';
+import { selectImages } from 'app/selectors/orm/glance';
 import { uniqueArr } from 'app/commons/common';
-import styles from './style/DetailOverview.css';
+import styles from '../style/DetailOverview.css';
 
 class DetailOverview extends React.Component {
   constructor(props) {
@@ -26,12 +26,13 @@ class DetailOverview extends React.Component {
         </div>
       )
     } else {
-      let flavorsInfo = this.props.flavors.data;
+      let flavorIndex = this.props.flavors.items[0];
+      let flavorsInfo = this.props.flavors.itemsById[flavorIndex];
+
       let serverInfo = this.props.server.data;
 
       // 镜像
-      let imageIndex = this.props.images.data.findIndex(image => image.id === serverInfo.image.id);
-      let imageName = this.props.images.data[imageIndex].name;
+      let imageName = this.props.images.itemsById[serverInfo.image.id].name;
 
       // 网络
       let networkArrs = [];
@@ -110,15 +111,15 @@ class DetailOverview extends React.Component {
             <div className={styles.subtitle}>配置规格</div>
             <dl>
               <dt>{FLAVOR_FIELD['name']}</dt>
-              <dd>{flavorsInfo[0].name}</dd>
+              <dd>{flavorsInfo.name}</dd>
               <dt>{FLAVOR_FIELD['id']}</dt>
-              <dd>{flavorsInfo[0].id}</dd>
+              <dd>{flavorsInfo.id}</dd>
               <dt>{FLAVOR_FIELD['ram']}</dt>
-              <dd>{flavorsInfo[0].ram}</dd>
+              <dd>{flavorsInfo.ram}</dd>
               <dt>{FLAVOR_FIELD['vcpus']}</dt>
-              <dd>{flavorsInfo[0].vcpus}</dd>
+              <dd>{flavorsInfo.vcpus}</dd>
               <dt>{FLAVOR_FIELD['disk']}</dt>
-              <dd>{flavorsInfo[0].disk}</dd>
+              <dd>{flavorsInfo.disk}</dd>
             </dl>
           </div>
 

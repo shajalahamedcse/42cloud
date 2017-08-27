@@ -1,10 +1,14 @@
-import { combineURL, getToken } from 'app/commons/common';
+import { combineURL, getToken, ormItems } from 'app/commons/common';
 
 //
-const getFlavorsInfoSuccess = (flavors) => ({
+const getFlavorsInfoSuccess = (flavors) => {
+  let [items, itemsById] = flavors;
+  return {
     type: 'GET_FLAVORS_INFO_SUCCESS',
-    flavors
-});
+    items,
+    itemsById,
+  }
+};
 
 const getFlavorsInfoRequest = () => ({
   type: 'GET_FLAVORS_INFO_REQUEST'
@@ -22,7 +26,7 @@ const getFlavorsInfo = () => {
       }
     }).then(res => {
       res.json().then(resBody => {
-        dispatch(getFlavorsInfoSuccess(resBody.flavors));
+        dispatch(getFlavorsInfoSuccess(ormItems(resBody.flavors)));
       }).catch(err => {
         throw err;
       }).catch(err => {

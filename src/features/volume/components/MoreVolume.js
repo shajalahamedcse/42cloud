@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Menu } from 'antd';
-import MoreOperate from 'components/more-operate';
+import MoreOperateButton from 'components/more-operate';
 
 import commonStyles from 'features/common/styles.css'
 
-class MoreVolumeButton extends React.Component {
+class MoreVolume extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -59,7 +59,7 @@ class MoreVolumeButton extends React.Component {
     );
 
     return(
-      <MoreOperate menu={menu} />
+      <MoreOperateButton menu={menu} />
     )
   }
 }
@@ -70,4 +70,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, null)(MoreVolumeButton);
+export default connect(mapStateToProps, null)(MoreVolume);

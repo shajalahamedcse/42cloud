@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectNetworks } from 'app/selectors/neutron';
+import { selectNetworks } from 'app/selectors/orm/neutron';
 import { Spin, Table } from 'antd';
 import { NETWORK_TABLE_COLUMN, NETWORK_FIELD } from 'features/common/constants';
 
@@ -52,8 +52,9 @@ class NetworkTable extends React.Component {
       });
 
       let data = [];
-      this.props.networks.data.forEach(item => {
-        data.push(item);
+      let networks = this.props.networks;
+      networks.items.forEach(id => {
+        data.push(networks.itemsById[id]);
       });
 
       return (

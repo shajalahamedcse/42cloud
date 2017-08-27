@@ -1,9 +1,13 @@
-import { combineURL, getToken } from 'app/commons/common';
+import { combineURL, getToken, ormItems } from 'app/commons/common';
 
-const getNetworksSuccess = (networks) => ({
-  type: 'GET_NETWORKS_SUCCESS',
-  networks
-});
+const getNetworksSuccess = (networks) => {
+  let [items, itemsById] = networks;
+  return {
+    type: 'GET_NETWORKS_SUCCESS',
+    items,
+    itemsById
+  }
+};
 
 const getNetworksRequest = () => ({
   type: 'GET_NETWORKS_REQUEST',
@@ -21,7 +25,7 @@ const getNetworks = () => {
       }
     }).then(res => {
       res.json().then(resBody => {
-        dispatch(getNetworksSuccess(resBody.networks));
+        dispatch(getNetworksSuccess(ormItems(resBody.networks)));
       }).catch(err => {
         throw err;
       })

@@ -1,14 +1,15 @@
-const volumes = (state = {loading: false, data: []}, action) => {
+const volumes = (state = {loading: false, items: [], itemsById: {} }, action) => {
   switch(action.type) {
-    case 'GET_VOLUMES_INFO_SUCCESS': {
+    case 'GET_VOLUMES_SUCCESS': {
       return {
         ...state,
         loading: false,
-        data: action.volumes
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 
-    case 'GET_VOLUMES_INFO_REQUEST': {
+    case 'GET_VOLUMES_REQUEST': {
       return {
         ...state,
         loading: true,
@@ -18,25 +19,42 @@ const volumes = (state = {loading: false, data: []}, action) => {
     case 'CREATE_VOLUME_SUCCESS': {
       return {
         ...state,
-        data: [action.volume, ...state.data]
+        items: [action.volume.id, ...state.items],
+        itemsById: {
+          ...state.itemsById,
+          [action.volume.id]: action.volume,
+        }
       }
     }
 
+    //
     case 'POLL_VOLUME_INFO_SUCCESS':
     case 'UPDATE_VOLUME_SUCCESS':
-    case 'GET_VOLUME_INFO_SUCCESS':
+    case 'GET_VOLUME_SUCCESS':
     case 'POLL_VOLUME_IF_DELETED_FAILURE': {
-      let data = [...state.data];
-      let index = data.findIndex(ele => (ele.id === action.volume.id));
-      data[index] = action.volume;
-      return {...state, data}
+      return {
+        ...state,
+        itemsById: {
+          ...state.itemsById,
+          [action.volume.id]: action.volume
+        }
+      }
     }
 
     case 'POLL_VOLUME_IF_DELETED_SUCCESS': {
-      let data = [...state.data];
-      let index = data.findIndex(ele => (ele.id === action.volume.id));
-      data.splice(index, 1);
-      return {...state, data};
+      let itemsById = {...state.itemsById};
+      let items = [...state.items];
+      let index = items.indexOf(action.volume.id);
+      if (index !== -1) {
+        items.splice(index, 1);
+        delete itemsById[action.volume.id]
+      }
+
+      return {
+        ...state,
+        items,
+        itemsById,
+      };
     }
 
     case 'DELETE_VOLUME_SUCCESS':

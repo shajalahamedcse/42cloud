@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import styles from './style/Quota.css';
 import QuotaItem from './QuotaItem.js';
-import { selectQuotaSet } from 'app/selectors/nova';
+import { selectQuotaSet } from 'app/selectors/orm/nova';
 import { QUOTA_LIST, QUOTA_FIELD } from 'features/common/constants';
 
 

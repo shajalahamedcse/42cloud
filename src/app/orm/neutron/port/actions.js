@@ -1,9 +1,13 @@
-import { getToken, combineURL } from 'app/commons/common';
+import { getToken, combineURL, ormItems } from 'app/commons/common';
 
-const getPortsSuccess = (ports) => ({
-  type: 'GET_PORTS_SUCCESS',
-  ports
-});
+const getPortsSuccess = (ports) => {
+  let [items, itemsById] = ports;
+  return {
+    type: 'GET_PORTS_SUCCESS',
+    items,
+    itemsById
+  }
+};
 
 const getPortsRequest = () => ({
   type: 'GET_PORTS_REQUEST',
@@ -21,7 +25,7 @@ const getPorts = () => {
       }
     }).then(res => {
       res.json().then(resBody => {
-        dispatch(getPortsSuccess(resBody.ports));
+        dispatch(getPortsSuccess(ormItems(resBody.ports)));
       }).catch(err => {
         throw err;
       })
@@ -31,10 +35,14 @@ const getPorts = () => {
   }
 };
 
-const getRouterPortsSuccess = (ports) => ({
-  type: 'GET_ROUTER_PORTS_SUCCESS',
-  ports
-});
+const getRouterPortsSuccess = (ports) => {
+  let [items, itemsById] = ports;
+  return {
+    type: 'GET_ROUTER_PORTS_SUCCESS',
+    items,
+    itemsById,
+  }
+};
 
 const getRouterPortsRequest = () => ({
   type: 'GET_ROUTER_PORTS_REQUEST'
@@ -53,7 +61,7 @@ const getRouterPorts = (routerID) => {
       }
     }).then(res => {
       res.json().then(resBody => {
-        dispatch(getRouterPortsSuccess(resBody.ports));
+        dispatch(getRouterPortsSuccess(ormItems(resBody.ports)));
       }).catch(err => {
         throw err;
       })
@@ -63,10 +71,14 @@ const getRouterPorts = (routerID) => {
   }
 };
 
-const getRouterInterfacePortsSuccess = (ports) => ({
-  type: 'GET_ROUTER_INTERFACE_PORTS_SUCCESS',
-  ports
-});
+const getRouterInterfacePortsSuccess = (ports) => {
+  let [items, itemsById] = ports;
+  return {
+    type: 'GET_ROUTER_INTERFACE_PORTS_SUCCESS',
+    items,
+    itemsById
+  }
+};
 
 const getRouterInterfacePortsRequest = () => ({
   type: 'GET_ROUTER_INTERFACE_PORTS_REQUEST'
@@ -85,7 +97,7 @@ const getRouterInterfacePorts = (routerID) => {
       }
     }).then(res => {
       res.json().then(resBody => {
-        dispatch(getRouterInterfacePortsSuccess(resBody.ports));
+        dispatch(getRouterInterfacePortsSuccess(ormItems(resBody.ports)));
       }).catch(err => {
         throw err;
       })

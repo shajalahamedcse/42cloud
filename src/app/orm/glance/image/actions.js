@@ -1,9 +1,11 @@
-import { combineURL } from 'app/commons/common';
+import { combineURL, ormItems } from 'app/commons/common';
 
 const getImagesSuccess = (images) => {
+  let [items, itemsById] = images;
   return {
     type: 'GET_IMAGES_SUCCESS',
-    images,
+    items,
+    itemsById,
   }
 };
 
@@ -26,7 +28,7 @@ const getImages = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        dispatch(getImagesSuccess(resBody.images));
+        dispatch(getImagesSuccess(ormItems(resBody.images)));
       }).catch((err) => {
         console.log(err);
       })

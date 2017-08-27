@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Modal, Form, Input, Radio, Spin } from 'antd';
 import { createVolume } from 'app/orm/cinder/volume/actions';
-import { selectVolumeTypes } from 'app/selectors/cinder';
+import { selectVolumeTypes } from 'app/selectors/orm/cinder';
 
 const RadioGroup = Radio.Group;
 const { TextArea } = Input;
@@ -33,9 +33,10 @@ class CustomizeForm extends React.Component {
       )
     } else {
       let radioElements = [];
-      this.props.volumeTypes.data.forEach((ele) => {
+      let volumeTypes = this.props.volumeTypes;
+      volumeTypes.items.forEach(id => {
         radioElements.push(
-          <Radio key={ele.name}>{ele.name}</Radio>
+          <Radio key={id}>{volumeTypes.itemsById[id].name}</Radio>
         )
       });
       return (

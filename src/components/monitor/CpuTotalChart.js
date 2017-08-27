@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Spin } from 'antd';
-import { selectMonitor } from 'app/selectors/influxdb';
+import { selectMonitor } from 'app/selectors/orm/influxdb';
 import { getOption } from './common';
 
 import ReactEchartsCore from 'echarts-for-react/lib/core';

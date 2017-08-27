@@ -1,10 +1,11 @@
-const securityGroups = (state = { loading: false, data: []}, action) => {
+const securityGroups = (state = { loading: false, items: [], itemsById: {} }, action) => {
   switch(action.type) {
     case 'GET_SECURITY_GROUPS_SUCCESS':{
       return {
         ...state,
         loading: false,
-        data: action.securityGroups
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 

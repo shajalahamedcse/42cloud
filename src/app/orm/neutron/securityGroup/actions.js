@@ -1,9 +1,11 @@
-import { combineURL, getToken } from 'app/commons/common';
+import { combineURL, getToken, ormItems } from 'app/commons/common';
 
 const getSecurityGroupsSuccess = (securityGroups) => {
+  let [items, itemsById] = securityGroups;
   return {
     type: 'GET_SECURITY_GROUPS_SUCCESS',
-    securityGroups
+    items,
+    itemsById,
   }
 };
 

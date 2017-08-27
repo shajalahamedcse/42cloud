@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Dropdown, Icon, Button } from 'antd';
 
-function MoreOperate(props) {
+function MoreOperateButton(props) {
   return (
     <Dropdown overlay={props.menu} trigger={['click']}>
       <Button type="primary" icon="appstore-o">
@@ -12,4 +12,4 @@ function MoreOperate(props) {
   )
 }
 
-export default connect(null, null)(MoreOperate);
+export default connect(null, null)(MoreOperateButton);

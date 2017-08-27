@@ -1,10 +1,11 @@
-const images = (state = {loading: false, data: []}, action) => {
+const images = (state = {loading: false, items: [], itemsById: {}}, action) => {
   switch(action.type) {
     case 'GET_IMAGES_SUCCESS': {
       return {
         ...state,
         loading: false,
-        data: action.images,
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 

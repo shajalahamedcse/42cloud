@@ -5,7 +5,7 @@ import styles from './index.css';
 import { login, loadTokenData } from 'app/orm/auth/login/actions';
 import { Redirect } from 'react-router-dom';
 import { decideIfLogged } from 'app/commons/common';
-import { selectLogin } from 'app/selectors/auth';
+import { selectLogin } from 'app/selectors/orm/auth';
 
 const FormItem = Form.Item;
 

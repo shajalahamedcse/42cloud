@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 
-import { getServersInfo, getServer } from 'app/orm/nova/server/actions';
+import { getServers, getServer } from 'app/orm/nova/server/actions';
 import { getImages } from 'app/orm/glance/image/actions';
 import { getFlavorsInfo } from 'app/orm/nova/flavor/actions';
 
-import InstanceTable from 'features/instance/components/InstanceTable';
-import InstanceDetail from 'features/instance/components/InstanceDetail';
+import InstanceHome from 'features/instance/components/instance-home';
+import InstanceDetail from 'features/instance/components/instance-detail';
 
 class Instance extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class Instance extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(getServersInfo());
+    this.props.dispatch(getServers());
     this.props.dispatch(getImages());
     this.props.dispatch(getFlavorsInfo());
   }
@@ -26,7 +26,7 @@ class Instance extends React.Component {
         <Route
           path="/console/instances"
           exact
-          component={InstanceTable}
+          component={InstanceHome}
         />
 
         <Route

@@ -42,7 +42,7 @@ class CreateInstanceModal extends React.Component {
     this.props.dispatch(choosedFlavor(''));
     this.props.dispatch(choosedKeypair(''));
     this.props.dispatch(filledInstance(''));
-    this.props.handleModalCancel('create', false);
+    this.props.handleModalCancel(false);
   };
 
   next = () => {

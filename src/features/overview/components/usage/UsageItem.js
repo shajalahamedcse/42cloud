@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Table, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { selectServers } from 'app/selectors/nova';
+import { selectServers } from 'app/selectors/orm/nova';
 import styles from './style/UsageItem.css';
 import { TENANT_USAGE_TABLE_COLUMN, TENANT_USAGE_FIELD } from 'features/common/constants';
 
@@ -18,11 +18,7 @@ class UsageItem extends React.Component {
         <Spin />
       )
     } else {
-      let serversId = [];
-      this.props.servers.data.forEach(item => {
-        serversId.push(item.id);
-      });
-
+      let serversId = this.props.servers.items;
       let columns = [];
       TENANT_USAGE_TABLE_COLUMN.forEach((title) => {
         let render;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Spin } from 'antd';
 import { getOption } from './common';
 
-import { selectMonitor } from 'app/selectors/influxdb';
+import { selectMonitor } from 'app/selectors/orm/influxdb';
 
 import ReactEchartsCore from 'echarts-for-react/lib/core';
 import echarts from 'echarts';

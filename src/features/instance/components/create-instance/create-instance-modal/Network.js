@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectNetworks } from 'app/selectors/neutron';
+import { selectNetworks } from 'app/selectors/orm/neutron';
 import { Spin, Row, Col } from 'antd';
 import { addNetwork, removeNetwork } from 'features/instance/actions';
 

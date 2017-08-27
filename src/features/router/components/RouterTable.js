@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { selectRouters } from 'app/selectors/neutron';
+import { selectRouters } from 'app/selectors/orm/neutron';
 import { Spin, Table } from 'antd';
 import { ROUTER_FIELD, ROUTER_TABLE_COLUMN } from 'features/common/constants';
 import commonStyles from 'features/common/styles.css';
@@ -32,13 +32,15 @@ function RouterTable(props) {
         } else if (item === 'external_gateway_info') {
           render = (text) => {
             let ipArrs = [];
-            text['external_fixed_ips'].forEach(ip => {
-              ipArrs.push(
-                <div key={ip['ip_address']}>
-                  {ip['ip_address']}
-                </div>
-              )
-            });
+            if (text) {
+              text['external_fixed_ips'].forEach(ip => {
+                ipArrs.push(
+                  <div key={ip['ip_address']}>
+                    {ip['ip_address']}
+                  </div>
+                )
+              });
+            }
             return (
               <span>{ipArrs}</span>
             )
@@ -59,8 +61,9 @@ function RouterTable(props) {
       });
 
       const data = [];
-      props.routers.data.forEach(item => {
-        data.push(item)
+      let routers = props.routers;
+      routers.items.forEach(id => {
+        data.push(routers.itemsById[id])
       });
 
       return(

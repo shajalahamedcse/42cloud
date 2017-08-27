@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectRouterInfo } from 'app/selectors/neutron';
+import { selectRouterInfo } from 'app/selectors/orm/neutron';
 import { ROUTER_FIELD } from 'features/common/constants';
 import { Spin } from 'antd';
 import styles from './style/DetailOverview.css';

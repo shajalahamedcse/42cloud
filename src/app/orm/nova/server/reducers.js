@@ -1,14 +1,15 @@
-const serversInfo = (state = {loading: false, data:[]}, action) => {
+const servers = (state = {loading: false, items:[], itemsById: {}}, action) => {
   switch (action.type) {
-    case 'GET_SERVERS_INFO_SUCCESS': {
+    case 'GET_SERVERS_SUCCESS': {
       return {
         ...state,
         loading: false,
-        data: action.serversInfo,
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 
-    case 'GET_SERVERS_INFO_REQUEST': {
+    case 'GET_SERVERS_REQUEST': {
       return {
         ...state,
         loading: true,
@@ -16,29 +17,35 @@ const serversInfo = (state = {loading: false, data:[]}, action) => {
     }
 
     case 'CREATE_SERVER_SUCCESS': {
+      let itemsById = {
+        ...state.itemsById,
+      };
+      itemsById[action.server.id] = action.server;
       return {
-        ...state,
-        data: [action.server, ...state.data],
+        items: [action.server.id, ...state.items],
+        itemsById,
       }
     }
 
     case 'POLL_SERVER_INFO_SUCCESS': {
-      let data = [...state.data];
-      let index = data.findIndex(ele => (ele.id === action.server.id));
-      data[index] = action.server;
+      let itemsById = {
+        ...state.itemsById,
+      };
+      itemsById[action.server.id] = action.server;
       return {
         ...state,
-        data
+        itemsById,
       }
     }
 
     case 'POLL_OPERATE_SERVER_SUCCESS': {
-      let data = [...state.data];
-      let index = data.findIndex(ele => (ele.id === action.server.id));
-      data[index] = action.server;
+      let itemsById = {
+        ...state.itemsById,
+      };
+      itemsById[action.server.id] = action.server;
       return {
         ...state,
-        data
+        itemsById,
       }
     }
 
@@ -52,39 +59,16 @@ const serversInfo = (state = {loading: false, data:[]}, action) => {
   }
 };
 
-const servers = (state = {loading: false, data: []}, action) => {
-  switch (action.type) {
-    case 'GET_SERVERS_SUCCESS': {
-      return {
-        ...state,
-        loading: false,
-        data: action.servers
-      }
-    }
-
-    case 'GET_SERVERS_REQUEST': {
-      return {
-        ...state,
-        loading: true,
-      }
-    }
-
-    default: {
-      return state
-    }
-  }
-};
-
 const server = (state = {loading: false, data: {}}, action) => {
   switch (action.type) {
-    case 'GET_SERVER_INFO_REQUEST': {
+    case 'GET_SERVER_REQUEST': {
       return {
         ...state,
         loading: true,
       }
     }
 
-    case 'GET_SERVER_INFO_SUCCESS': {
+    case 'GET_SERVER_SUCCESS': {
       return {
         ...state,
         loading: false,
@@ -121,7 +105,6 @@ const consoleOutput = (state = {loading: false, data: ''}, action) => {
 };
 
 export {
-  serversInfo,
   servers,
   server,
   consoleOutput,

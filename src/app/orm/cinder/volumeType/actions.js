@@ -1,9 +1,11 @@
-import { combineURL } from 'app/commons/common';
+import { combineURL, ormItems } from 'app/commons/common';
 
 const getVolumeTypesSuccess = (volumeTypes) => {
+  let [items, itemsById] = volumeTypes;
   return {
     type: 'GET_VOLUME_TYPES_SUCCESS',
-    volumeTypes
+    items,
+    itemsById,
   }
 };
 
@@ -25,7 +27,7 @@ export const getVolumeTypes = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        dispatch(getVolumeTypesSuccess(resBody.volume_types));
+        dispatch(getVolumeTypesSuccess(ormItems(resBody.volume_types)));
       }).catch(err => {
         console.log(err);
       })

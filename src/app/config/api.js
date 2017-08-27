@@ -27,22 +27,22 @@ const apiPath = {
   },
 
   // Compute
+  getNovaLimit: {
+    path: '/limits',
+    type: 'compute',
+  },
+
   getFlavorsInfo: {
     path: '/flavors/detail',
     type: 'compute',
   },
 
   getServers: {
-    path: '/servers',
-    type: 'compute',
-  },
-
-  getServersInfo: {
     path: '/servers/detail',
     type: 'compute',
   },
 
-  getServerInfo: {
+  getServer: {
     path: '/servers/${server_id}',
     type: 'compute'
   },
@@ -73,12 +73,12 @@ const apiPath = {
   },
 
   // Volume
-  getVolumes: {
-    path: '/volumes',
+  getCinderLimit: {
+    path: '/limits',
     type: 'volumev3'
   },
 
-  getVolumesInfo: {
+  getVolumes: {
     path: '/volumes/detail',
     type: 'volumev3'
   },
@@ -93,7 +93,7 @@ const apiPath = {
     type: 'volumev3'
   },
 
-  getVolumeInfo: {
+  getVolume: {
     path: '/volumes/${volume_id}',
     type: 'volumev3'
   },

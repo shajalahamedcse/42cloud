@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectFlavors } from 'app/selectors/nova';
+import { selectFlavors } from 'app/selectors/orm/nova';
 import { FLAVOR_TABLE_COLUMN, FLAVOR_FIELD } from 'features/common/constants';
 import { choosedFlavor } from 'features/instance/actions';
 
@@ -17,7 +17,7 @@ class Flavor extends React.Component {
 
   componentWillMount() {
     if (!this.props.choosedFlavor) {
-      let defaultFlavorId = this.props.flavors.data[0].id;
+      let defaultFlavorId = this.props.flavors.items[0];
       this.props.dispatch(choosedFlavor(defaultFlavorId));
     }
   };
@@ -43,9 +43,10 @@ class Flavor extends React.Component {
         })
       });
 
+      let flavors = this.props.flavors;
       const data = [];
-      this.props.flavors.data.forEach(ele => {
-        data.push(ele)
+      flavors.items.forEach(flavorId => {
+        data.push(flavors.itemsById[flavorId])
       });
       return (
         <Table

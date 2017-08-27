@@ -1,4 +1,4 @@
-const routers = (state = {loading: false, data: []}, action) => {
+const routers = (state = {loading: false, items: [], itemsById: {} }, action) => {
   switch (action.type) {
     case 'GET_ROUTERS_REQUEST': {
       return {
@@ -11,7 +11,8 @@ const routers = (state = {loading: false, data: []}, action) => {
       return {
         ...state,
         loading: false,
-        data: action.routers
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectVolumes } from 'app/selectors/cinder';
-import { selectServersInfo } from 'app/selectors/nova';
+import { selectVolumes } from 'app/selectors/orm/cinder';
+import { selectServers } from 'app/selectors/orm/nova';
 import { choosedVolumes } from 'features/volume/actions';
 import { Table, Spin } from 'antd';
 import moment from 'moment';
@@ -23,10 +23,8 @@ class VolumesTable extends React.Component {
     let selectedVolumes = [];
     if (selectedRows.length > 0) {
       selectedRows.forEach((row) => {
-        let index = this.props.volumes.data.findIndex(
-          volume => (row.id === volume.id)
-        );
-        selectedVolumes.push(this.props.volumes.data[index])
+        // let index = this.props.volumes.items.indexOf(row.id);
+        selectedVolumes.push(this.props.volumes.itemsById[row.id])
       });
     }
     this.props.dispatch(choosedVolumes(selectedVolumes));
@@ -70,11 +68,11 @@ class VolumesTable extends React.Component {
           let attachments = [];
           if (text.length > 0) {
             text.forEach(attachment => {
-              let serverID = attachment['server_id'];
+              let serverId = attachment['server_id'];
               let serverName = '';
-              this.props.servers.data.forEach(server => {
-                if (server.id === serverID) {
-                  serverName = server.name;
+              this.props.servers.items.forEach(id => {
+                if (id === serverId) {
+                  serverName = this.props.servers.itemsById[id].name;
                 }
               });
 
@@ -116,8 +114,9 @@ class VolumesTable extends React.Component {
 
     // 表格数据数组
     let data = [];
-    this.props.volumes.data.forEach((ele) => {
-      data.push(ele);
+    let volumes = this.props.volumes;
+    volumes.items.forEach(volumeId => {
+      data.push(volumes.itemsById[volumeId]);
     });
 
     // 表格行的选择功能的配置
@@ -154,7 +153,7 @@ class VolumesTable extends React.Component {
 function mapStateToProps(state) {
   return {
     volumes: selectVolumes(state),
-    servers: selectServersInfo(state),
+    servers: selectServers(state),
     choosedVolumes: state.features.volume.choosedVolumes,
   }
 }

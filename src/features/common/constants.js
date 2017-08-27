@@ -58,17 +58,20 @@ const INSTANCE_TABLE_COLUMN = [
   "image",
   "flavor",
   "addresses",
-  "status",
   "key_name",
   "created",
   "security_groups",
+  "status",
+  "OS-EXT-STS:task_state",
+  "OS-EXT-STS:vm_state",
+  "OS-EXT-STS:power_state",
 ];
 
 const INSTANCE_FIELD = {
   "OS-EXT-STS:task_state": "过渡状态",
   "addresses": "IP地址",
   "image": "镜像",
-  "OS-EXT-STS:vm_state": "状态",
+  "OS-EXT-STS:vm_state": "VM状态",
   "OS-EXT-SRV-ATTR:instance_name": "宿主机实例名",
   "OS-SRV-USG:launched_at": "启动时间",
   "flavor": "规格",

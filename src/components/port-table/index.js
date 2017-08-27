@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectRouterPorts } from 'app/selectors/neutron';
+import { selectRouterPorts } from 'app/selectors/orm/neutron';
 import { Spin, Table } from 'antd';
 import { PORT_TABLE_COLUMN, PORT_FIELD } from 'features/common/constants';
 
@@ -59,8 +59,9 @@ function PortTable(props) {
       });
 
       const data = [];
-      props.routerPorts.data.forEach(item => {
-        data.push(item);
+      let routerPorts = props.routerPorts;
+      routerPorts.items.forEach(id => {
+        data.push(routerPorts.itemsById[id]);
       });
 
       return (

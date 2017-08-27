@@ -12,9 +12,9 @@ import {
   selectRouterInterfacePorts,
   selectSubnets,
   selectNetworks
-} from 'app/selectors/neutron';
+} from 'app/selectors/orm/neutron';
 
-import { selectServersInfo } from 'app/selectors/nova';
+import { selectServers } from 'app/selectors/orm/nova';
 import { Spin } from 'antd';
 
 const instanceIconSize = '35px',
@@ -30,7 +30,7 @@ class Graph extends React.Component {
   render() {
     if (this.props.routerInterfacePorts.loading ||
       this.props.subnets.loading ||
-      this.props.serversInfo.loading ||
+      this.props.servers.loading ||
       this.props.networks.loading) {
       return (
         <div
@@ -43,20 +43,22 @@ class Graph extends React.Component {
       )
     } else {
       // 网络上的云主机
-      let serversInfoData = this.props.serversInfo.data;
-      let networksData = this.props.networks.data;
+      let servers = this.props.servers;
+      let networks = this.props.networks;
       let mapNetworkIDToServer = {};
 
-      networksData.forEach(network => {
+      networks.items.forEach(networkId => {
+        let network = networks.itemsById[networkId];
         let serversArr = [];
 
-        serversInfoData.forEach(server => {
-          Object.keys(server.addresses).forEach(networkName => {
+        servers.items.forEach(serverId => {
+          Object.keys(servers.itemsById[serverId].addresses).forEach(networkName => {
             if (networkName === network.name) {
-              serversArr.push(server);
+              serversArr.push(servers.itemsById[serverId]);
             }
           });
         });
+
         if (serversArr.length > 5) {
           serversArr = serversArr.splice(0, 5);
         }
@@ -64,10 +66,11 @@ class Graph extends React.Component {
       });
 
 
-      // 内网端口
+      // 内网端口，存放端口相关子网的id
       let interfacePortsArr = [];
-      this.props.routerInterfacePorts.data.forEach(item => {
-        item.fixed_ips.forEach(ip => {
+      let routerInterfacePorts = this.props.routerInterfacePorts;
+      routerInterfacePorts.items.forEach(id => {
+        routerInterfacePorts.itemsById[id].fixed_ips.forEach(ip => {
           interfacePortsArr.push(ip.subnet_id);
         })
       });
@@ -75,10 +78,10 @@ class Graph extends React.Component {
 
       // 子网
       let subnetsArr = [];
-      let subnetsData = this.props.subnets.data;
-      subnetsData.forEach(item => {
-        if (interfacePortsArr.indexOf(item.id) >= 0) {
-          subnetsArr.push(item);
+      let subnets = this.props.subnets;
+      subnets.items.forEach(id => {
+        if (interfacePortsArr.indexOf(id) >= 0) {
+          subnetsArr.push(subnets.itemsById[id]);
         }
       });
 
@@ -148,11 +151,12 @@ class Graph extends React.Component {
           )
         });
 
-        subnetsData.forEach(subnet => {
+        subnets.items.forEach(id => {
+          let subnet = subnets.itemsById[id];
           if (networkID === subnet.network_id) {
             subnetNodeArr.push(
               <div
-                key={subnet.id}
+                key={id}
                 style={{
                   'margin': '20px 0'
                 }}
@@ -274,7 +278,7 @@ class Graph extends React.Component {
 const mapStateToProps = (state) => ({
   routerInterfacePorts: selectRouterInterfacePorts(state),
   subnets: selectSubnets(state),
-  serversInfo: selectServersInfo(state),
+  servers: selectServers(state),
   networks: selectNetworks(state)
 });
 

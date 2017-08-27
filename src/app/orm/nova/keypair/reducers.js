@@ -1,10 +1,11 @@
-const keypairs = (state = {loading: false, data: []}, action) => {
+const keypairs = (state = {loading: false, items: [], itemsById: {} }, action) => {
   switch(action.type) {
     case 'GET_KEYPAIRS_SUCCESS': {
       return {
         ...state,
         loading: false,
-        data: action.keypairs,
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 

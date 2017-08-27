@@ -2,6 +2,28 @@ import { apiPath, proxyPrefix } from 'app/config/api';
 import _ from 'lodash';
 import moment from 'moment';
 
+const ormItems = (arr, key = 'id') => {
+  return [getItems(arr, key), getItemsById(arr, key)];
+};
+
+// arr 是一个对象数组，返回由所有对象的 key 的键值组成的新数组
+const getItems = (arr, key = 'id') => {
+  let items = [];
+  arr.forEach(item => {
+    items.push(item[key]);
+  });
+  return items;
+};
+
+// arr 是一个对象数组
+const getItemsById = (arr, key = 'id') => {
+  let itemsById = {};
+  arr.forEach(item => {
+    itemsById[item[key]] = item;
+  });
+  return itemsById;
+};
+
 // 数组去重
 const uniqueArr = (arr) => {
   return arr.filter((item, index, arr) => arr.indexOf(item) === index);
@@ -105,6 +127,7 @@ export {
   getQueryStatement,
   decideIfLogged,
   uniqueArr,
+  ormItems
 };
 
 

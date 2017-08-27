@@ -4,7 +4,7 @@ import { combineURL } from 'app/commons/common';
 import { Spin, DatePicker, Button } from 'antd';
 import UsageItem from './UsageItem';
 import moment from 'moment';
-import { selectLogin } from 'app/selectors/auth';
+import { selectLogin } from 'app/selectors/orm/auth';
 import styles from './style/Usage.css';
 
 class Usage extends React.Component {

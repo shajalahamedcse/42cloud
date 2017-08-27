@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectServersInfo } from 'app/selectors/nova';
-import { selectNetworks } from 'app/selectors/neutron';
+import { selectServers } from 'app/selectors/orm/nova';
+import { selectNetworks } from 'app/selectors/orm/neutron';
 import { Spin } from 'antd';
 
 const serverMargin = 50,
@@ -26,12 +26,12 @@ class NetworkTopology extends React.Component {
   }
 
   render() {
-    if (this.props.serversInfo.loading || this.props.networks.loading) {
+    if (this.props.servers.loading || this.props.networks.loading) {
       return (
         <Spin />
       )
     } else {
-      let serversData = this.props.serversInfo.data;
+      let serversData = this.props.servers.data;
 
       let networksData = this.props.networks.data;
       let networksName = [];
@@ -295,7 +295,7 @@ class NetworkTopology extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    serversInfo: selectServersInfo(state),
+    servers: selectServers(state),
     networks: selectNetworks(state)
   }
 };

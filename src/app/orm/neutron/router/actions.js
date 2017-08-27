@@ -1,9 +1,13 @@
-import { getToken, combineURL } from 'app/commons/common';
+import { getToken, combineURL, ormItems } from 'app/commons/common';
 
-const getRoutersSuccess = (routers) => ({
-  type: 'GET_ROUTERS_SUCCESS',
-  routers
-});
+const getRoutersSuccess = (routers) => {
+  let [items, itemsById] = routers;
+  return {
+    type: 'GET_ROUTERS_SUCCESS',
+    items,
+    itemsById
+  }
+};
 
 const getRoutersRequest = () => ({
   type: 'GET_ROUTERS_REQUEST'
@@ -21,7 +25,7 @@ const getRouters = () => {
       }
     }).then(res => {
       res.json().then(resBody => {
-        dispatch(getRoutersSuccess(resBody.routers));
+        dispatch(getRoutersSuccess(ormItems(resBody.routers)));
       }).catch(err => {
         throw err;
       })

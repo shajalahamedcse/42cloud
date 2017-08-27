@@ -1,18 +1,18 @@
-import { combineURL, getToken } from 'app/commons/common';
+import { combineURL, getToken, ormItems } from 'app/commons/common';
 
 // 获取特定硬盘的详细信息
-const getVolumeInfoSuccess = (volume) => {
+const getVolumeSuccess = (volume) => {
   return {
-    type: 'GET_VOLUME_INFO_SUCCESS',
+    type: 'GET_VOLUME_SUCCESS',
     volume
   }
 };
 
-const getVolumeInfo = (volume) => {
+const getVolume = (volume) => {
   return (dispatch) => {
     let scopedToken = getToken();
     let tmpl = {'volume_id': volume.id};
-    let url = combineURL('getVolumeInfo', tmpl);
+    let url = combineURL('getVolume', tmpl);
     fetch(url, {
       method: 'GET',
       headers: {
@@ -20,7 +20,7 @@ const getVolumeInfo = (volume) => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        dispatch(getVolumeInfoSuccess(resBody.volume));
+        dispatch(getVolumeSuccess(resBody.volume));
       })
     })
   }
@@ -29,24 +29,26 @@ const getVolumeInfo = (volume) => {
 
 
 // 获取所有硬盘的详细信息
-const getVolumesInfoSuccess = (volumes) => {
+const getVolumesSuccess = (volumes) => {
+  let [items, itemsById] = volumes;
   return {
-    type: 'GET_VOLUMES_INFO_SUCCESS',
-    volumes
+    type: 'GET_VOLUMES_SUCCESS',
+    items,
+    itemsById,
   }
 };
 
-const getVolumesInfoRequest = () => {
+const getVolumesRequest = () => {
   return {
-    type: 'GET_VOLUMES_INFO_REQUEST'
+    type: 'GET_VOLUMES_REQUEST'
   }
 };
 
-const getVolumesInfo = () => {
+const getVolumes = () => {
   return (dispatch) => {
-    dispatch(getVolumesInfoRequest());
+    dispatch(getVolumesRequest());
     let scopedToken = localStorage.getItem('scopedToken');
-    let url = combineURL('getVolumesInfo');
+    let url = combineURL('getVolumes');
     fetch(url, {
       method: 'GET',
       headers: {
@@ -54,7 +56,7 @@ const getVolumesInfo = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        dispatch(getVolumesInfoSuccess(resBody.volumes));
+        dispatch(getVolumesSuccess(ormItems(resBody.volumes)));
       }).catch((err) => {
         console.log(err);
       })
@@ -78,7 +80,7 @@ const pollVolumeInfo = (volumeID) => {
   return (dispatch) => {
     let scopedToken = getToken();
     let tmpl = {'volume_id': volumeID};
-    let url = combineURL('getVolumeInfo', tmpl);
+    let url = combineURL('getVolume', tmpl);
     let intervalID = setInterval(() => {
       fetch(url, {
         method: 'GET',
@@ -227,10 +229,8 @@ const deleteVolume = (selectedVolumes) => {
         }
       })
     })).then(res => {
-      console.log(res);
       res.forEach(item => {
         if (item.status === 202) {
-          console.log('dispatch');
           dispatch(deleteVolumeSuccess());
           dispatch(pollVolumeIfDeleted(item));
         }
@@ -261,7 +261,7 @@ const pollVolumeIfDeletedFailure = (volume) => {
 const pollVolumeIfDeleted = (volume) => {
   return (dispatch) => {
     let scopedToken = getToken();
-    let url = combineURL('getVolumesInfo');
+    let url = combineURL('getVolumes');
     let intervalID = setInterval(() => {
       fetch(url, {
         method: 'GET',
@@ -278,7 +278,7 @@ const pollVolumeIfDeleted = (volume) => {
                 dispatch(pollVolumeIfDeletedFailure(item));
                 clearInterval(intervalID);
               } else {
-                dispatch(getVolumeInfoSuccess(item));
+                dispatch(getVolumeSuccess(item));
               }
             }
           });
@@ -301,7 +301,7 @@ const pollVolumeIfDeleted = (volume) => {
 
 
 export {
-  getVolumesInfo,
+  getVolumes,
   createVolume,
   updateVolume,
   resizeVolume,

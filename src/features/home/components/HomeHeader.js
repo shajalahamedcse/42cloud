@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { logout } from 'app/orm/auth/login/actions';
 import styles from './style/HomeHeader.css';
 import { Menu } from 'antd';
-import { selectLogin } from 'app/selectors/auth';
+import { selectLogin } from 'app/selectors/orm/auth';
 
 
 class HomeHeader extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectImages } from 'app/selectors/glance';
+import { selectImages } from 'app/selectors/orm/glance';
 import { Spin, Table } from 'antd';
 import { IMAGE_TABLE_COLUMN, IMAGE_FIELD } from 'features/common/constants';
 import filesize from 'filesize';
@@ -19,9 +19,9 @@ class Image extends React.Component {
 
   componentWillMount() {
     if (!this.props.choosedImage) {
-      let defaultImageIndex = this.props.images.data.findIndex(ele => ele.name === 'cirros');
-      let defaultImageId = this.props.images.data[defaultImageIndex].id;
-      this.props.dispatch(choosedImage(defaultImageId));
+      let images = this.props.images;
+      let defaultImageIndex = images.items.findIndex(ele => images.itemsById[ele].name === 'cirros');
+      this.props.dispatch(choosedImage(images.items[defaultImageIndex]));
     }
   };
 
@@ -55,9 +55,9 @@ class Image extends React.Component {
 
     //
     let data = [];
-    let imagesData = this.props.images.data;
-    imagesData.forEach(ele => {
-      data.push(ele);
+    let images = this.props.images;
+    images.items.forEach(imageId => {
+      data.push(images.itemsById[imageId]);
     });
 
     if (this.props.images.loading) {

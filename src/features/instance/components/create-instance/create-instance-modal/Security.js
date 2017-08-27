@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Spin, Form, Input, Checkbox, Select } from 'antd';
 
-import { selectKeypairs } from 'app/selectors/nova';
-import { selectSecurityGroups } from 'app/selectors/neutron';
+import { selectKeypairs } from 'app/selectors/orm/nova';
+import { selectSecurityGroups } from 'app/selectors/orm/neutron';
 
 import {
   filledInstance,

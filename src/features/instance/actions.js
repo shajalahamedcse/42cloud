@@ -37,3 +37,8 @@ export const filterTimeSpan = (timeSpan) => ({
   type: 'FILTER_TIME_SPAN',
   timeSpan
 });
+
+export const choosedInstance = (selectedRows) => ({
+  type: 'CHOOSED_INSTANCE',
+  selectedRows
+});

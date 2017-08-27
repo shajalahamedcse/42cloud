@@ -5,7 +5,7 @@
   "repository": "https://github.com/qeelei/42cloud",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV='development' webpack-dev-server --progress --colors --hot",
+    "dev": "NODE_ENV='development' webpack-dev-server --progress --colors",
     "build": "NODE_ENV='production' webpack --progress --colors"
   },
   "dependencies": {

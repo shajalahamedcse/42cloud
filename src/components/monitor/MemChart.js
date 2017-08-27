@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectMonitor } from 'app/selectors/influxdb'
+import { selectMonitor } from 'app/selectors/orm/influxdb'
 import { getOption } from './common';
 import { Spin } from 'antd';
 

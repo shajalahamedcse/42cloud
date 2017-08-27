@@ -1,5 +1,3 @@
-export const selectServersInfo = (state) => state.orm.nova.serversInfo;
-
 export const selectServers = (state) => state.orm.nova.servers;
 
 export const selectFlavors = (state) => state.orm.nova.flavors;

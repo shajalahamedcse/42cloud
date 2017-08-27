@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Spin } from 'antd';
-import { selectKeypairs } from 'app/selectors/nova';
+import { selectKeypairs } from 'app/selectors/orm/nova';
 import { KEYPAIR_TABLE_COLUMN, KEYPAIR_FIELD } from 'features/common/constants';
 import commonStyles from 'features/common/styles.css';
 
@@ -38,8 +38,9 @@ class KeypairTable extends React.Component {
       });
 
       let data = [];
-      this.props.keypairs.data.forEach((ele) => {
-        data.push(ele.keypair);
+      let keypairs = this.props.keypairs;
+      keypairs.items.forEach(id => {
+        data.push(keypairs.itemsById[id]);
       });
 
       return (

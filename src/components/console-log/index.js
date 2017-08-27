@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectConsoleOutput } from 'app/selectors/nova';
+import { selectConsoleOutput } from 'app/selectors/orm/nova';
 import { Spin } from 'antd';
 
 import styles from './index.css';

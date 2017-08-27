@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { selectFlavors } from 'app/selectors/nova';
-import { selectImages } from 'app/selectors/glance';
-import { selectNetworks } from 'app/selectors/neutron';
+import { selectFlavors } from 'app/selectors/orm/nova';
+import { selectImages } from 'app/selectors/orm/glance';
+import { selectNetworks } from 'app/selectors/orm/neutron';
 
 import styles from './style/Profile.css';
 
@@ -11,16 +11,16 @@ function Profile(props) {
   let create = props.create;
 
   let imageName = '';
-  props.images.data.forEach(ele => {
-    if (ele.id === create.choosedImage) {
-      imageName = ele.name;
+  props.images.items.forEach(ele => {
+    if (ele === create.choosedImage) {
+      imageName = props.images.itemsById[ele].name;
     }
   });
 
   let flavorName = '';
-  props.flavors.data.forEach(ele => {
-    if (ele.id === create.choosedFlavor) {
-      flavorName = ele.name;
+  props.flavors.items.forEach(ele => {
+    if (ele === create.choosedFlavor) {
+      flavorName = props.flavors.itemsById[ele].name;
     }
   });
 

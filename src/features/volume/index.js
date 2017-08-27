@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
 
-import { getVolumesInfo } from 'app/orm/cinder/volume/actions';
-import { getServersInfo } from 'app/orm/nova/server/actions';
+import { getVolumes } from 'app/orm/cinder/volume/actions';
+import { getServers } from 'app/orm/nova/server/actions';
 import { getVolumeTypes } from 'app/orm/cinder/volumeType/actions';
 
 import VolumesTable from 'features/volume/components/VolumesTable';
-import MoreVolumeButton from 'features/volume/components/MoreVolumeButton';
+import MoreVolume from 'features/volume/components/MoreVolume';
 import CreateVolumeModal from 'features/volume/components/CreateVolumeModal';
 import DeleteVolumeModal from 'features/volume/components/DeleteVolumeModal';
 import ModifyVolumeModal from 'features/volume/components/ModifyVolumeModal';
@@ -28,8 +28,8 @@ class Volume extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(getVolumesInfo());
-    this.props.dispatch(getServersInfo());
+    this.props.dispatch(getVolumes());
+    this.props.dispatch(getServers());
     this.props.dispatch(getVolumeTypes());
   }
 
@@ -38,7 +38,6 @@ class Volume extends React.Component {
   };
 
   handleModalVisible = (modal, visible) => {
-    console.log(modal, visible);
     if (modal === 'create') {
       this.setState({
         createVisible: visible
@@ -76,7 +75,7 @@ class Volume extends React.Component {
             创建
           </Button>
 
-          <MoreVolumeButton
+          <MoreVolume
             handleClick={this.handleModalVisible}
           />
         </div>

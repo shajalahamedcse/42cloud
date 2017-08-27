@@ -1,10 +1,11 @@
-const networks = (state = { loading: false, data: [] }, action) => {
+const networks = (state = { loading: false, items: [], itemsById: {} }, action) => {
   switch (action.type) {
     case 'GET_NETWORKS_SUCCESS': {
       return {
         ...state,
         loading: false,
-        data: action.networks
+        items: action.items,
+        itemsById: action.itemsById,
       }
     }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LimitCard from './LimitCard';
-import { selectQuotaSet } from 'app/selectors/nova';
+import { selectQuotaSet } from 'app/selectors/orm/nova';
 import { Spin, Row, Col } from 'antd';
 
 class Limit extends React.Component {

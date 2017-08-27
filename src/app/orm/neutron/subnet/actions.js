@@ -1,9 +1,13 @@
-import { getToken, combineURL } from 'app/commons/common';
+import { getToken, combineURL, ormItems } from 'app/commons/common';
 
-const getSubnetsSuccess = (subnets) => ({
-  type: 'GET_SUBNETS_SUCCESS',
-  subnets
-});
+const getSubnetsSuccess = (subnets) => {
+  let [items, itemsById] = subnets;
+  return {
+    type: 'GET_SUBNETS_SUCCESS',
+    items,
+    itemsById,
+  }
+};
 
 const getSubnetsRequest = () => ({
   type: 'GET_SUBNETS_REQUEST'
@@ -21,7 +25,7 @@ const getSubnets = () => {
       }
     }).then(res => {
       res.json().then(resBody => {
-        dispatch(getSubnetsSuccess(resBody.subnets));
+        dispatch(getSubnetsSuccess(ormItems(resBody.subnets)));
       }).catch(err => {
         throw err;
       })
