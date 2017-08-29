@@ -29,7 +29,7 @@ const getSecurityGroups = () => {
       }
     }).then((res) => {
       res.json().then((resBody) => {
-        dispatch(getSecurityGroupsSuccess(resBody.security_groups));
+        dispatch(getSecurityGroupsSuccess(ormItems(resBody.security_groups)));
       })
     }).catch((err) => {
       console.log(err);

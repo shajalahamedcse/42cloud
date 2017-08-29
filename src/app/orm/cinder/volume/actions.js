@@ -69,14 +69,14 @@ const getVolumes = () => {
 
 
 //
-const pollVolumeInfoSuccess = (volume) => {
+const pollVolumeSuccess = (volume) => {
   return {
-    type: 'POLL_VOLUME_INFO_SUCCESS',
+    type: 'POLL_VOLUME_SUCCESS',
     volume
   }
 };
 
-const pollVolumeInfo = (volumeID) => {
+const pollVolume = (volumeID) => {
   return (dispatch) => {
     let scopedToken = getToken();
     let tmpl = {'volume_id': volumeID};
@@ -89,7 +89,7 @@ const pollVolumeInfo = (volumeID) => {
         }
       }).then((res) => {
         res.json().then((resBody) => {
-          dispatch(pollVolumeInfoSuccess(resBody.volume));
+          dispatch(pollVolumeSuccess(resBody.volume));
           if (resBody.volume.status === 'available') {
             clearInterval(intervalID);
           }
@@ -132,7 +132,7 @@ const createVolume = (reqBody) => {
     }).then((res) => {
       res.json().then((resBody) => {
         dispatch(createVolumeSuccess(resBody.volume));
-        dispatch(pollVolumeInfo(resBody.volume.id, 0));
+        dispatch(pollVolume(resBody.volume.id, 0));
       })
     })
   }
@@ -166,7 +166,7 @@ const updateVolume = (reqBody, selectedVolume) => {
     }).then((res) => {
       res.json().then((resBody) => {
         dispatch(updateVolumeSuccess(resBody.volume));
-        // dispatch(pollVolumeInfo(selectedVolume.volumeID));
+        // dispatch(pollVolume(selectedVolume.volumeID));
       })
     })
   }
@@ -199,7 +199,7 @@ const resizeVolume = (reqBody, selectedVolume) => {
     }).then((res) => {
       if (res.status === 202) {
         dispatch(resizeVolumeSuccess());
-        dispatch(pollVolumeInfo(selectedVolume.id));
+        dispatch(pollVolume(selectedVolume.id));
       }
     }).catch((err) => {
       throw err;

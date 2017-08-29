@@ -1,6 +1,6 @@
 const flavors = (state = {loading: false, items: [], itemsById: {}}, action) => {
   switch(action.type) {
-    case 'GET_FLAVORS_INFO_SUCCESS': {
+    case 'GET_FLAVORS_SUCCESS': {
       return {
         ...state,
         loading: false,
@@ -9,7 +9,7 @@ const flavors = (state = {loading: false, items: [], itemsById: {}}, action) => 
       }
     }
 
-    case 'GET_FLAVORS_INFO_REQUEST': {
+    case 'GET_FLAVORS_REQUEST': {
       return {
         ...state,
         loading: true,

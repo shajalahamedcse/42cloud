@@ -2,7 +2,7 @@ export const selectNetworks = (state) => state.orm.neutron.networks;
 
 export const selectRouters = (state) => state.orm.neutron.routers;
 
-export const selectRouterInfo = (state) => state.orm.neutron.routerInfo;
+export const selectRouter = (state) => state.orm.neutron.router;
 
 export const selectSubnets = (state) => state.orm.neutron.subnets;
 

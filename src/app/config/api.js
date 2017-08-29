@@ -32,7 +32,7 @@ const apiPath = {
     type: 'compute',
   },
 
-  getFlavorsInfo: {
+  getFlavors: {
     path: '/flavors/detail',
     type: 'compute',
   },
@@ -129,7 +129,7 @@ const apiPath = {
     type: 'network'
   },
 
-  getRouterInfo: {
+  getRouter: {
     path: '/v2.0/routers/${router_id}',
     type: 'network'
   },

@@ -43,21 +43,23 @@ class Security extends React.Component {
       )
     } else {
       let optionArrs = [];
-      this.props.keypairs.data.forEach(item => {
+      let keypairs = this.props.keypairs;
+      keypairs.items.forEach(keypairName => {
         optionArrs.push(
             <Option
-              key={item.keypair.name}
-              value={item.keypair.name}
+              key={keypairName}
+              value={keypairName}
             >
-              {item.keypair.name}
+              {keypairName}
             </Option>
         )
       });
 
       let checkboxArrs = [];
-      this.props.securityGroups.data.forEach(item => {
+      let securityGroups = this.props.securityGroups;
+      securityGroups.items.forEach(item => {
         checkboxArrs.push(
-          item.name
+          securityGroups.itemsById[item].name
         )
       });
 
@@ -76,7 +78,7 @@ class Security extends React.Component {
           <FormItem
             {...formItemLayout}
             label="SSH密钥对">
-            {getFieldDecorator('select', {initialValue: this.props.keypairs.data[0].name})(
+            {getFieldDecorator('select', {initialValue: keypairs[0]})(
               <Select>
                 {optionArrs}
               </Select>

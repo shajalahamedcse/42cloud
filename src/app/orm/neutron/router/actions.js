@@ -35,21 +35,21 @@ const getRouters = () => {
   }
 };
 
-const getRouterInfoSuccess = (router) => ({
-  type: 'GET_ROUTER_INFO_SUCCESS',
+const getRouterSuccess = (router) => ({
+  type: 'GET_ROUTER_SUCCESS',
   router
 });
 
-const getRouterInfoRequest = () => ({
-  type: 'GET_ROUTER_INFO_REQUEST'
+const getRouterRequest = () => ({
+  type: 'GET_ROUTER_REQUEST'
 });
 
-const getRouterInfo = (routerId) => {
+const getRouter = (routerId) => {
   return (dispatch) => {
-    dispatch(getRouterInfoRequest());
+    dispatch(getRouterRequest());
     let scopedToken = getToken();
     let tmpl = {'router_id': routerId};
-    let url = combineURL('getRouterInfo', tmpl);
+    let url = combineURL('getRouter', tmpl);
     fetch(url, {
       method: 'GET',
       headers: {
@@ -57,10 +57,10 @@ const getRouterInfo = (routerId) => {
       }
     }).then(res => {
       res.json().then(resBody => {
-        dispatch(getRouterInfoSuccess(resBody.router))
+        dispatch(getRouterSuccess(resBody.router))
       })
     })
   }
 };
 
-export { getRouters, getRouterInfo };
+export { getRouters, getRouter };

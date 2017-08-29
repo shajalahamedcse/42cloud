@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 
 import { getServers, getServer } from 'app/orm/nova/server/actions';
 import { getImages } from 'app/orm/glance/image/actions';
-import { getFlavorsInfo } from 'app/orm/nova/flavor/actions';
+import { getFlavors } from 'app/orm/nova/flavor/actions';
 
 import InstanceHome from 'features/instance/components/instance-home';
 import InstanceDetail from 'features/instance/components/instance-detail';
@@ -17,7 +17,7 @@ class Instance extends React.Component {
   componentWillMount() {
     this.props.dispatch(getServers());
     this.props.dispatch(getImages());
-    this.props.dispatch(getFlavorsInfo());
+    this.props.dispatch(getFlavors());
   }
 
   render() {

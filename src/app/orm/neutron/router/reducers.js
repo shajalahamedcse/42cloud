@@ -22,16 +22,16 @@ const routers = (state = {loading: false, items: [], itemsById: {} }, action) =>
   }
 };
 
-const routerInfo = (state = {loading: false, data: {}}, action) => {
+const router = (state = {loading: false, data: {}}, action) => {
   switch (action.type) {
-    case 'GET_ROUTER_INFO_REQUEST': {
+    case 'GET_ROUTER_REQUEST': {
       return {
         ...state,
         loading: true
       }
     }
 
-    case 'GET_ROUTER_INFO_SUCCESS': {
+    case 'GET_ROUTER_SUCCESS': {
       return {
         ...state,
         loading: false,
@@ -45,4 +45,4 @@ const routerInfo = (state = {loading: false, data: {}}, action) => {
   }
 };
 
-export { routers, routerInfo };
+export { routers, router };

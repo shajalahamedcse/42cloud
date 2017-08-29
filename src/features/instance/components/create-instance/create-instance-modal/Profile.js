@@ -25,11 +25,12 @@ function Profile(props) {
   });
 
   let networksNode = [];
+  let networks = props.networks;
   create.choosedNetworks.forEach(ele => {
-    props.networks.data.forEach(item => {
-      if (item.id === ele) {
+    networks.items.forEach(networkId => {
+      if (networkId === ele) {
         networksNode.push(
-          <span key={ele}>{item.name}</span>
+          <span key={ele}>{networks.itemsById[networkId].name}</span>
         );
       }
     })

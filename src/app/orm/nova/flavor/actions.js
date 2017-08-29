@@ -1,24 +1,24 @@
 import { combineURL, getToken, ormItems } from 'app/commons/common';
 
 //
-const getFlavorsInfoSuccess = (flavors) => {
+const getFlavorsSuccess = (flavors) => {
   let [items, itemsById] = flavors;
   return {
-    type: 'GET_FLAVORS_INFO_SUCCESS',
+    type: 'GET_FLAVORS_SUCCESS',
     items,
     itemsById,
   }
 };
 
-const getFlavorsInfoRequest = () => ({
-  type: 'GET_FLAVORS_INFO_REQUEST'
+const getFlavorsRequest = () => ({
+  type: 'GET_FLAVORS_REQUEST'
 });
 
-const getFlavorsInfo = () => {
+const getFlavors = () => {
   return (dispatch) => {
-    getFlavorsInfoRequest();
+    getFlavorsRequest();
     let scopedToken = getToken();
-    let url = combineURL('getFlavorsInfo');
+    let url = combineURL('getFlavors');
     fetch(url, {
       method: 'GET',
       headers: {
@@ -26,7 +26,7 @@ const getFlavorsInfo = () => {
       }
     }).then(res => {
       res.json().then(resBody => {
-        dispatch(getFlavorsInfoSuccess(ormItems(resBody.flavors)));
+        dispatch(getFlavorsSuccess(ormItems(resBody.flavors)));
       }).catch(err => {
         throw err;
       }).catch(err => {
@@ -36,4 +36,4 @@ const getFlavorsInfo = () => {
   }
 };
 
-export { getFlavorsInfo };
+export { getFlavors };

@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectRouterInfo } from 'app/selectors/orm/neutron';
+import { selectRouter } from 'app/selectors/orm/neutron';
 import { ROUTER_FIELD } from 'features/common/constants';
 import { Spin } from 'antd';
 import styles from './style/DetailOverview.css';
 
 function DetailOverview(props) {
 
-  if (props.routerInfo.loading) {
+  if (props.router.loading) {
     return (
       <div
         style={{
@@ -18,7 +18,7 @@ function DetailOverview(props) {
       </div>
     )
   } else {
-    let routerInfo = props.routerInfo.data;
+    let router = props.router.data;
     return (
       <div className={styles.overview}>
         <div className={styles.title}>路由器详情</div>
@@ -26,12 +26,12 @@ function DetailOverview(props) {
         <div className={styles.basic}>
           <p>
             <span>{ROUTER_FIELD['name']}：</span>
-            <span>{routerInfo.name}</span>
+            <span>{router.name}</span>
           </p>
 
           <p>
             <span>{ROUTER_FIELD['status']}：</span>
-            <span>{routerInfo.status}</span>
+            <span>{router.status}</span>
           </p>
         </div>
       </div>
@@ -40,6 +40,6 @@ function DetailOverview(props) {
 }
 
 const mapStateToProps = (state) => ({
-  routerInfo: selectRouterInfo(state)
+  router: selectRouter(state)
 });
 export default connect(mapStateToProps, null)(DetailOverview);

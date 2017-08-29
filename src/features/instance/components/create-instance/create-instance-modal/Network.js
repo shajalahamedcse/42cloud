@@ -25,22 +25,22 @@ class Network extends React.Component {
         <Spin />
       )
     } else {
-      let networks = this.props.networks.data;
-      let networksID = networks.map(network => network.id);
+      let networks = this.props.networks;
+      let networksId = networks.items;
 
-      let availableNetworks = networksID.filter((ele) => {
+      let availableNetworks = networksId.filter((ele) => {
         return this.props.choosedNetworks.indexOf(ele) < 0;
       });
 
       let availableNetworksNode = [];
       availableNetworks.forEach((ele) => {
-        let index = networks.findIndex(network => network.id === ele);
+        // let index = networksId.findIndex(id => id === ele);
         availableNetworksNode.push(
           <div
             className={styles.network}
             key={ele}
           >
-            <span>{networks[index].name}</span>
+            <span>{networks.itemsById[ele].name}</span>
             <span
               onClick={() => this.handleAddNetwork(ele)}
               className={styles.add}>
@@ -52,13 +52,13 @@ class Network extends React.Component {
 
       let choosedNetworksNode = [];
       this.props.choosedNetworks.forEach((ele) => {
-        let index = networks.findIndex(network => network.id === ele);
+        // let index = networks.findIndex(network => network.id === ele);
         choosedNetworksNode.push(
           <div
             className={styles.network}
             key={ele}
           >
-            <span>{networks[index].name}</span>
+            <span>{networks.itemsById[ele].name}</span>
             <span
               onClick={() => this.handleRemoveNetwork(ele)}
               className={styles.remove}>

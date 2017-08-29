@@ -28,7 +28,7 @@ const volumes = (state = {loading: false, items: [], itemsById: {} }, action) =>
     }
 
     //
-    case 'POLL_VOLUME_INFO_SUCCESS':
+    case 'POLL_VOLUME_SUCCESS':
     case 'UPDATE_VOLUME_SUCCESS':
     case 'GET_VOLUME_SUCCESS':
     case 'POLL_VOLUME_IF_DELETED_FAILURE': {

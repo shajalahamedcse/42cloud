@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import DetailOverview from './DetailOverview';
 import DetailTabs from 'features/router/components/detail-tabs';
-import { getRouterInfo } from 'app/orm/neutron/router/actions';
+import { getRouter } from 'app/orm/neutron/router/actions';
 import { getRouterPorts } from 'app/orm/neutron/port/actions';
 import { getSubnets } from 'app/orm/neutron/subnet/actions';
 
@@ -14,7 +14,7 @@ class RouterDetail extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(getRouterInfo(this.props.match.params.id));
+    this.props.dispatch(getRouter(this.props.match.params.id));
     this.props.dispatch(getRouterPorts(this.props.match.params.id));
     this.props.dispatch(getSubnets());
   }
