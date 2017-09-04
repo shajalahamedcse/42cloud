@@ -81,7 +81,7 @@ const timeSpan = (state = '1hour', action) => {
   }
 };
 
-const selectedInstance = (state = {selectedRows: []}, action) => {
+const choosedInstance = (state = {selectedRows: []}, action) => {
   switch(action.type) {
     case 'CHOOSED_INSTANCE': {
       return {
@@ -99,7 +99,7 @@ const selectedInstance = (state = {selectedRows: []}, action) => {
 const instance = combineReducers({
   create,
   timeSpan,
-  selectedInstance
+  choosedInstance
 });
 
 export default instance

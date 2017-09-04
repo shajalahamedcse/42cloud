@@ -1,5 +1,8 @@
 import React from 'react';
-import { Modal, Input } from 'antd';
+import { connect } from 'react-redux';
+import { updateServer } from 'app/orm/nova/server/actions';
+import { Modal, Input, Form } from 'antd';
+const FormItem = Form.Item;
 
 class EditInstanceModal extends React.Component {
   constructor(props) {
@@ -11,9 +14,20 @@ class EditInstanceModal extends React.Component {
   };
 
   handleOk = () => {
+    let newName = this.props.form.getFieldsValue().name;
+    let reqBody = {
+      'server': {
+        'name': newName
+      }
+    };
+    let choosedInstance = this.props.choosedInstance;
+    this.props.dispatch(updateServer(reqBody, choosedInstance.selectedRows[0]));
+    this.props.handleModalCancel('edit', false);
   };
 
   render() {
+    const { getFieldDecorator } = this.props.form;
+
     return (
       <Modal
         title="编辑云主机"
@@ -21,10 +35,20 @@ class EditInstanceModal extends React.Component {
         onCancel={this.handleCancel}
         onOk={this.handleOk}
       >
-        <Input />
+        <Form>
+          <FormItem label="名称：">
+            {getFieldDecorator('name')(
+              <Input />
+            )}
+          </FormItem>
+        </Form>
       </Modal>
     )
   }
 }
 
-export default EditInstanceModal;
+const mapStateToProps = (state) => ({
+  choosedInstance: state.features.instance.choosedInstance
+});
+EditInstanceModal = Form.create()(EditInstanceModal);
+export default connect(mapStateToProps, null)(EditInstanceModal);

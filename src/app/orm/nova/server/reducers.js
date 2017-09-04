@@ -1,5 +1,12 @@
 const servers = (state = {loading: false, items:[], itemsById: {}}, action) => {
   switch (action.type) {
+    case 'GET_SERVERS_REQUEST': {
+      return {
+        ...state,
+        loading: true,
+      }
+    }
+
     case 'GET_SERVERS_SUCCESS': {
       return {
         ...state,
@@ -9,10 +16,22 @@ const servers = (state = {loading: false, items:[], itemsById: {}}, action) => {
       }
     }
 
-    case 'GET_SERVERS_REQUEST': {
+    case 'UPDATE_REQUEST': {
       return {
         ...state,
         loading: true,
+      }
+    }
+
+    case 'UPDATE_SERVER_SUCCESS': {
+      let itemsById = {
+        ...state.itemsById
+      };
+      itemsById[action.server.id] = action.server;
+      return {
+        ...state,
+        loading: false,
+        itemsById,
       }
     }
 
@@ -22,6 +41,7 @@ const servers = (state = {loading: false, items:[], itemsById: {}}, action) => {
       };
       itemsById[action.server.id] = action.server;
       return {
+        ...state,
         items: [action.server.id, ...state.items],
         itemsById,
       }

@@ -182,6 +182,7 @@ const resizeVolumeSuccess = () => {
 };
 
 const resizeVolume = (reqBody, selectedVolume) => {
+  console.log(reqBody, selectedVolume);
   return (dispatch) => {
     let scopedToken = getToken();
     let tmpl = {'volume_id': selectedVolume.id};

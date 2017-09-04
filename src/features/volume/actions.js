@@ -1,10 +1,10 @@
-const choosedVolumes = (choosedVolumes) => {
+const toggleVolume = (volume) => {
   return {
-    type: 'SELECT_VOLUMES',
-    choosedVolumes
+    type: 'TOGGLE_VOLUME',
+    volume
   }
 };
 
 export {
-  choosedVolumes,
+  toggleVolume,
 };

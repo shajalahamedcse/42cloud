@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { selectVolumes } from 'app/selectors/orm/cinder';
 import { selectServers } from 'app/selectors/orm/nova';
-import { choosedVolumes } from 'features/volume/actions';
+import { toggleVolume } from 'features/volume/actions';
 import { Table, Spin } from 'antd';
 import moment from 'moment';
 import commonStyles from 'features/common/styles.css';
@@ -27,7 +27,7 @@ class VolumesTable extends React.Component {
         selectedVolumes.push(this.props.volumes.itemsById[row.id])
       });
     }
-    this.props.dispatch(choosedVolumes(selectedVolumes));
+    this.props.dispatch(toggleVolume(selectedVolumes));
   };
 
   render() {

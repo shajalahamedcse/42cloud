@@ -1,20 +1,44 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import MoreOperateButton from 'components/more-operate';
-import { Menu } from 'antd';
 import EditInstanceModal from './EditInstanceModal';
+import DestroyInstanceModal from './DestroyInstanceModal';
+import { Menu } from 'antd';
 
 import commonStyles from 'features/common/styles.css';
 
 class MoreOperate extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      editVisible: false,
+      destroyVisible: false,
+    }
   }
 
+  handleMenuCancel = (modal, visible) => {
+    this.handleModalVisible(modal, visible)
+  };
+
+  handleModalVisible = (modal, visible) => {
+    if (modal === 'edit') {
+      this.setState({
+        editVisible: visible
+      })
+    } else if (modal === 'destroy') {
+      this.setState({
+        destroyVisible: visible
+      })
+    }
+  };
+
   render() {
+    let choosedInstances = this.props.choosedInstance.selectedRows;
     const menu = (
       <Menu
         className={commonStyles.menu}
-        onClick={this.props.handleMenuClick}
+        onClick={(e) => this.handleModalVisible(e.key, true)}
       >
         <Menu.Item
           key="manage"
@@ -25,12 +49,14 @@ class MoreOperate extends React.Component {
 
         <Menu.Item
           key="edit"
+          disabled={choosedInstances.length !== 1}
         >
           <i className="fa fa-trash">编辑云主机</i>
         </Menu.Item>
 
         <Menu.Item
           key="create"
+          disabled={choosedInstances.length !== 1}
         >
           <i className="fa fa-trash">制作成镜像</i>
         </Menu.Item>
@@ -58,7 +84,7 @@ class MoreOperate extends React.Component {
 
         <Menu.Item
           key="destroy"
-          disabled={true}
+          disabled={choosedInstances.length === 0}
         >
           <i className="fa fa-trash">销毁</i>
         </Menu.Item>
@@ -66,16 +92,28 @@ class MoreOperate extends React.Component {
     );
 
     return (
-      <div
-        style={{
-          'float': 'left'
-        }}
-      >
-        <EditInstanceModal />
+      <div>
+        <EditInstanceModal
+          visible={this.state.editVisible}
+          handleModalCancel={
+            (modal, visible) => this.handleMenuCancel(modal, visible)
+          }
+        />
+
+        <DestroyInstanceModal
+          visible={this.state.destroyVisible}
+          handleModalCancel={
+            (modal, visible) => this.handleMenuCancel(modal, visible)
+          }
+        />
+
         <MoreOperateButton menu={menu} />
       </div>
     )
   }
 }
 
-export default MoreOperate;
+const mapStateToProps = (state) => ({
+  choosedInstance: state.features.instance.choosedInstance
+});
+export default connect(mapStateToProps, null)(MoreOperate);

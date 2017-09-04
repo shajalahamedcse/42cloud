@@ -23,7 +23,8 @@ const getServers = () => {
     fetch(url, {
       method: 'GET',
       headers: {
-        'X-Auth-Token': scopedToken
+        'X-Auth-Token': scopedToken,
+        'Content-Type': 'application/json',
       }
     }).then(res => {
       res.json().then(resBody => {
@@ -302,7 +303,6 @@ const pollOperateServer = (type, serverID) => {
           'X-Auth-Token': scopedToken
         }
       }).then(res => {
-        console.log(res);
         res.json().then(resBody => {
           dispatch(pollOperateServerSuccess(resBody.server));
           if (type === 'start' && resBody.server.status === 'ACTIVE') {
@@ -322,10 +322,55 @@ const pollOperateServer = (type, serverID) => {
   }
 };
 
+const updateServerRequest = () => {
+  return {
+    type: 'UPDATE_SERVER_REQUEST',
+  }
+};
+
+const updateServerSuccess = (server) => {
+  return {
+    type: 'UPDATE_SERVER_SUCCESS',
+    server
+  }
+};
+
+const updateServer = (reqBody, selectedServer) => {
+  return (dispatch) => {
+    dispatch(updateServerRequest());
+    let scopedToken = getToken();
+    let tmpl = {'server_id': selectedServer.id};
+    let url = combineURL('updateServer', tmpl);
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        'X-Auth-Token': scopedToken
+      },
+      body: JSON.stringify(reqBody)
+    }).then(res => {
+      res.json().then(resBody => {
+        dispatch(updateServerSuccess(resBody.server));
+      }).catch(err => {
+        throw err;
+      })
+    }).catch(err => {
+      throw err;
+    })
+  }
+};
+
+const destroyServerRequest = () => {
+
+}
+const destroyServer = (selectedServer) => {
+
+};
+
 export {
   getServers,
   getServer,
   createServer,
   fetchConsoleOutput,
   operateServer,
+  updateServer,
 };

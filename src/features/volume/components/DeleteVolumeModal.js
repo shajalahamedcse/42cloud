@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Modal, Alert } from 'antd';
 import { deleteVolume } from 'app/orm/cinder/volume/actions';
-import { choosedVolumes } from 'features/volume/actions';
+import { toggleVolume } from 'features/volume/actions';
 
 
 class DeleteVolumeModal extends React.Component {
@@ -15,7 +15,7 @@ class DeleteVolumeModal extends React.Component {
   handleOk() {
     this.props.dispatch(deleteVolume(this.props.choosedVolumes));
     this.handleCancel();
-    this.props.dispatch(choosedVolumes([]));
+    this.props.dispatch(toggleVolume([]));
   }
 
   handleCancel = () => {

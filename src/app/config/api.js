@@ -27,6 +27,11 @@ const apiPath = {
   },
 
   // Compute
+  updateServer: {
+    path: '/servers/${server_id}',
+    type: 'compute',
+  },
+
   getNovaLimit: {
     path: '/limits',
     type: 'compute',

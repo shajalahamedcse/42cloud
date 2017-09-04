@@ -11,6 +11,7 @@
 .toolbar {
     margin-bottom: 10px;
     overflow: hidden;
+    display: flex;
 }
 
 .time {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateVolume } from 'app/orm/cinder/volume/actions';
-import { choosedVolumes } from 'features/volume/actions';
+import { toggleVolume } from 'features/volume/actions';
 import { Modal, Form, Input } from 'antd';
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -15,7 +15,7 @@ class ModifyVolumeModal extends React.Component {
     let reqBody = this.props.form.getFieldsValue();
     this.props.dispatch(updateVolume(reqBody, this.props.choosedVolumes[0]));
     this.handleCancel();
-    this.props.dispatch(choosedVolumes([]));
+    this.props.dispatch(toggleVolume([]));
   };
 
   handleCancel = () => {

@@ -112,11 +112,7 @@ class StartStopOperate extends React.Component {
     }
 
     return (
-      <div
-        style={{
-          'float': 'left'
-        }}
-      >
+      <div>
         <Modal
           title={this.state.operate.title}
           visible={this.state.operate.visible}
@@ -151,6 +147,6 @@ class StartStopOperate extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  selectedRows: state.features.instance.selectedInstance
+  selectedRows: state.features.instance.choosedInstance
 });
 export default connect(mapStateToProps, null)(StartStopOperate);

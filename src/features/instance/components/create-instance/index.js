@@ -35,11 +35,7 @@ class CreateInstance extends React.Component {
 
   render() {
     return (
-      <div
-        style={{
-          'float': 'left'
-        }}
-      >
+      <div>
         <CreateInstanceModal
           visible={this.state.visible}
           handleModalCancel={(visible) => this.handleModalVisible(visible)}
